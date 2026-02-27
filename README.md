@@ -1,8 +1,5 @@
 # Solar Oracle Walkman - IV Voiceprint Smart Contract
-A blockchain-based smart contract that validates and stores IV voiceprint data securely on the Ethereum network. Think of it as a digital notary that checks if voiceprint data of each handmade DSSC is genuine and keeps permanent records.
-
-This is also a conceptual approach to explore how two systems can understand each other without mutual language or shared knowledge; By using generative system as fuzzy extractor, the solar energy transaction is not only transactional but also cognitive. Currently this is yet a "oracle machine" due to the absent of the vector space of the data (VSP).
-
+A smart contract that validates and stores IV voiceprints data of DIY solar cells and keep the measurements record on chain.
 Visit wiki for more details: https://wiki.sgmk-ssam.ch/wiki/The_Solar_Oracle_Walkman#RAVE_as_latent_oracle
 
 ## Visual Documentation
