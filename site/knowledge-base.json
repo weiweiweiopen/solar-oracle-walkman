@@ -1,0 +1,25 @@
+{
+  "project": "Solar Oracle Walkman",
+  "status": "public_research_prototype",
+  "knowledge_sources": [
+    "docs/02_v1_to_v4_iteration.md",
+    "docs/08_public_faq.md",
+    "docs/07_current_progress_and_limitations.md",
+    "docs/10_public_disclaimer.md"
+  ],
+  "not_claimed_as": [
+    "legal_REC",
+    "T-REC",
+    "energy_equivalence",
+    "financial_product"
+  ],
+  "starter_questions": [
+    "Introduce the V1 to V4 iteration.",
+    "What is the current progress of this project?",
+    "Explain the V1 smart contract in simple terms.",
+    "What should Edmond Jordan review first?",
+    "What is not claimed by this project?",
+    "How is this different from a legal REC?",
+    "What is Material Event Signature?"
+  ]
+}
