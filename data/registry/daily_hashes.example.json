@@ -1,0 +1,18 @@
+{
+  "note": "Example hash registry. Entries are generated from example event data.",
+  "entries": [
+    {
+      "date": "2026-04-28",
+      "source_file": "data/registry/events.example.jsonl",
+      "sha256": "1e6b78163a7410d6f27f0052f3371fdbf1e1260f2b897e64b9d8c9e094a17e6e",
+      "status": "example_only",
+      "not_claimed_as": [
+        "blockchain_anchored",
+        "legal_REC",
+        "T-REC",
+        "financial_product"
+      ],
+      "generated_at": "2026-04-28T13:35:57Z"
+    }
+  ]
+}

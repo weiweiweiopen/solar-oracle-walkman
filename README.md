@@ -1,5 +1,38 @@
 # Solar Oracle Walkman - IV Voiceprint Smart Contract
 A smart contract that validates and stores IV voiceprints data of DIY solar cells and keep the measurements record on chain.
+
+## Project Brief for Reviewers
+
+Solar Oracle Walkman is a public research prototype that connects DIY DSSC measurement practice with an IV voiceprint smart contract and oracle-signed on-chain records.
+
+### What the V1 prototype already demonstrates
+- A working Solidity contract (`SolarOracleWalkman`) for validating and storing 7-value IV voiceprint-style data.
+- EIP-712 oracle signature verification, timestamp freshness checks, duplicate IV hash prevention, and on-chain record storage.
+- A Sepolia deployment and visual documentation of the DIY DSSC and the I–V tester used in this research context.
+
+### Why DSSC I–V curves are treated as material voiceprints
+In this repository, patterned/handmade DSSC measurement behavior is treated as a **material voiceprint** candidate: a physical co-factor signal derived from measured I–V response, not just a software identifier.
+
+### Why the smart contract is only one layer
+The V1 smart contract is one component in a broader **material event signature** and **energy provenance evidence** research framing. A complete system also needs reproducible measurement protocols, raw data handling, registry conventions, and careful claim boundaries.
+
+### Who this repo is for
+- technical reviewers
+- advisors
+- collaborators
+- investors
+- public readers
+
+### Quick links
+- GitHub Pages briefing site (after Pages is enabled): `site/index.html`
+- [V1 current prototype](docs/01_v1_current_prototype.md)
+- [V1 to V4 iteration](docs/02_v1_to_v4_iteration.md)
+- [Edmond Jordan briefing](docs/03_edmond_jordan_briefing.md)
+- [Current progress and limitations](docs/07_current_progress_and_limitations.md)
+- [Public FAQ](docs/08_public_faq.md)
+
+> This repository is a public research prototype. It is not a legal REC / T-REC registry, not a financial product, and not a claim of actual energy equivalence.
+
 Visit wiki for more details: https://wiki.sgmk-ssam.ch/wiki/The_Solar_Oracle_Walkman#RAVE_as_latent_oracle
 
 ## Visual Documentation

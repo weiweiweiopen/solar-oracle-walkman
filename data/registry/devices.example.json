@@ -1,0 +1,15 @@
+[
+  {
+    "device_id": "example-device-001",
+    "label": "Example DIY DSSC Device",
+    "description": "Example registry entry for documentation and schema testing only.",
+    "fabrication_note": "Patterned dye-sensitized solar cell (example metadata).",
+    "status": "example_only",
+    "not_claimed_as": [
+      "verified_production_device",
+      "legal_REC_source",
+      "T-REC_source",
+      "financial_instrument"
+    ]
+  }
+]
