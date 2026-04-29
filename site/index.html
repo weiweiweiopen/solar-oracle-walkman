@@ -5,141 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Solar Oracle Walkman is a public research prototype for Material Event Signatures from measured DSSC I-V curves."
+      content="Solar Oracle Walkman conversational page for investor and art-audience explainers."
     />
-    <title>Solar Oracle Walkman | Material Event Signature</title>
+    <title>Solar Oracle Walkman | Agent Console</title>
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <header class="hero" id="top">
-      <nav class="nav" aria-label="Primary navigation">
-        <a class="brand" href="#top">Solar Oracle Walkman</a>
-        <div class="nav-links">
-          <a href="#signature">Signature</a>
-          <a href="#paths">Paths</a>
-          <a href="#boundary">Boundary</a>
-        </div>
-      </nav>
+    <main class="page" aria-label="Solar Oracle Walkman chat">
+      <section class="chat-window" aria-labelledby="chat-title">
+        <header class="chat-header">
+          <h1 id="chat-title">Solar Oracle Walkman Agent</h1>
+          <p>Uses a local browser key from <code>site/local-secrets.js</code> (not committed).</p>
+        </header>
 
-      <div class="hero-grid">
-        <section class="hero-copy" aria-labelledby="hero-title">
-          <p class="eyebrow">Public research prototype</p>
-          <h1 id="hero-title">A handmade solar material becomes a measurable voice.</h1>
-          <p class="lede">
-            Solar Oracle Walkman turns a patterned dye-sensitized solar cell into an I-V curve, a 7D voiceprint, and a story about identity under light.
-          </p>
-          <p class="boundary-line">
-            Material Event Signature evidence only. Not legal REC, not T-REC, not energy equivalence, not a financial product, and not a TPM replacement.
-          </p>
-          <div class="actions">
-            <a class="button primary" href="#measurement">Reveal the measurement</a>
-            <a class="button secondary" href="#paths">Choose your path</a>
-          </div>
-        </section>
+        <label class="field" for="audience">Audience</label>
+        <select id="audience">
+          <option value="investor">Investor</option>
+          <option value="art">Art audience</option>
+        </select>
 
-        <section class="instrument hero-instrument" aria-label="DSSC instrument illustration">
-          <div class="instrument-label">DSSC material window</div>
-          <div class="disc-wrap" aria-hidden="true">
-            <div class="sunbeam"></div>
-            <div class="dssc-disc">
-              <span class="dye patch-a"></span>
-              <span class="dye patch-b"></span>
-              <span class="dye patch-c"></span>
-              <span class="electrode line-a"></span>
-              <span class="electrode line-b"></span>
-            </div>
-          </div>
-          <div class="readout-row">
-            <span>I-V curve</span>
-            <span>7D voiceprint</span>
-            <span>Material event</span>
-          </div>
-        </section>
-      </div>
-    </header>
+        <div id="messages" class="messages" aria-live="polite"></div>
 
-    <main>
-      <section class="section intro" aria-labelledby="intro-title">
-        <p class="eyebrow">Three-minute explainer</p>
-        <h2 id="intro-title">The oracle speaks from evidence, not certainty.</h2>
-        <p>
-          A patterned DSSC is illuminated, swept across voltage, and recorded as current values. The curve becomes a material trace: not a legal certificate, not a universal hardware identity, but a structured record of how one visible photovoltaic object responded under stated conditions.
-        </p>
-      </section>
-
-      <section class="section narrative" aria-labelledby="narrative-title">
-        <div>
-          <p class="eyebrow">Scroll narrative</p>
-          <h2 id="narrative-title">From dye to trace</h2>
-        </div>
-        <div class="steps">
-          <article><span>01</span><h3>Material appears</h3><p>Dye, glass, pattern, and electrode surface remain visible instead of hidden in a black box.</p></article>
-          <article><span>02</span><h3>Light challenge</h3><p>A stated illumination condition and temperature frame the measurement event.</p></article>
-          <article><span>03</span><h3>Measurement sweep</h3><p>Voltage increases and the current response draws the material's I-V curve.</p></article>
-          <article><span>04</span><h3>Signature forms</h3><p>The raw curve compresses into seven readable features for comparison, visualization, and sound mapping.</p></article>
-          <article><span>05</span><h3>Oracle interprets</h3><p>Narration can sit below the evidence, but it never becomes proof by itself.</p></article>
-        </div>
-      </section>
-
-      <section class="section measurement" id="measurement" aria-labelledby="measurement-title">
-        <div class="section-heading">
-          <p class="eyebrow">Measured sample</p>
-          <h2 id="measurement-title">I-V curve and 7D voiceprint</h2>
-          <p class="sample-warning">Illustrative sample data for schema and visualization testing only. It is not cryptographic validation.</p>
-        </div>
-        <div class="measurement-grid">
-          <article class="instrument chart-card">
-            <div class="instrument-label">I-V curve · voltage V / current A</div>
-            <svg id="iv-chart" viewBox="0 0 640 360" role="img" aria-labelledby="chart-title chart-desc">
-              <title id="chart-title">Sample DSSC I-V curve</title>
-              <desc id="chart-desc">An SVG chart of current decreasing as voltage increases across a DSSC-like sample.</desc>
-            </svg>
-            <p id="chart-summary" class="muted">Loading local sample curve...</p>
-          </article>
-
-          <article class="instrument" id="signature">
-            <div class="instrument-label">Material Event Signature</div>
-            <dl class="signature-list" id="signature-list"></dl>
-            <div class="voiceprint" id="voiceprint" aria-label="7D voiceprint feature bars"></div>
-          </article>
-        </div>
-      </section>
-
-      <section class="section paths" id="paths" aria-labelledby="paths-title">
-        <p class="eyebrow">Audience paths</p>
-        <h2 id="paths-title">Four ways into the same prototype</h2>
-        <div class="path-grid">
-          <article><span>Investor</span><h3>Business value</h3><p>A demo category for physical provenance, solar culture, and AI-agent accountability.</p></article>
-          <article><span>Engineer</span><h3>Measurement and security</h3><p>Audit the schema, threat boundary, and future signing requirements.</p></article>
-          <article><span>Artist / Curator</span><h3>Solar sound object</h3><p>Read the photovoltaic surface as material, instrument, and witness.</p></article>
-          <article><span>Maker</span><h3>DIY photovoltaic instrument</h3><p>Start from DSSC experiments, I-V rigs, open datasets, and honest limitations.</p></article>
-        </div>
-      </section>
-
-      <section class="section boundary" id="boundary" aria-labelledby="boundary-title">
-        <div>
-          <p class="eyebrow">Security boundary</p>
-          <h2 id="boundary-title">A co-factor, not a root of trust.</h2>
-        </div>
-        <p>
-          DSSC response may strengthen a provenance story by adding material liveness and event freshness evidence. Formal authentication still requires calibrated measurement hardware, replay-resistant protocol design, and secure signing through a secure element or server-side key management.
-        </p>
-        <ul class="boundary-list">
-          <li>No frontend API keys, wallet collection, or private signing keys.</li>
-          <li>No fake minting, fake transaction, or fake certificate flow.</li>
-          <li>No claim of legal REC, T-REC, D-REC, carbon credit, energy equivalence, or financial product status.</li>
-        </ul>
+        <form id="chat-form" class="chat-form">
+          <textarea id="prompt" rows="4" placeholder="Ask for an explanation or plan..."></textarea>
+          <button type="submit">Send</button>
+        </form>
       </section>
     </main>
 
-    <footer class="footer">
-      <a href="https://github.com/weiweiweiopen/solar-oracle-walkman/blob/main/README.md">README</a>
-      <a href="https://github.com/weiweiweiopen/solar-oracle-walkman/blob/main/docs/10_public_disclaimer.md">Public disclaimer</a>
-      <a href="https://github.com/weiweiweiopen/solar-oracle-walkman/blob/main/docs/05_measurement_and_iv_voiceprint.md">Measurement notes</a>
-      <a href="./data/sample_iv_curve.json">Sample I-V JSON</a>
-      <a href="./data/sample_7d_voiceprint.json">7D voiceprint JSON</a>
-    </footer>
+    <footer class="footer">solar oracle walkman 2026</footer>
 
+    <script src="./local-secrets.js"></script>
     <script src="./app.js"></script>
   </body>
 </html>
