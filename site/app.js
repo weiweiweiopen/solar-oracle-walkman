@@ -61,7 +61,7 @@
   async function askBackendChat({ prompt, channel, context }) {
     const channelLabel = channel === "innovative-startup" ? "innovative startup 研發新創" : "mind philosophy 心智哲學";
     const agent = context.agents?.[channel] || {};
-    const contextText = JSON.stringify(compactContext(context, channel), null, 2);
+    const contextText = compactContextText(context, channel);
     const agentPrompt = formatAgentPrompt(agent, channelLabel);
     const systemPrompt = [
       "You are the Solar Oracle Walkman chatbot, but you must inhabit the selected agent profile instead of answering as a generic assistant.",
@@ -83,7 +83,7 @@
         mode: "chat",
         messages: [
           { role: "system", content: systemPrompt },
-          { role: "system", content: `Channel: ${channelLabel}\n\nProject context file: site/knowledge-base.json\n\nProject context:\n${contextText}` },
+          { role: "system", content: `Short project context from site/knowledge-base.json:\n${contextText}` },
           { role: "user", content: prompt }
         ],
         max_tokens: 650
@@ -101,35 +101,36 @@
       agent.audience ? `Audience: ${agent.audience}.` : "",
       agent.voice ? `Voice: ${agent.voice}.` : "",
       agent.central_thesis ? `Central thesis: ${agent.central_thesis}` : "",
-      formatList("Default focus", agent.default_focus),
-      formatList("Channel-specific themes", agent.medium_article_themes || agent.business_framing),
-      formatList("Answer strategy", agent.answer_strategy),
+      formatList("Default focus", limitList(agent.default_focus, 5)),
+      formatList("Channel-specific themes", limitList(agent.medium_article_themes || agent.business_framing, 4)),
+      formatList("Answer strategy", limitList(agent.answer_strategy, 3)),
       formatList("Avoid", agent.avoid)
     ];
 
     return parts.filter(Boolean).join(" ");
   }
 
-  function compactContext(context, channel) {
-    return {
-      project: context.project,
-      status: context.status,
-      summary: context.summary,
-      selected_agent: context.agents?.[channel] || null,
-      core_workflow: context.core_workflow,
-      v1_current_prototype: {
-        name: context.v1_current_prototype?.name,
-        main_value: context.v1_current_prototype?.main_value,
-        limitations: context.v1_current_prototype?.limitations
-      },
-      iteration_path: context.iteration_path,
-      material_event_signature: context.material_event_signature,
-      measurement_and_voiceprint: context.measurement_and_voiceprint,
-      energy_provenance_evidence: context.energy_provenance_evidence,
-      current_progress: context.current_progress,
-      not_claimed_as: context.not_claimed_as,
-      security_boundary: context.security_boundary
-    };
+  function compactContextText(context, channel) {
+    const agent = context.agents?.[channel] || {};
+    return [
+      `Project: ${context.project}. Status: ${context.status}.`,
+      `Summary: ${context.summary}`,
+      `Agent thesis: ${agent.central_thesis || "Use the selected channel framing."}`,
+      formatList("Agent focus", limitList(agent.default_focus, 5)),
+      formatList("Channel themes", limitList(agent.medium_article_themes || agent.business_framing, 4)),
+      `Core workflow: ${limitList(context.core_workflow, 6).join(" -> ")}.`,
+      `V1: ${context.v1_current_prototype?.main_value || "IV voiceprint smart contract prototype."}`,
+      `Roadmap: ${Object.entries(context.iteration_path || {}).map(([key, value]) => `${key}: ${value}`).join(" | ")}`,
+      `Material Event Signature: ${context.material_event_signature?.definition || "measured, time-bounded material response under a defined challenge."}`,
+      `I-V voiceprint: ${context.measurement_and_voiceprint?.voiceprint || "compact seven-feature vector derived from I-V measurements."}`,
+      `Energy provenance boundary: ${context.energy_provenance_evidence?.meaning || "research evidence records, not legal certification."}`,
+      formatList("Cannot claim", context.not_claimed_as),
+      `Security boundary: ${context.security_boundary}`
+    ].filter(Boolean).join("\n");
+  }
+
+  function limitList(values, maxItems) {
+    return Array.isArray(values) ? values.slice(0, maxItems) : [];
   }
 
   function formatList(label, values) {
