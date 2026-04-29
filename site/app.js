@@ -61,7 +61,7 @@
   async function askBackendChat({ prompt, channel, context }) {
     const channelLabel = channel === "innovative-startup" ? "innovative startup 研發新創" : "mind philosophy 心智哲學";
     const agent = context.agents?.[channel] || {};
-    const contextText = JSON.stringify(context, null, 2);
+    const contextText = JSON.stringify(compactContext(context, channel), null, 2);
     const agentPrompt = formatAgentPrompt(agent, channelLabel);
     const systemPrompt = [
       "You are the Solar Oracle Walkman chatbot, but you must inhabit the selected agent profile instead of answering as a generic assistant.",
@@ -108,6 +108,28 @@
     ];
 
     return parts.filter(Boolean).join(" ");
+  }
+
+  function compactContext(context, channel) {
+    return {
+      project: context.project,
+      status: context.status,
+      summary: context.summary,
+      selected_agent: context.agents?.[channel] || null,
+      core_workflow: context.core_workflow,
+      v1_current_prototype: {
+        name: context.v1_current_prototype?.name,
+        main_value: context.v1_current_prototype?.main_value,
+        limitations: context.v1_current_prototype?.limitations
+      },
+      iteration_path: context.iteration_path,
+      material_event_signature: context.material_event_signature,
+      measurement_and_voiceprint: context.measurement_and_voiceprint,
+      energy_provenance_evidence: context.energy_provenance_evidence,
+      current_progress: context.current_progress,
+      not_claimed_as: context.not_claimed_as,
+      security_boundary: context.security_boundary
+    };
   }
 
   function formatList(label, values) {
