@@ -35,10 +35,6 @@ body {
   gap: 10px;
 }
 
-.chat-header {
-  text-align: center;
-}
-
 .chat-header h1 {
   margin: 0;
   font-size: clamp(1.6rem, 5vw, 3.8rem);
