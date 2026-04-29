@@ -1,7 +1,8 @@
 {
   "project": "Solar Oracle Walkman",
   "status": "public research prototype",
-  "summary": "Solar Oracle Walkman turns a patterned dye-sensitized solar cell into an I-V curve, a seven-dimensional voiceprint, and a public-facing story about material identity under light.",
+  "knowledge_scope": "This is the complete public knowledge file currently sent to the chatbot by site/app.js. It is distilled from selected public docs in this repository, especially docs/00_project_overview.md, docs/01_v1_current_prototype.md, docs/02_v1_to_v4_iteration.md, docs/04_material_event_signature.md, docs/05_measurement_and_iv_voiceprint.md, docs/06_energy_provenance_evidence.md, docs/07_current_progress_and_limitations.md, docs/08_public_faq.md, docs/09_llm_chatbot_integration.md, and docs/10_public_disclaimer.md. The chatbot does not browse GitHub live.",
+  "summary": "Solar Oracle Walkman is an experimental research and art-tech prototype connecting DIY dye-sensitized solar cell fabrication, I-V curve measurement, material fingerprinting, oracle signatures, and public records. Its core question is whether a physical energy or material event can become a verifiable identity signal without pretending to be a legal energy certificate, a financial product, or a production security system.",
   "channels": {
     "mind_philosophy": "Explain the project as a question about material agency, evidence, attention, identity, and how a solar object can become a speaking witness without pretending to be a person or a legal authority.",
     "innovative_startup": "Explain the project as an early-stage research and development venture around physical provenance, solar culture, material-event signatures, and AI-agent accountability without making investment, certification, or financial-product claims."
@@ -11,7 +12,162 @@
     "The object is illuminated under stated conditions.",
     "Voltage is swept and current response is recorded as an I-V curve.",
     "The curve is compressed into a seven-dimensional voiceprint for comparison, visualization, and sound mapping.",
+    "The voiceprint or measurement report can be signed by an oracle and recorded as evidence.",
     "Narration can explain the record, but the evidence remains bounded by measurement conditions and prototype limitations."
+  ],
+  "v1_current_prototype": {
+    "name": "IV Voiceprint Smart Contract",
+    "contract": "SolarOracleWalkman",
+    "exists_now": [
+      "Solidity smart contract named SolarOracleWalkman.",
+      "Validation logic for a 7-value IV voiceprint input using uint256[7].",
+      "EIP-712 typed data signature verification for oracle-signed reports.",
+      "Configurable oracle signer address.",
+      "Timestamp freshness checks through maxStaleness.",
+      "Duplicate IV hash prevention.",
+      "On-chain storage of accepted IV records.",
+      "Sepolia deployment details documented in README.md.",
+      "Visual context in pix/DIY_DSSC_with_cyanotype_pattern.jpg and pix/I-V_tester_made_by_Marc_Dusseiller.jpg."
+    ],
+    "main_value": "V1 proves that IV-derived data can be structured, signed, validated, and recorded as a compact prototype workflow.",
+    "limitations": [
+      "Validation rules are heuristic.",
+      "It does not prove a full PUF security model.",
+      "It does not include a complete measurement hardware pipeline.",
+      "It does not implement legal REC or T-REC functionality.",
+      "It does not prove resistance against all replay, relay, or modeling attacks.",
+      "It is not a complete energy certification system."
+    ]
+  },
+  "iteration_path": {
+    "v1": "IV Voiceprint Smart Contract: store and validate seven-value IV voiceprint data, verify oracle-signed reports, and record accepted data on Sepolia.",
+    "v2": "DSSC PUF / Physical Co-Factor: treat patterned DSSC as material response evidence. It is not a TPM or secure element replacement and still needs characterization, repeatability tests, challenge-response design, and environmental compensation.",
+    "v3": "Material Event Signature: shift from static identity to event-based evidence. The question becomes whether a physical material event happened under a stated challenge and time context.",
+    "v4": "Public Research Registry / Energy Provenance Evidence: use a public GitHub-based registry, device metadata, measurement event records, daily hashes, optional blockchain anchoring, and an optional LLM explainer. This is a research framing, not a claim that V4 is fully implemented."
+  },
+  "material_event_signature": {
+    "definition": "A Material Event Signature is a measured, time-bounded, physically grounded response from a material object under a defined challenge.",
+    "connects": [
+      "material object",
+      "measurement challenge",
+      "response data",
+      "feature vector",
+      "data hash",
+      "optional signature",
+      "optional ledger anchor"
+    ],
+    "not": [
+      "not simply a private key",
+      "not simply an image or decorative fingerprint",
+      "not a legal certificate"
+    ]
+  },
+  "measurement_and_voiceprint": {
+    "iv_curve": "An I-V current-voltage curve describes how current changes as voltage changes for a solar cell under a given measurement condition.",
+    "dssc_variability": "A handmade or patterned DSSC can exhibit surface patterning, interface, dye-behavior, and assembly differences that may appear as distinct electrical response patterns.",
+    "voiceprint": "A 7D IV voiceprint is a compact seven-feature vector derived from I-V measurements and used as a candidate identity-like signal for validation and storage workflows.",
+    "candidate_features": [
+      "FF",
+      "Vmpp_over_Voc",
+      "Impp_over_Isc",
+      "Rs_star",
+      "Rsh_star",
+      "curvature_sum",
+      "area_star"
+    ],
+    "feature_warning": "These features are candidates for characterization, not final cryptographic proof."
+  },
+  "energy_provenance_evidence": {
+    "meaning": "Energy Provenance Evidence means research-oriented evidence records connecting measured physical events to verifiable records. It is not legal certification.",
+    "current_claims": [
+      "Provides a V1 prototype workflow for validating and storing IV voiceprint-like data.",
+      "Demonstrates oracle-signed report verification and on-chain record insertion.",
+      "Begins a public research registry pattern for documenting measurement events."
+    ],
+    "cannot_claim": [
+      "legal REC status",
+      "T-REC status",
+      "energy equivalence",
+      "production-grade certification",
+      "financial product status"
+    ]
+  },
+  "current_progress": {
+    "already_exists": [
+      "V1 smart contract",
+      "Sepolia deployment",
+      "IV voiceprint validation logic",
+      "visual documentation",
+      "basic Hardhat project",
+      "GitHub Pages LLM explainer with Cloudflare Worker proxy"
+    ],
+    "in_progress_or_next": [
+      "measurement event schema",
+      "raw data storage",
+      "public registry format",
+      "daily hash generation",
+      "DSSC characterization",
+      "richer public explainer knowledge base"
+    ],
+    "not_yet_done": [
+      "full PUF validation",
+      "production hardware",
+      "legal REC or T-REC integration",
+      "anti-relay guarantee",
+      "large dataset",
+      "third-party audit"
+    ]
+  },
+  "technical_review_questions": [
+    "Are the seven IV-derived features meaningful enough for a first identity vector?",
+    "What measurement protocol is needed to test uniqueness and reliability?",
+    "What environmental variables must be controlled?",
+    "What is the minimum viable challenge-response space?",
+    "What should be done before making stronger PUF claims?",
+    "How should raw IV sweep data be stored?",
+    "How should the public registry separate example data from real measurement data?"
+  ],
+  "public_faq": [
+    {
+      "question": "What is Solar Oracle Walkman?",
+      "answer": "A public research prototype linking DSSC measurement, IV voiceprint features, oracle signatures, and blockchain records."
+    },
+    {
+      "question": "What is a DSSC?",
+      "answer": "A dye-sensitized solar cell. In this project it is also explored as a possible physical co-factor."
+    },
+    {
+      "question": "What is an IV voiceprint?",
+      "answer": "A compact feature vector derived from I-V data and used as a candidate material identity signal."
+    },
+    {
+      "question": "What does the V1 prototype do?",
+      "answer": "It validates a seven-value IV data vector, verifies oracle signatures, and stores accepted records on-chain."
+    },
+    {
+      "question": "What is the smart contract for?",
+      "answer": "It acts as a verification and record layer for signed IV measurement reports."
+    },
+    {
+      "question": "Is this a legal REC or T-REC system?",
+      "answer": "No. It is not a legal REC or T-REC registry."
+    },
+    {
+      "question": "Is this a financial product?",
+      "answer": "No. It is not a financial product and should not be presented as investment advice."
+    },
+    {
+      "question": "Does DSSC replace TPM?",
+      "answer": "No. DSSC is not presented as a TPM or secure element replacement."
+    },
+    {
+      "question": "What is the difference between an art prototype and a security product?",
+      "answer": "An art or research prototype explores ideas and evidence workflows. A security product requires robust validation, hardening, and audit."
+    },
+    {
+      "question": "How can collaborators help?",
+      "answer": "They can contribute measurement protocols, dataset quality controls, schema improvements, documentation, and critical review."
+    }
   ],
   "not_claimed_as": [
     "legal REC",
@@ -20,10 +176,35 @@
     "carbon credit",
     "energy equivalence",
     "financial product",
+    "investment advice",
+    "production security system",
+    "complete PUF validation",
     "standalone cryptographic identity",
     "TPM replacement"
   ],
   "security_boundary": "DSSC response may strengthen a provenance story by adding material liveness and event freshness evidence. Formal authentication still requires calibrated measurement hardware, replay-resistant protocol design, and secure signing through a secure element or server-side key management.",
+  "llm_integration_rules": [
+    "Do not expose API keys in frontend code.",
+    "Do not call LLM APIs directly from browser JavaScript with secret credentials.",
+    "Use a backend proxy such as the Cloudflare Worker in worker/deepseek-proxy.js.",
+    "The chatbot is an optional explainer interface, not the evidence source itself."
+  ],
+  "source_files": [
+    "site/app.js",
+    "site/knowledge-base.json",
+    "worker/deepseek-proxy.js",
+    "docs/00_project_overview.md",
+    "docs/01_v1_current_prototype.md",
+    "docs/02_v1_to_v4_iteration.md",
+    "docs/03_edmond_jordan_briefing.md",
+    "docs/04_material_event_signature.md",
+    "docs/05_measurement_and_iv_voiceprint.md",
+    "docs/06_energy_provenance_evidence.md",
+    "docs/07_current_progress_and_limitations.md",
+    "docs/08_public_faq.md",
+    "docs/09_llm_chatbot_integration.md",
+    "docs/10_public_disclaimer.md"
+  ],
   "starter_questions": [
     "Introduce the V1 to V4 iteration.",
     "What is the current progress of this project?",
@@ -31,6 +212,8 @@
     "What should Edmond Jordan review first?",
     "What is not claimed by this project?",
     "How is this different from a legal REC?",
-    "What is Material Event Signature?"
+    "What is Material Event Signature?",
+    "Explain this as mind philosophy.",
+    "Explain this as an innovative startup."
   ]
 }
