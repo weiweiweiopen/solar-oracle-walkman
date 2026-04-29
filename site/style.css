@@ -58,7 +58,7 @@ body {
   text-transform: uppercase;
 }
 
-input, select, textarea, button {
+input, select, textarea {
   font: inherit;
   padding: 10px;
   border: 1px solid var(--line);
@@ -89,13 +89,6 @@ textarea { resize: vertical; }
 .chat-form {
   display: grid;
   gap: 10px;
-}
-
-button {
-  width: fit-content;
-  cursor: pointer;
-  background: #111111;
-  color: #ffffff;
 }
 
 .footer {

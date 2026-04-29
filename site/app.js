@@ -29,13 +29,14 @@
 
     addMsg("user", prompt);
     promptEl.value = "";
+    const thinkingMsg = addMsg("agent", "Thinking...");
 
     try {
       const context = await loadLocalContext();
       const responseText = await askBackendChat({ prompt, audience: audienceSelect.value, context });
-      addMsg("agent", responseText);
+      updateMsg(thinkingMsg, "agent", responseText);
     } catch (error) {
-      addMsg("agent", `Error: ${error.message}`);
+      updateMsg(thinkingMsg, "agent", `Error: ${error.message}`);
     }
   });
 
@@ -64,7 +65,7 @@
           { role: "system", content: `Audience: ${audience}\n\nProject context:\n${context}` },
           { role: "user", content: prompt }
         ],
-        max_tokens: 900
+        max_tokens: 550
       })
     });
 
@@ -78,6 +79,13 @@
     div.className = `msg ${role === "user" ? "user" : "agent"}`;
     div.textContent = `${role === "user" ? "You" : "Agent"}: ${text}`;
     messagesEl.appendChild(div);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+    return div;
+  }
+
+  function updateMsg(element, role, text) {
+    element.className = `msg ${role === "user" ? "user" : "agent"}`;
+    element.textContent = `${role === "user" ? "You" : "Agent"}: ${text}`;
     messagesEl.scrollTop = messagesEl.scrollHeight;
   }
 })();
