@@ -3,7 +3,16 @@
   const messagesEl = document.querySelector("#messages");
   const form = document.querySelector("#chat-form");
   const promptEl = document.querySelector("#prompt");
+  const chatApiUrl = document
+    .querySelector('meta[name="sow-chat-api"]')
+    ?.getAttribute("content") || "/api/chat";
 
+  promptEl.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      form.requestSubmit();
+    }
+  });
 
   addMsg("agent", "Ready. I can explain plans for investors or art audiences based on local project materials.");
 
@@ -48,7 +57,7 @@
       "Task: explain and structure plans clearly for either investors or art audience members."
     ].join(" ");
 
-    const res = await fetch("/api/chat", {
+    const res = await fetch(chatApiUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
