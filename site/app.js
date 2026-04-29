@@ -81,7 +81,7 @@
           { role: "system", content: `Channel: ${channelLabel}\n\nProject context file: site/knowledge-base.json\n\nProject context:\n${context}` },
           { role: "user", content: prompt }
         ],
-        max_tokens: 550
+        max_tokens: 400
       })
     });
 
