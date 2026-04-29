@@ -1,14 +1,9 @@
 (function () {
-  const keyInput = document.querySelector("#api-key");
   const audienceSelect = document.querySelector("#audience");
   const messagesEl = document.querySelector("#messages");
   const form = document.querySelector("#chat-form");
   const promptEl = document.querySelector("#prompt");
 
-  keyInput.value = localStorage.getItem("deepseek_api_key") || "";
-  keyInput.addEventListener("change", () => {
-    localStorage.setItem("deepseek_api_key", keyInput.value.trim());
-  });
 
   addMsg("agent", "Ready. I can explain plans for investors or art audiences based on local project materials.");
 
@@ -16,18 +11,12 @@
     event.preventDefault();
     const prompt = promptEl.value.trim();
     if (!prompt) return;
-    const apiKey = keyInput.value.trim();
-    if (!apiKey) {
-      addMsg("agent", "Please enter your DeepSeek API key first.");
-      return;
-    }
-
     addMsg("user", prompt);
     promptEl.value = "";
 
     try {
       const context = await loadLocalContext();
-      const responseText = await askDeepSeek({ apiKey, prompt, audience: audienceSelect.value, context });
+      const responseText = await askBackendChat({ prompt, audience: audienceSelect.value, context });
       addMsg("agent", responseText);
     } catch (error) {
       addMsg("agent", `Error: ${error.message}`);
@@ -50,7 +39,7 @@
     return entries.join("\n\n---\n\n");
   }
 
-  async function askDeepSeek({ apiKey, prompt, audience, context }) {
+  async function askBackendChat({ prompt, audience, context }) {
     const systemPrompt = [
       "You are the Solar Oracle Walkman agent.",
       "Use the provided repository context before answering.",
@@ -59,25 +48,22 @@
       "Task: explain and structure plans clearly for either investors or art audience members."
     ].join(" ");
 
-    const res = await fetch("https://api.deepseek.com/chat/completions", {
+    const res = await fetch("/api/chat", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        model: "deepseek-chat",
-        temperature: 0.3,
-        messages: [
-          { role: "system", content: systemPrompt },
-          { role: "user", content: `Repository context:\n${context}\n\nUser request:\n${prompt}` }
-        ]
+        audience,
+        systemPrompt,
+        context,
+        prompt
       })
     });
 
     if (!res.ok) {
       const errText = await res.text();
-      throw new Error(`DeepSeek API ${res.status}: ${errText}`);
+      throw new Error(`Backend chat API ${res.status}: ${errText}`);
     }
 
     const data = await res.json();

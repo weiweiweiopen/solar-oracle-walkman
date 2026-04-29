@@ -27,3 +27,13 @@ Phase 1 uses a static GitHub Pages site and chatbot-ready knowledge base. A real
 - "What is not claimed by this project?"
 - "How is this different from a legal REC?"
 - "What is Material Event Signature?"
+
+
+## Local API key setup (backend only)
+1. Create `.env.local` in the project root (this file is gitignored).
+2. Add `OPENAI_API_KEY=...` to that file.
+3. Load it only in server/backend code (for example, Node.js process env).
+4. Keep the browser talking to your backend endpoint, not directly to the LLM provider.
+
+This project remains a public research prototype and the chatbot layer is only an optional explainer interface.
+

@@ -84,6 +84,20 @@ PRIVATE_KEY=your_wallet_private_key
 ETHERSCAN_API_KEY=your_etherscan_api_key
 ```
 
+
+### Step 3b (Optional): Local LLM API key for backend use only
+If you add an LLM explainer service, keep the API key in a **local-only** env file and load it from your backend runtime.
+
+```bash
+# .env.local (already gitignored)
+OPENAI_API_KEY=your_server_side_key
+```
+
+Rules:
+- Never commit real API keys.
+- Never expose the key in frontend JavaScript or public HTML.
+- Call the cloud LLM from a backend proxy/service only.
+
 ### Step 4: Deploy Contract to Sepolia Testnet
 ```bash
 # Deploy to the live Sepolia testnet
