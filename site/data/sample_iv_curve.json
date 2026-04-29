@@ -1,0 +1,14 @@
+{
+  "device_id": "sow-dssc-disc-001",
+  "sample_id": "sample-iv-2026-04-29-a",
+  "timestamp": "2026-04-29T12:00:00Z",
+  "illumination_condition": {
+    "source": "simulated_sunlight_led",
+    "intensity_w_m2": 800,
+    "spectrum_note": "Illustrative warm-white LED solar simulator approximation"
+  },
+  "temperature_c": 24.6,
+  "voltage": [0.0, 0.03, 0.06, 0.09, 0.12, 0.15, 0.18, 0.21, 0.24, 0.27, 0.3, 0.33, 0.36, 0.39, 0.42, 0.45, 0.48, 0.51, 0.54, 0.57],
+  "current": [0.00182, 0.00181, 0.0018, 0.00178, 0.00175, 0.00171, 0.00166, 0.00159, 0.0015, 0.00139, 0.00125, 0.00109, 0.00091, 0.00072, 0.00052, 0.00033, 0.00017, 0.00007, 0.00002, 0.0],
+  "notes": "Illustrative DSSC-like I-V curve sample for schema and visualization testing only; not validated for cryptographic use. Current values are amperes. Voltage values are volts."
+}

@@ -1,0 +1,16 @@
+{
+  "device_id": "sow-dssc-disc-001",
+  "sample_id": "sample-iv-2026-04-29-a",
+  "features": [0.46, 0.58, 0.69, 0.21, 0.74, 0.33, 0.52],
+  "feature_names": [
+    "FF",
+    "Vmpp_over_Voc",
+    "Impp_over_Isc",
+    "Rs_star",
+    "Rsh_star",
+    "curvature_sum",
+    "normalized_area_A_star"
+  ],
+  "normalization_method": "Illustrative min-max-style normalized descriptors for demo visualization; not calibrated against a validated device population.",
+  "warning": "This sample is illustrative and not validated for cryptographic use."
+}
