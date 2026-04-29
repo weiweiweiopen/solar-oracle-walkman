@@ -4,25 +4,19 @@
   const form = document.querySelector("#chat-form");
   const promptEl = document.querySelector("#prompt");
 
-  addMsg("agent", "Ready. I can explain plans for investors or art audiences based on local project materials.");
+  addMsg("agent", "Ready. Server-side key mode is active.");
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     const prompt = promptEl.value.trim();
     if (!prompt) return;
 
-    const apiKey = window.SOW_LOCAL_SECRETS?.deepseekApiKey?.trim();
-    if (!apiKey) {
-      addMsg("agent", "Missing API key. Set window.SOW_LOCAL_SECRETS.deepseekApiKey in site/local-secrets.js.");
-      return;
-    }
-
     addMsg("user", prompt);
     promptEl.value = "";
 
     try {
       const context = await loadLocalContext();
-      const responseText = await askDeepSeek({ apiKey, prompt, audience: audienceSelect.value, context });
+      const responseText = await askServerAgent({ prompt, audience: audienceSelect.value, context });
       addMsg("agent", responseText);
     } catch (error) {
       addMsg("agent", `Error: ${error.message}`);
@@ -45,38 +39,20 @@
     }
   }
 
-  async function askDeepSeek({ apiKey, prompt, audience, context }) {
-    const systemPrompt = [
-      "You are the Solar Oracle Walkman agent.",
-      "Use the provided repository context before answering.",
-      "Use precise boundary language: public research prototype; not legal REC; not T-REC; not energy equivalence; not financial product.",
-      `Primary audience: ${audience}.`,
-      "Task: explain and structure plans clearly for either investors or art audience members."
-    ].join(" ");
-
-    const res = await fetch("https://api.deepseek.com/chat/completions", {
+  async function askServerAgent({ prompt, audience, context }) {
+    const res = await fetch("/api/chat", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`
-      },
-      body: JSON.stringify({
-        model: "deepseek-chat",
-        temperature: 0.3,
-        messages: [
-          { role: "system", content: systemPrompt },
-          { role: "user", content: `Repository context:\n${context}\n\nUser request:\n${prompt}` }
-        ]
-      })
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt, audience, context })
     });
 
     if (!res.ok) {
       const errText = await res.text();
-      throw new Error(`DeepSeek API ${res.status}: ${errText}`);
+      throw new Error(`Server API ${res.status}: ${errText}`);
     }
 
     const data = await res.json();
-    return data.choices?.[0]?.message?.content?.trim() || "No response content.";
+    return data.answer || "No response content.";
   }
 
   function addMsg(role, text) {

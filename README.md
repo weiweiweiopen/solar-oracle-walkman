@@ -184,3 +184,15 @@ The SolarOracleWalkman contract is currently deployed on Sepolia testnet:
 4. **Integrate with your application** using the contract address
 
 The contract is now ready to validate and store IV voiceprint data securely on the blockchain!
+
+## Cloud LLM Proxy Deployment (No Frontend API Key)
+
+For public visitors, do not place the DeepSeek API key in browser code. This repo includes a server endpoint (`api/chat.js`) that reads `DEEPSEEK_API_KEY` from server environment variables and forwards requests to DeepSeek.
+
+### Vercel setup
+1. Import this repository into Vercel.
+2. Add environment variable: `DEEPSEEK_API_KEY`.
+3. Deploy.
+4. The frontend (`site/index.html`) calls `/api/chat`, so visitors can use chat without seeing the key.
+
+> Claim boundary reminder: this remains a public research prototype, not legal REC / T-REC, not energy equivalence, and not a financial product.
