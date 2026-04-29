@@ -198,3 +198,28 @@ The SolarOracleWalkman contract is currently deployed on Sepolia testnet:
 4. **Integrate with your application** using the contract address
 
 The contract is now ready to validate and store IV voiceprint data securely on the blockchain!
+
+## Chat backend for GitHub Pages visitors (Vercel)
+
+A minimal deployable backend is included at `api/chat.js` for Vercel serverless runtime. The static Pages app now reads a direct API URL from meta and calls that backend so all visitors can use chat without local browser keys.
+
+### Backend deploy steps
+1. Create a Vercel project from this repository.
+2. Add environment variable:
+   - `DEEPSEEK_API_KEY` = your server-side key.
+3. Deploy. Example production URL:
+   - `https://solar-oracle-walkman-api.vercel.app/api/chat`
+
+### Frontend wiring
+- `site/index.html` includes:
+  - `<meta name="sow-chat-api" content="https://solar-oracle-walkman-api.vercel.app/api/chat" />`
+- `site/app.js` reads this value and posts chat requests there.
+
+Boundary note: this remains a public research prototype, not a legal REC, not T-REC, not an energy equivalence claim, and not a financial product.
+
+### Troubleshooting `Error: Failed to fetch`
+If GitHub Pages can load the UI but chat shows `Failed to fetch`, it is usually cross-origin or deployment configuration:
+- Ensure Vercel project is deployed and healthy (`/api/chat` returns 405 for GET and 204 for OPTIONS).
+- Ensure `DEEPSEEK_API_KEY` is set in Vercel environment variables for Production.
+- Ensure backend returns CORS headers for `POST` and `OPTIONS` (this repo now does).
+- Ensure the `sow-chat-api` meta URL is HTTPS and exactly matches your deployed backend URL.
