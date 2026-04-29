@@ -7,6 +7,7 @@
       name="description"
       content="Solar Oracle Walkman conversational page for investor and art-audience explainers."
     />
+    <meta name="sow-chat-api" content="https://solar-oracle-walkman-api.vercel.app/api/chat" />
     <title>Solar Oracle Walkman | Agent Console</title>
     <link rel="stylesheet" href="./style.css" />
   </head>
@@ -28,8 +29,7 @@
         <div id="messages" class="messages" aria-live="polite"></div>
 
         <form id="chat-form" class="chat-form">
-          <textarea id="prompt" rows="4" placeholder="Ask for an explanation or plan..."></textarea>
-          <button type="submit">Send</button>
+          <textarea id="prompt" rows="4" placeholder="Ask for an explanation or plan... (Press Enter to send, Shift+Enter for newline)"></textarea>
         </form>
       </section>
     </main>
