@@ -58,11 +58,35 @@ body {
   text-transform: uppercase;
 }
 
-input, select, textarea {
+input, textarea {
   font: inherit;
   padding: 10px;
   border: 1px solid var(--line);
   border-radius: 8px;
+}
+
+.channel-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.channel-button {
+  min-height: 52px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #ffffff;
+  color: var(--ink);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 650;
+  text-align: center;
+}
+
+.channel-button.active {
+  border-color: #111111;
+  background: #111111;
+  color: #ffffff;
 }
 
 textarea { resize: vertical; }
@@ -101,5 +125,6 @@ textarea { resize: vertical; }
 @media (max-width: 560px) {
   .page { padding: 12px; }
   .chat-window { padding: 12px; }
+  .channel-options { grid-template-columns: 1fr; }
   .messages { min-height: 260px; }
 }

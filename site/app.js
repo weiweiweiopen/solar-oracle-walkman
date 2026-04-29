@@ -1,9 +1,21 @@
 (function () {
-  const audienceSelect = document.querySelector("#audience");
+  const channelButtons = Array.from(document.querySelectorAll(".channel-button"));
   const messagesEl = document.querySelector("#messages");
   const form = document.querySelector("#chat-form");
   const promptEl = document.querySelector("#prompt");
   const chatApiUrl = document.querySelector('meta[name="sow-chat-api"]')?.getAttribute("content")?.trim();
+  let selectedChannel = "mind-philosophy";
+
+  channelButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      selectedChannel = button.dataset.channel;
+      channelButtons.forEach((item) => {
+        const active = item === button;
+        item.classList.toggle("active", active);
+        item.setAttribute("aria-pressed", String(active));
+      });
+    });
+  });
 
   promptEl.addEventListener("keydown", (event) => {
     if (event.key === "Enter" && !event.shiftKey) {
@@ -12,7 +24,7 @@
     }
   });
 
-  addMsg("agent", "Ready. I can explain Solar Oracle Walkman for investors or art audiences based on the project knowledge base.");
+  addMsg("agent", "Ready. Choose a channel, then ask me about Solar Oracle Walkman.");
 
   if (!chatApiUrl) {
     addMsg("agent", "Chat backend is not configured yet. Deploy worker/deepseek-proxy.js, then set the sow-chat-api meta tag in index.html to the Worker /chat URL.");
@@ -33,7 +45,7 @@
 
     try {
       const context = await loadLocalContext();
-      const responseText = await askBackendChat({ prompt, audience: audienceSelect.value, context });
+      const responseText = await askBackendChat({ prompt, channel: selectedChannel, context });
       updateMsg(thinkingMsg, "agent", responseText);
     } catch (error) {
       updateMsg(thinkingMsg, "agent", `Error: ${error.message}`);
@@ -46,13 +58,17 @@
     return JSON.stringify(await response.json(), null, 2);
   }
 
-  async function askBackendChat({ prompt, audience, context }) {
+  async function askBackendChat({ prompt, channel, context }) {
+    const channelLabel = channel === "innovative-startup" ? "innovative startup 研發新創" : "mind philosophy 心智哲學";
     const systemPrompt = [
       "You are the Solar Oracle Walkman agent.",
-      "Use the provided project context before answering.",
+      "Use only the provided project context before answering. Do not claim you can browse GitHub or inspect repository files live.",
+      "If asked what you can see, say you are reading the static public knowledge file that this page sends with each question.",
       "Use precise boundary language: public research prototype; not legal REC; not T-REC; not energy equivalence; not financial product.",
-      `Primary audience: ${audience}.`,
-      "Task: explain and structure plans clearly for either investors or art audience members."
+      `Response channel: ${channelLabel}.`,
+      "Answer in natural conversational language. Do not use Markdown formatting, asterisks, bold syntax, headings, numbered lists, or bullet lists unless the user explicitly asks for a list.",
+      "Use Traditional Chinese when the user writes Chinese; otherwise use clear English.",
+      "Task: explain the project clearly in the selected channel without overclaiming."
     ].join(" ");
 
     const response = await fetch(chatApiUrl, {
@@ -62,7 +78,7 @@
         mode: "chat",
         messages: [
           { role: "system", content: systemPrompt },
-          { role: "system", content: `Audience: ${audience}\n\nProject context:\n${context}` },
+          { role: "system", content: `Channel: ${channelLabel}\n\nProject context file: site/knowledge-base.json\n\nProject context:\n${context}` },
           { role: "user", content: prompt }
         ],
         max_tokens: 550
@@ -71,7 +87,7 @@
 
     const data = await response.json().catch(() => ({}));
     if (!response.ok) throw new Error(data.error || `Chat API returned ${response.status}`);
-    return data.content?.trim() || "No response content.";
+    return cleanResponse(data.content?.trim() || "No response content.");
   }
 
   function addMsg(role, text) {
@@ -87,5 +103,13 @@
     element.className = `msg ${role === "user" ? "user" : "agent"}`;
     element.textContent = `${role === "user" ? "You" : "Agent"}: ${text}`;
     messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
+
+  function cleanResponse(text) {
+    return text
+      .replace(/\*\*(.*?)\*\*/g, "$1")
+      .replace(/__(.*?)__/g, "$1")
+      .replace(/^#{1,6}\s+/gm, "")
+      .trim();
   }
 })();

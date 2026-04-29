@@ -2,9 +2,9 @@
   "project": "Solar Oracle Walkman",
   "status": "public research prototype",
   "summary": "Solar Oracle Walkman turns a patterned dye-sensitized solar cell into an I-V curve, a seven-dimensional voiceprint, and a public-facing story about material identity under light.",
-  "audiences": {
-    "investor": "Explain business value through physical provenance, solar culture, open research evidence, and AI-agent accountability without making financial or certification claims.",
-    "art": "Explain the photovoltaic surface as material, instrument, witness, and solar sound object. Emphasize the sensory and curatorial reading before technical claims."
+  "channels": {
+    "mind_philosophy": "Explain the project as a question about material agency, evidence, attention, identity, and how a solar object can become a speaking witness without pretending to be a person or a legal authority.",
+    "innovative_startup": "Explain the project as an early-stage research and development venture around physical provenance, solar culture, material-event signatures, and AI-agent accountability without making investment, certification, or financial-product claims."
   },
   "core_workflow": [
     "A visible DSSC material object is made with dye, glass, pattern, and electrode surface.",

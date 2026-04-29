@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Solar Oracle Walkman conversational page for investor and art-audience explainers."
+      content="Solar Oracle Walkman conversational page with mind-philosophy and innovative-startup channels."
     />
     <meta name="sow-chat-api" content="https://solar-oracle-deepseek-proxy.dontmarryme.workers.dev/chat" />
     <title>Solar Oracle Walkman | Agent Console</title>
@@ -18,15 +18,15 @@
           <p class="eyebrow">Public research prototype</p>
           <h1 id="chat-title">Solar Oracle Walkman Agent</h1>
           <p>
-            Ask for investor or art-audience explanations. The API key must stay on the backend Worker, never in GitHub Pages frontend code.
+            Ask for an explanation through a mind-philosophy or innovative-startup channel. The API key stays on the backend Worker, never in GitHub Pages frontend code.
           </p>
         </header>
 
-        <label class="field" for="audience">Audience</label>
-        <select id="audience">
-          <option value="investor">Investor</option>
-          <option value="art">Art audience</option>
-        </select>
+        <p class="field" id="channel-label">Channel</p>
+        <div class="channel-options" role="group" aria-labelledby="channel-label">
+          <button class="channel-button active" type="button" data-channel="mind-philosophy" aria-pressed="true">mind philosophy 心智哲學</button>
+          <button class="channel-button" type="button" data-channel="innovative-startup" aria-pressed="false">innovative startup 研發新創</button>
+        </div>
 
         <div id="messages" class="messages" aria-live="polite"></div>
 
