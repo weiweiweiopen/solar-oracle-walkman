@@ -3,9 +3,7 @@
   const messagesEl = document.querySelector("#messages");
   const form = document.querySelector("#chat-form");
   const promptEl = document.querySelector("#prompt");
-  const chatApiUrl = document
-    .querySelector('meta[name="sow-chat-api"]')
-    ?.getAttribute("content") || "/api/chat";
+  const chatApiUrl = document.querySelector('meta[name="sow-chat-api"]')?.getAttribute("content")?.trim();
 
   promptEl.addEventListener("keydown", (event) => {
     if (event.key === "Enter" && !event.shiftKey) {
@@ -14,12 +12,21 @@
     }
   });
 
-  addMsg("agent", "Ready. I can explain plans for investors or art audiences based on local project materials.");
+  addMsg("agent", "Ready. I can explain Solar Oracle Walkman for investors or art audiences based on the project knowledge base.");
+
+  if (!chatApiUrl) {
+    addMsg("agent", "Chat backend is not configured yet. Deploy worker/deepseek-proxy.js, then set the sow-chat-api meta tag in index.html to the Worker /chat URL.");
+  }
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     const prompt = promptEl.value.trim();
     if (!prompt) return;
+    if (!chatApiUrl) {
+      addMsg("agent", "Backend URL is missing. GitHub Pages cannot store API keys; the Cloudflare Worker URL must be configured first.");
+      return;
+    }
+
     addMsg("user", prompt);
     promptEl.value = "";
 
@@ -33,108 +40,37 @@
   });
 
   async function loadLocalContext() {
-    const files = ["../README.md", "./knowledge-base.json", "../docs/10_public_disclaimer.md", "../docs/00_project_overview.md"];
-    const entries = await Promise.all(
-      files.map(async (url) => {
-        try {
-          const res = await fetch(url);
-          if (!res.ok) return `${url}: unavailable`;
-          return `${url}:\n${await res.text()}`;
-        } catch {
-          return `${url}: unavailable`;
-        }
-      })
-    );
-    return entries.join("\n\n---\n\n");
+    const response = await fetch("./knowledge-base.json", { cache: "no-store" });
+    if (!response.ok) throw new Error(`Knowledge base returned ${response.status}`);
+    return JSON.stringify(await response.json(), null, 2);
   }
 
   async function askBackendChat({ prompt, audience, context }) {
     const systemPrompt = [
       "You are the Solar Oracle Walkman agent.",
-      "Use the provided repository context before answering.",
+      "Use the provided project context before answering.",
       "Use precise boundary language: public research prototype; not legal REC; not T-REC; not energy equivalence; not financial product.",
       `Primary audience: ${audience}.`,
       "Task: explain and structure plans clearly for either investors or art audience members."
     ].join(" ");
 
-    try {
-      const res = await fetch(chatApiUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          audience,
-          systemPrompt,
-          context,
-          prompt
-        })
-      });
-
-      if (!res.ok) {
-        const errText = await res.text();
-        if (res.status === 405 || res.status === 404) {
-          return askOpenAIFromLocalKey({ systemPrompt, prompt, audience, context });
-        }
-        throw new Error(`Backend chat API ${res.status}: ${errText}`);
-      }
-
-      const data = await res.json();
-      return data.choices?.[0]?.message?.content?.trim() || "No response content.";
-    } catch (error) {
-      return askOpenAIFromLocalKey({ systemPrompt, prompt, audience, context, backendError: error });
-    }
-  }
-
-  function readLocalApiKey() {
-    const candidates = [
-      "OPENAI_API_KEY",
-      "openai_api_key",
-      "openai-key",
-      "sow_openai_api_key"
-    ];
-    for (const keyName of candidates) {
-      const val = window.localStorage.getItem(keyName);
-      if (val && val.startsWith("sk-")) return val.trim();
-    }
-    return null;
-  }
-
-  async function askOpenAIFromLocalKey({ systemPrompt, prompt, audience, context, backendError }) {
-    const apiKey = readLocalApiKey();
-    if (!apiKey) {
-      throw new Error(
-        `Backend unavailable (${backendError?.message || "request failed"}) and no local API key found. Save OPENAI_API_KEY in localStorage for this browser.`
-      );
-    }
-
-    const res = await fetch("https://api.openai.com/v1/chat/completions", {
+    const response = await fetch(chatApiUrl, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        model: "gpt-4.1-mini",
-        temperature: 0.2,
+        mode: "chat",
         messages: [
           { role: "system", content: systemPrompt },
-          {
-            role: "system",
-            content: `Audience: ${audience}\n\nProject context:\n${context}`
-          },
+          { role: "system", content: `Audience: ${audience}\n\nProject context:\n${context}` },
           { role: "user", content: prompt }
-        ]
+        ],
+        max_tokens: 900
       })
     });
 
-    if (!res.ok) {
-      const errText = await res.text();
-      throw new Error(`Local OpenAI API ${res.status}: ${errText}`);
-    }
-
-    const data = await res.json();
-    return data.choices?.[0]?.message?.content?.trim() || "No response content.";
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(data.error || `Chat API returned ${response.status}`);
+    return data.content?.trim() || "No response content.";
   }
 
   function addMsg(role, text) {

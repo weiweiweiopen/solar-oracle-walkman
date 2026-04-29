@@ -7,7 +7,7 @@
       name="description"
       content="Solar Oracle Walkman conversational page for investor and art-audience explainers."
     />
-    <meta name="sow-chat-api" content="https://solar-oracle-walkman-api.vercel.app/api/chat" />
+    <meta name="sow-chat-api" content="https://solar-oracle-deepseek-proxy.dontmarryme.workers.dev/chat" />
     <title>Solar Oracle Walkman | Agent Console</title>
     <link rel="stylesheet" href="./style.css" />
   </head>
@@ -15,10 +15,12 @@
     <main class="page" aria-label="Solar Oracle Walkman chat">
       <section class="chat-window" aria-labelledby="chat-title">
         <header class="chat-header">
+          <p class="eyebrow">Public research prototype</p>
           <h1 id="chat-title">Solar Oracle Walkman Agent</h1>
-          <p>Server-routed chat preferred. If backend is unavailable, local key fallback is supported.</p>
+          <p>
+            Ask for investor or art-audience explanations. The API key must stay on the backend Worker, never in GitHub Pages frontend code.
+          </p>
         </header>
-
 
         <label class="field" for="audience">Audience</label>
         <select id="audience">
@@ -30,6 +32,7 @@
 
         <form id="chat-form" class="chat-form">
           <textarea id="prompt" rows="4" placeholder="Ask for an explanation or plan... (Press Enter to send, Shift+Enter for newline)"></textarea>
+          <button type="submit">Ask Agent</button>
         </form>
       </section>
     </main>

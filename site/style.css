@@ -1,7 +1,9 @@
 :root {
   --bg: #ffffff;
   --ink: #1b1b1b;
+  --muted: #666666;
   --line: #d8d8d8;
+  --panel: #fbfbf8;
 }
 
 * { box-sizing: border-box; }
@@ -27,6 +29,7 @@ body {
   width: min(900px, 100%);
   border: 1px solid var(--line);
   border-radius: 12px;
+  background: var(--panel);
   padding: 16px;
   display: grid;
   gap: 10px;
@@ -34,16 +37,26 @@ body {
 
 .chat-header h1 {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: clamp(1.6rem, 5vw, 3.8rem);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
 }
 
 .chat-header p {
-  margin: 2px 0 0;
-  font-size: 0.86rem;
-  color: #666;
+  margin: 8px 0 0;
+  max-width: 680px;
+  color: var(--muted);
+  font-size: 0.95rem;
 }
 
-.field { font-size: 0.86rem; }
+.eyebrow,
+.field {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
 
 input, select, textarea, button {
   font: inherit;
@@ -52,18 +65,25 @@ input, select, textarea, button {
   border-radius: 8px;
 }
 
+textarea { resize: vertical; }
+
 .messages {
   min-height: 320px;
   max-height: 52vh;
   overflow: auto;
   border: 1px solid var(--line);
   border-radius: 8px;
+  background: #ffffff;
   padding: 12px;
   display: grid;
   gap: 10px;
 }
 
-.msg { white-space: pre-wrap; line-height: 1.45; }
+.msg {
+  white-space: pre-wrap;
+  line-height: 1.45;
+}
+
 .msg.user { font-weight: 600; }
 
 .chat-form {
@@ -74,13 +94,19 @@ input, select, textarea, button {
 button {
   width: fit-content;
   cursor: pointer;
-  background: #111;
-  color: #fff;
+  background: #111111;
+  color: #ffffff;
 }
 
 .footer {
   text-align: center;
   font-size: 0.75rem;
-  color: #777;
+  color: #777777;
   padding: 8px 0 10px;
+}
+
+@media (max-width: 560px) {
+  .page { padding: 12px; }
+  .chat-window { padding: 12px; }
+  .messages { min-height: 260px; }
 }

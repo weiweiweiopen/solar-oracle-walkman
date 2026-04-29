@@ -1,0 +1,6 @@
+name = "solar-oracle-deepseek-proxy"
+main = "deepseek-proxy.js"
+compatibility_date = "2026-04-29"
+
+[vars]
+ALLOWED_ORIGINS = "https://weiweiweiopen.github.io,http://localhost:8000,http://127.0.0.1:8000"

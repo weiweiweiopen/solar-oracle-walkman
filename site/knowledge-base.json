@@ -1,18 +1,29 @@
 {
   "project": "Solar Oracle Walkman",
-  "status": "public_research_prototype",
-  "knowledge_sources": [
-    "docs/02_v1_to_v4_iteration.md",
-    "docs/08_public_faq.md",
-    "docs/07_current_progress_and_limitations.md",
-    "docs/10_public_disclaimer.md"
+  "status": "public research prototype",
+  "summary": "Solar Oracle Walkman turns a patterned dye-sensitized solar cell into an I-V curve, a seven-dimensional voiceprint, and a public-facing story about material identity under light.",
+  "audiences": {
+    "investor": "Explain business value through physical provenance, solar culture, open research evidence, and AI-agent accountability without making financial or certification claims.",
+    "art": "Explain the photovoltaic surface as material, instrument, witness, and solar sound object. Emphasize the sensory and curatorial reading before technical claims."
+  },
+  "core_workflow": [
+    "A visible DSSC material object is made with dye, glass, pattern, and electrode surface.",
+    "The object is illuminated under stated conditions.",
+    "Voltage is swept and current response is recorded as an I-V curve.",
+    "The curve is compressed into a seven-dimensional voiceprint for comparison, visualization, and sound mapping.",
+    "Narration can explain the record, but the evidence remains bounded by measurement conditions and prototype limitations."
   ],
   "not_claimed_as": [
-    "legal_REC",
+    "legal REC",
     "T-REC",
-    "energy_equivalence",
-    "financial_product"
+    "D-REC",
+    "carbon credit",
+    "energy equivalence",
+    "financial product",
+    "standalone cryptographic identity",
+    "TPM replacement"
   ],
+  "security_boundary": "DSSC response may strengthen a provenance story by adding material liveness and event freshness evidence. Formal authentication still requires calibrated measurement hardware, replay-resistant protocol design, and secure signing through a secure element or server-side key management.",
   "starter_questions": [
     "Introduce the V1 to V4 iteration.",
     "What is the current progress of this project?",
