@@ -98,6 +98,17 @@ Rules:
 - Never expose the key in frontend JavaScript or public HTML.
 - Call the cloud LLM from a backend proxy/service only.
 
+### Step 3c (Optional): Public audience chat endpoint for static site
+If you deploy the site on GitHub Pages (or any static host), `/api/chat` is not available by default.  
+Configure a public backend endpoint URL in `site/index.html`:
+
+```html
+<meta name="sow-chat-api-url" content="https://your-backend.example.com/api/chat" />
+```
+
+You can also set `window.SOW_CHAT_API_URL` before loading `site/app.js`.  
+This keeps the browser key-free while allowing every audience visitor to use chat.
+
 ### Step 4: Deploy Contract to Sepolia Testnet
 ```bash
 # Deploy to the live Sepolia testnet

@@ -48,7 +48,8 @@
       "Task: explain and structure plans clearly for either investors or art audience members."
     ].join(" ");
 
-    const res = await fetch("/api/chat", {
+    const chatApiUrl = getChatApiUrl();
+    const res = await fetch(chatApiUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -63,11 +64,28 @@
 
     if (!res.ok) {
       const errText = await res.text();
+      if (res.status === 405 || res.status === 404) {
+        throw new Error(
+          `Chat service unavailable at ${chatApiUrl}. Configure a public backend endpoint for all audiences.`
+        );
+      }
       throw new Error(`Backend chat API ${res.status}: ${errText}`);
     }
 
     const data = await res.json();
     return data.choices?.[0]?.message?.content?.trim() || "No response content.";
+  }
+
+  function getChatApiUrl() {
+    const byWindow = window.SOW_CHAT_API_URL;
+    if (typeof byWindow === "string" && byWindow.trim()) {
+      return byWindow.trim();
+    }
+    const byMeta = document.querySelector('meta[name="sow-chat-api-url"]')?.content;
+    if (typeof byMeta === "string" && byMeta.trim()) {
+      return byMeta.trim();
+    }
+    return "/api/chat";
   }
 
   function addMsg(role, text) {
