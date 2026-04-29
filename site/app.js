@@ -63,7 +63,61 @@
 
     if (!res.ok) {
       const errText = await res.text();
+      if (res.status === 405 || res.status === 404) {
+        return askOpenAIFromLocalKey({ systemPrompt, prompt, audience, context });
+      }
       throw new Error(`Backend chat API ${res.status}: ${errText}`);
+    }
+
+    const data = await res.json();
+    return data.choices?.[0]?.message?.content?.trim() || "No response content.";
+  }
+
+  function readLocalApiKey() {
+    const candidates = [
+      "OPENAI_API_KEY",
+      "openai_api_key",
+      "openai-key",
+      "sow_openai_api_key"
+    ];
+    for (const keyName of candidates) {
+      const val = window.localStorage.getItem(keyName);
+      if (val && val.startsWith("sk-")) return val.trim();
+    }
+    return null;
+  }
+
+  async function askOpenAIFromLocalKey({ systemPrompt, prompt, audience, context }) {
+    const apiKey = readLocalApiKey();
+    if (!apiKey) {
+      throw new Error(
+        "Backend unavailable and no local API key found. Save OPENAI_API_KEY in localStorage for this browser."
+      );
+    }
+
+    const res = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`
+      },
+      body: JSON.stringify({
+        model: "gpt-4.1-mini",
+        temperature: 0.2,
+        messages: [
+          { role: "system", content: systemPrompt },
+          {
+            role: "system",
+            content: `Audience: ${audience}\n\nProject context:\n${context}`
+          },
+          { role: "user", content: prompt }
+        ]
+      })
+    });
+
+    if (!res.ok) {
+      const errText = await res.text();
+      throw new Error(`Local OpenAI API ${res.status}: ${errText}`);
     }
 
     const data = await res.json();
