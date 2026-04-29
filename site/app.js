@@ -57,29 +57,33 @@
       "Task: explain and structure plans clearly for either investors or art audience members."
     ].join(" ");
 
-    const res = await fetch(chatApiUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        audience,
-        systemPrompt,
-        context,
-        prompt
-      })
-    });
+    try {
+      const res = await fetch(chatApiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          audience,
+          systemPrompt,
+          context,
+          prompt
+        })
+      });
 
-    if (!res.ok) {
-      const errText = await res.text();
-      if (res.status === 405 || res.status === 404) {
-        return askOpenAIFromLocalKey({ systemPrompt, prompt, audience, context });
+      if (!res.ok) {
+        const errText = await res.text();
+        if (res.status === 405 || res.status === 404) {
+          return askOpenAIFromLocalKey({ systemPrompt, prompt, audience, context });
+        }
+        throw new Error(`Backend chat API ${res.status}: ${errText}`);
       }
-      throw new Error(`Backend chat API ${res.status}: ${errText}`);
-    }
 
-    const data = await res.json();
-    return data.choices?.[0]?.message?.content?.trim() || "No response content.";
+      const data = await res.json();
+      return data.choices?.[0]?.message?.content?.trim() || "No response content.";
+    } catch (error) {
+      return askOpenAIFromLocalKey({ systemPrompt, prompt, audience, context, backendError: error });
+    }
   }
 
   function readLocalApiKey() {
@@ -96,11 +100,11 @@
     return null;
   }
 
-  async function askOpenAIFromLocalKey({ systemPrompt, prompt, audience, context }) {
+  async function askOpenAIFromLocalKey({ systemPrompt, prompt, audience, context, backendError }) {
     const apiKey = readLocalApiKey();
     if (!apiKey) {
       throw new Error(
-        "Backend unavailable and no local API key found. Save OPENAI_API_KEY in localStorage for this browser."
+        `Backend unavailable (${backendError?.message || "request failed"}) and no local API key found. Save OPENAI_API_KEY in localStorage for this browser.`
       );
     }
 
