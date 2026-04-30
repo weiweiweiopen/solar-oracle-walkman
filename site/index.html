@@ -9,31 +9,85 @@
     />
     <meta name="sow-chat-api" content="https://solar-oracle-deepseek-proxy.dontmarryme.workers.dev/chat" />
     <title>Solar Oracle Walkman | Agent Console</title>
-    <link rel="stylesheet" href="./style.css?v=20260429-1712" />
+    <link rel="stylesheet" href="./style.css?v=20260430-slides2" />
   </head>
   <body>
-    <main class="page" aria-label="Solar Oracle Walkman chat">
-      <section class="chat-window" aria-labelledby="chat-title">
-        <header class="chat-header">
-          <p class="eyebrow">Public research prototype</p>
-          <h1 id="chat-title">Solar Oracle Walkman</h1>
-        </header>
+    <main class="page" aria-label="Solar Oracle Walkman slides">
+      <section class="main-carousel" aria-label="Solar Oracle Walkman content carousel">
+        <div class="main-slides">
+          <section class="main-slide active" data-main-slide aria-labelledby="chat-title">
+            <div class="chat-window">
+              <header class="chat-header">
+                <p class="eyebrow">Public research prototype</p>
+                <h1 id="chat-title">Solar Oracle Walkman</h1>
+              </header>
 
-        <div class="channel-options" role="group" aria-label="Channel">
-          <button class="channel-button active" type="button" data-channel="mind-philosophy" aria-pressed="true">mind philosophy 心智哲學</button>
-          <button class="channel-button" type="button" data-channel="innovative-startup" aria-pressed="false">innovative startup 研發新創</button>
+              <div class="channel-options" role="group" aria-label="Channel">
+                <button class="channel-button active" type="button" data-channel="mind-philosophy" aria-pressed="true">mind philosophy 心智哲學</button>
+                <button class="channel-button" type="button" data-channel="innovative-startup" aria-pressed="false">innovative startup 研發新創</button>
+              </div>
+
+              <div id="messages" class="messages" aria-live="polite"></div>
+
+              <form id="chat-form" class="chat-form">
+                <textarea id="prompt" rows="4" placeholder="Ask for an explanation or plan... (Press Enter to send, Shift+Enter for newline)"></textarea>
+              </form>
+            </div>
+          </section>
+
+          <section class="main-slide" data-main-slide hidden aria-label="Project photos">
+            <div class="photo-panel" data-pix-gallery></div>
+          </section>
+
+          <section class="main-slide" data-main-slide hidden aria-label="Instagram reels">
+            <div class="reel-carousel">
+              <div class="reel-slides" data-carousel="instagram-reels">
+                <article class="reel-slide" data-reel-slide>
+                  <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DPc8dLIk30D/" data-instgrm-version="14"></blockquote>
+                  <a class="reel-link" href="https://www.instagram.com/p/DPc8dLIk30D/" target="_blank" rel="noopener noreferrer">Open on Instagram</a>
+                </article>
+                <article class="reel-slide" data-reel-slide>
+                  <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DPjjp9qk3Zo/" data-instgrm-version="14"></blockquote>
+                  <a class="reel-link" href="https://www.instagram.com/p/DPjjp9qk3Zo/" target="_blank" rel="noopener noreferrer">Open on Instagram</a>
+                </article>
+                <article class="reel-slide" data-reel-slide>
+                  <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DPJXES7k52Q/" data-instgrm-version="14"></blockquote>
+                  <a class="reel-link" href="https://www.instagram.com/p/DPJXES7k52Q/" target="_blank" rel="noopener noreferrer">Open on Instagram</a>
+                </article>
+                <article class="reel-slide" data-reel-slide>
+                  <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DO_XDlDk_xf/" data-instgrm-version="14"></blockquote>
+                  <a class="reel-link" href="https://www.instagram.com/p/DO_XDlDk_xf/" target="_blank" rel="noopener noreferrer">Open on Instagram</a>
+                </article>
+                <article class="reel-slide" data-reel-slide>
+                  <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DPjLWTJk1pL/" data-instgrm-version="14"></blockquote>
+                  <a class="reel-link" href="https://www.instagram.com/p/DPjLWTJk1pL/" target="_blank" rel="noopener noreferrer">Open on Instagram</a>
+                </article>
+                <article class="reel-slide" data-reel-slide>
+                  <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DO3CFR4k0vh/" data-instgrm-version="14"></blockquote>
+                  <a class="reel-link" href="https://www.instagram.com/p/DO3CFR4k0vh/" target="_blank" rel="noopener noreferrer">Open on Instagram</a>
+                </article>
+              </div>
+            </div>
+          </section>
         </div>
-
-        <div id="messages" class="messages" aria-live="polite"></div>
-
-        <form id="chat-form" class="chat-form">
-          <textarea id="prompt" rows="4" placeholder="Ask for an explanation or plan... (Press Enter to send, Shift+Enter for newline)"></textarea>
-        </form>
       </section>
+
+      <div class="slide-thumbs" role="tablist" aria-label="Slide thumbnails">
+        <button class="slide-thumb active" type="button" data-main-thumb="0" role="tab" aria-selected="true">
+          <span class="thumb-chat">ORACLE</span>
+        </button>
+        <button class="slide-thumb" type="button" data-main-thumb="1" role="tab" aria-selected="false">
+          <span class="thumb-pix">PIX</span>
+        </button>
+        <button class="slide-thumb" type="button" data-main-thumb="2" role="tab" aria-selected="false">
+          <span class="thumb-reel">REELS</span>
+        </button>
+      </div>
     </main>
 
     <footer class="footer">solar oracle walkman 2026</footer>
 
-    <script src="./app.js?v=20260429-1712"></script>
+    <script async src="https://www.instagram.com/embed.js"></script>
+    <script src="./app.js?v=20260430-slides2"></script>
   </body>
 </html>

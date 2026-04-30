@@ -3,8 +3,12 @@
   const messagesEl = document.querySelector("#messages");
   const form = document.querySelector("#chat-form");
   const promptEl = document.querySelector("#prompt");
+  const pixGallery = document.querySelector("[data-pix-gallery]");
+  const mainSlides = Array.from(document.querySelectorAll("[data-main-slide]"));
+  const mainThumbs = Array.from(document.querySelectorAll("[data-main-thumb]"));
   const chatApiUrl = document.querySelector('meta[name="sow-chat-api"]')?.getAttribute("content")?.trim();
   let selectedChannel = "mind-philosophy";
+  let selectedMainSlide = 0;
 
   channelButtons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -24,7 +28,10 @@
     }
   });
 
-  addMsg("agent", "Ready. Choose a channel, then ask me about Solar Oracle Walkman.");
+  addMsg("agent", "Pick a channel, then ask one short question.");
+
+  loadPixGallery();
+  setupMainCarousel();
 
   if (!chatApiUrl) {
     addMsg("agent", "Chat backend is not configured yet. Deploy worker/deepseek-proxy.js, then set the sow-chat-api meta tag in index.html to the Worker /chat URL.");
@@ -34,8 +41,8 @@
     event.preventDefault();
     const prompt = promptEl.value.trim();
     if (!prompt) return;
-    if (!chatApiUrl) {
-      addMsg("agent", "Backend URL is missing. GitHub Pages cannot store API keys; the Cloudflare Worker URL must be configured first.");
+      if (!chatApiUrl) {
+      addMsg("agent", "Backend URL is missing. Configure the Cloudflare Worker /chat URL first.");
       return;
     }
 
@@ -68,6 +75,7 @@
       "Use only the provided project context before answering. Do not claim you can browse GitHub or inspect repository files live.",
       "If asked what you can see, say you are reading the static public knowledge file that this page sends with each question.",
       "Use precise boundary language: public research prototype; not legal REC; not T-REC; not energy equivalence; not financial product.",
+      "Keep every answer very short and easy to absorb: 1 to 3 short sentences, about 120 Chinese characters or fewer unless the user asks for detail. Avoid dense explanations. Invite the user to ask for more details if needed.",
       `Response channel: ${channelLabel}.`,
       agentPrompt,
       "Do not blend the two channel personalities. If the user selected mind philosophy, prioritize identity, perception, material witness, energy layer, and mind-philosophy framing. If the user selected innovative startup, prioritize roadmap, stakeholders, protocol design, technical status, business layout, and risk boundaries.",
@@ -86,7 +94,7 @@
           { role: "system", content: `Short project context from site/knowledge-base.json:\n${contextText}` },
           { role: "user", content: prompt }
         ],
-        max_tokens: 650
+        max_tokens: 140
       })
     });
 
@@ -101,9 +109,9 @@
       agent.audience ? `Audience: ${agent.audience}.` : "",
       agent.voice ? `Voice: ${agent.voice}.` : "",
       agent.central_thesis ? `Central thesis: ${agent.central_thesis}` : "",
-      formatList("Default focus", limitList(agent.default_focus, 5)),
-      formatList("Channel-specific themes", limitList(agent.medium_article_themes || agent.business_framing, 4)),
-      formatList("Answer strategy", limitList(agent.answer_strategy, 3)),
+      formatList("Default focus", limitList(agent.default_focus, 3)),
+      formatList("Channel-specific themes", limitList(agent.medium_article_themes || agent.business_framing, 2)),
+      formatList("Answer strategy", limitList(agent.answer_strategy, 2)),
       formatList("Avoid", agent.avoid)
     ];
 
@@ -116,13 +124,9 @@
       `Project: ${context.project}. Status: ${context.status}.`,
       `Summary: ${context.summary}`,
       `Agent thesis: ${agent.central_thesis || "Use the selected channel framing."}`,
-      formatList("Agent focus", limitList(agent.default_focus, 5)),
-      formatList("Channel themes", limitList(agent.medium_article_themes || agent.business_framing, 4)),
-      `Core workflow: ${limitList(context.core_workflow, 6).join(" -> ")}.`,
+      formatList("Agent focus", limitList(agent.default_focus, 3)),
+      `Core workflow: ${limitList(context.core_workflow, 3).join(" -> ")}.`,
       `V1: ${context.v1_current_prototype?.main_value || "IV voiceprint smart contract prototype."}`,
-      `Roadmap: ${Object.entries(context.iteration_path || {}).map(([key, value]) => `${key}: ${value}`).join(" | ")}`,
-      `Material Event Signature: ${context.material_event_signature?.definition || "measured, time-bounded material response under a defined challenge."}`,
-      `I-V voiceprint: ${context.measurement_and_voiceprint?.voiceprint || "compact seven-feature vector derived from I-V measurements."}`,
       `Energy provenance boundary: ${context.energy_provenance_evidence?.meaning || "research evidence records, not legal certification."}`,
       formatList("Cannot claim", context.not_claimed_as),
       `Security boundary: ${context.security_boundary}`
@@ -159,5 +163,71 @@
       .replace(/__(.*?)__/g, "$1")
       .replace(/^#{1,6}\s+/gm, "")
       .trim();
+  }
+
+  function setupMainCarousel() {
+    if (mainSlides.length === 0) return;
+
+    mainThumbs.forEach((thumb) => {
+      thumb.addEventListener("click", () => showMainSlide(Number(thumb.dataset.mainThumb || 0)));
+    });
+    showMainSlide(0);
+  }
+
+  function showMainSlide(index) {
+    selectedMainSlide = (index + mainSlides.length) % mainSlides.length;
+    mainSlides.forEach((slide, slideIndex) => {
+      const active = slideIndex === selectedMainSlide;
+      slide.hidden = !active;
+      slide.classList.toggle("active", active);
+    });
+    mainThumbs.forEach((thumb, thumbIndex) => {
+      const active = thumbIndex === selectedMainSlide;
+      thumb.classList.toggle("active", active);
+      thumb.setAttribute("aria-selected", String(active));
+    });
+
+    if (window.instgrm?.Embeds) window.instgrm.Embeds.process();
+    requestAnimationFrame(() => {
+      document.querySelector(".slide-thumbs")?.scrollIntoView({ block: "nearest" });
+    });
+  }
+
+  async function loadPixGallery() {
+    if (!pixGallery) return;
+
+    try {
+      const response = await fetch("./pix/manifest.json", { cache: "no-store" });
+      if (!response.ok) throw new Error(`Pix manifest returned ${response.status}`);
+      const items = await response.json();
+      if (!Array.isArray(items) || items.length === 0) throw new Error("Pix manifest is empty.");
+
+      pixGallery.replaceChildren(...items.map(createPixFigure));
+    } catch (_error) {
+      const fallback = document.createElement("p");
+      fallback.className = "pix-empty";
+      fallback.textContent = "PIX unavailable.";
+      pixGallery.replaceChildren(fallback);
+    }
+  }
+
+  function createPixFigure(item) {
+    const src = typeof item === "string" ? item : item.src;
+    const caption = typeof item === "string" ? titleFromFilename(item) : item.caption || titleFromFilename(src);
+    const figure = document.createElement("figure");
+    const image = document.createElement("img");
+    const figcaption = document.createElement("figcaption");
+
+    image.src = `./pix/${src}`;
+    image.alt = caption;
+    figcaption.textContent = caption;
+    figure.append(image, figcaption);
+    return figure;
+  }
+
+  function titleFromFilename(filename) {
+    return String(filename || "PIX")
+      .replace(/\.[^.]+$/, "")
+      .replace(/[_-]+/g, " ");
   }
 })();
