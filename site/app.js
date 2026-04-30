@@ -1,63 +1,254 @@
 (function () {
-  const channelButtons = Array.from(document.querySelectorAll(".channel-button"));
-  const messagesEl = document.querySelector("#messages");
-  const form = document.querySelector("#chat-form");
-  const promptEl = document.querySelector("#prompt");
+  const ivGrid = document.querySelector("#iv-grid");
+  if (ivGrid) setupIvDatabase(ivGrid);
+
   const pixGallery = document.querySelector("[data-pix-gallery]");
+  if (pixGallery) loadPixGallery(pixGallery);
+
   const mainSlides = Array.from(document.querySelectorAll("[data-main-slide]"));
   const mainThumbs = Array.from(document.querySelectorAll("[data-main-thumb]"));
-  const chatApiUrl = document.querySelector('meta[name="sow-chat-api"]')?.getAttribute("content")?.trim();
-  let selectedChannel = "mind-philosophy";
-  let selectedMainSlide = 0;
+  if (mainSlides.length > 0) setupMainCarousel({ mainSlides, mainThumbs });
 
-  channelButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      selectedChannel = button.dataset.channel;
-      channelButtons.forEach((item) => {
-        const active = item === button;
-        item.classList.toggle("active", active);
-        item.setAttribute("aria-pressed", String(active));
-      });
-    });
-  });
+  const form = document.querySelector("#chat-form");
+  const promptEl = document.querySelector("#prompt");
+  const messagesEl = document.querySelector("#messages");
+  if (form && promptEl && messagesEl) setupChat({ form, promptEl, messagesEl });
 
-  promptEl.addEventListener("keydown", (event) => {
-    if (event.key === "Enter" && !event.shiftKey) {
-      event.preventDefault();
-      form.requestSubmit();
+  async function setupIvDatabase(grid) {
+    try {
+      const response = await fetch("./data/iv-records.json", { cache: "no-store" });
+      if (!response.ok) throw new Error(`IV records returned ${response.status}`);
+      const records = await response.json();
+      grid.replaceChildren(...records.map(createIvCard));
+    } catch (_error) {
+      const fallback = document.createElement("p");
+      fallback.className = "iv-empty";
+      fallback.textContent = "IV database unavailable.";
+      grid.replaceChildren(fallback);
     }
-  });
-
-  addMsg("agent", "Pick a channel, then ask one short question.");
-
-  loadPixGallery();
-  setupMainCarousel();
-
-  if (!chatApiUrl) {
-    addMsg("agent", "Chat backend is not configured yet. Deploy worker/deepseek-proxy.js, then set the sow-chat-api meta tag in index.html to the Worker /chat URL.");
   }
 
-  form.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const prompt = promptEl.value.trim();
-    if (!prompt) return;
-      if (!chatApiUrl) {
-      addMsg("agent", "Backend URL is missing. Configure the Cloudflare Worker /chat URL first.");
-      return;
+  function createIvCard(record) {
+    const article = document.createElement("article");
+    article.className = "iv-card";
+
+    const frame = document.createElement("div");
+    frame.className = "curve-frame";
+    frame.append(createCurveSvg(record.points || []), createText("span", "curve-label", record.id || "iv-record"));
+
+    const info = document.createElement("div");
+    info.className = "iv-info";
+
+    const buy = document.createElement("button");
+    buy.className = "buy-button";
+    buy.type = "button";
+    buy.textContent = "Buy";
+
+    info.append(
+      buy,
+      createText("h2", "song-title", record.title || "Untitled IV Curve"),
+      createMeta("", record.light || "sunlight"),
+      createMeta("7D fingerprint", formatFingerprint(record.fingerprint))
+    );
+
+    article.append(frame, info);
+    return article;
+  }
+
+  function createCurveSvg(points) {
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("viewBox", "0 0 100 100");
+    svg.setAttribute("role", "img");
+    svg.setAttribute("aria-label", "I-V curve point cloud");
+
+    const sampled = sampleCurvePoints(points, 500);
+    sampled.forEach(([x, y]) => {
+      svg.append(svgEl("circle", { cx: x, cy: y, r: 0.32, class: "curve-point" }));
+    });
+    return svg;
+  }
+
+  function sampleCurvePoints(points, count) {
+    if (!Array.isArray(points) || points.length === 0) return [];
+    const normalized = points
+      .map(([v, i]) => [Number(v), Number(i)])
+      .filter(([v, i]) => Number.isFinite(v) && Number.isFinite(i))
+      .sort((a, b) => a[0] - b[0]);
+    if (normalized.length === 0) return [];
+    const maxV = Math.max(...normalized.map(([v]) => v), 1);
+    const maxI = Math.max(...normalized.map(([, i]) => i), 1);
+
+    return Array.from({ length: count }, (_, index) => {
+      const ratio = count === 1 ? 0 : index / (count - 1);
+      const voltage = ratio * maxV;
+      const current = interpolateCurrent(normalized, voltage);
+      return [4 + (voltage / maxV) * 92, 96 - (current / maxI) * 92];
+    });
+  }
+
+  function interpolateCurrent(points, voltage) {
+    if (voltage <= points[0][0]) return points[0][1];
+    for (let index = 1; index < points.length; index += 1) {
+      const [rightV, rightI] = points[index];
+      if (voltage <= rightV) {
+        const [leftV, leftI] = points[index - 1];
+        const segment = rightV - leftV || 1;
+        const ratio = (voltage - leftV) / segment;
+        return leftI + (rightI - leftI) * ratio;
+      }
     }
+    return points[points.length - 1][1];
+  }
 
-    addMsg("user", prompt);
-    promptEl.value = "";
-    const thinkingMsg = addMsg("agent", "Thinking...");
+  function svgEl(name, attrs) {
+    const element = document.createElementNS("http://www.w3.org/2000/svg", name);
+    Object.entries(attrs).forEach(([key, value]) => element.setAttribute(key, String(value)));
+    return element;
+  }
 
+  function createText(tag, className, text) {
+    const element = document.createElement(tag);
+    element.className = className;
+    element.textContent = text;
+    return element;
+  }
+
+  function createMeta(label, value) {
+    const p = document.createElement("p");
+    p.className = label === "Light source" ? "light-source" : "fingerprint";
+    if (label) {
+      const span = document.createElement("span");
+      span.textContent = label;
+      p.append(span);
+    }
+    p.append(document.createTextNode(value));
+    return p;
+  }
+
+  function formatFingerprint(values) {
+    return Array.isArray(values) ? values.map((value) => Number(value).toFixed(3)).join(" / ") : "n/a";
+  }
+
+  async function loadPixGallery(gallery) {
     try {
-      const context = await loadLocalContext();
-      const responseText = await askBackendChat({ prompt, channel: selectedChannel, context });
-      updateMsg(thinkingMsg, "agent", responseText);
-    } catch (error) {
-      updateMsg(thinkingMsg, "agent", `Error: ${error.message}`);
+      const response = await fetch("./pix/manifest.json", { cache: "no-store" });
+      if (!response.ok) throw new Error(`Pix manifest returned ${response.status}`);
+      const items = await response.json();
+      if (!Array.isArray(items) || items.length === 0) throw new Error("Pix manifest is empty.");
+      gallery.replaceChildren(...items.map(createPixFigure));
+    } catch (_error) {
+      gallery.replaceChildren(createText("p", "pix-empty", "PIX unavailable."));
     }
-  });
+  }
+
+  function createPixFigure(item) {
+    const src = typeof item === "string" ? item : item.src;
+    const caption = typeof item === "string" ? titleFromFilename(item) : item.caption || titleFromFilename(src);
+    const figure = document.createElement("figure");
+    const image = document.createElement("img");
+    const figcaption = document.createElement("figcaption");
+    image.src = `./pix/${src}`;
+    image.alt = caption;
+    figcaption.textContent = caption;
+    figure.append(image, figcaption);
+    return figure;
+  }
+
+  function titleFromFilename(filename) {
+    return String(filename || "PIX")
+      .replace(/\.[^.]+$/, "")
+      .replace(/[_-]+/g, " ");
+  }
+
+  function setupMainCarousel({ mainSlides, mainThumbs }) {
+    let selectedMainSlide = 0;
+    mainThumbs.forEach((thumb) => {
+      thumb.addEventListener("click", () => showMainSlide(Number(thumb.dataset.mainThumb || 0)));
+    });
+    showMainSlide(0);
+
+    function showMainSlide(index) {
+      selectedMainSlide = (index + mainSlides.length) % mainSlides.length;
+      mainSlides.forEach((slide, slideIndex) => {
+        const active = slideIndex === selectedMainSlide;
+        slide.hidden = !active;
+        slide.classList.toggle("active", active);
+      });
+      mainThumbs.forEach((thumb, thumbIndex) => {
+        const active = thumbIndex === selectedMainSlide;
+        thumb.classList.toggle("active", active);
+        thumb.setAttribute("aria-selected", String(active));
+      });
+      if (window.instgrm?.Embeds) window.instgrm.Embeds.process();
+    }
+  }
+
+  function setupChat({ form, promptEl, messagesEl }) {
+    const channelButtons = Array.from(document.querySelectorAll(".channel-button"));
+    const chatApiUrl = document.querySelector('meta[name="sow-chat-api"]')?.getAttribute("content")?.trim();
+    let selectedChannel = "mind-philosophy";
+
+    channelButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        selectedChannel = button.dataset.channel;
+        channelButtons.forEach((item) => {
+          const active = item === button;
+          item.classList.toggle("active", active);
+          item.setAttribute("aria-pressed", String(active));
+        });
+      });
+    });
+
+    promptEl.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault();
+        form.requestSubmit();
+      }
+    });
+
+    addMsg("agent", "Pick a channel, then ask one short question.");
+
+    if (!chatApiUrl) {
+      addMsg("agent", "Chat backend is not configured yet. Deploy worker/deepseek-proxy.js, then set the sow-chat-api meta tag in index.html to the Worker /chat URL.");
+    }
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const prompt = promptEl.value.trim();
+      if (!prompt) return;
+      if (!chatApiUrl) {
+        addMsg("agent", "Backend URL is missing. Configure the Cloudflare Worker /chat URL first.");
+        return;
+      }
+
+      addMsg("user", prompt);
+      promptEl.value = "";
+      const thinkingMsg = addMsg("agent", "Thinking...");
+
+      try {
+        const context = await loadLocalContext();
+        const responseText = await askBackendChat({ prompt, channel: selectedChannel, context, chatApiUrl });
+        updateMsg(thinkingMsg, "agent", responseText);
+      } catch (error) {
+        updateMsg(thinkingMsg, "agent", `Error: ${error.message}`);
+      }
+    });
+
+    function addMsg(role, text) {
+      const div = document.createElement("div");
+      div.className = `msg ${role === "user" ? "user" : "agent"}`;
+      div.textContent = `${role === "user" ? "You" : "Agent"}: ${text}`;
+      messagesEl.appendChild(div);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+      return div;
+    }
+
+    function updateMsg(element, role, text) {
+      element.className = `msg ${role === "user" ? "user" : "agent"}`;
+      element.textContent = `${role === "user" ? "You" : "Agent"}: ${text}`;
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+  }
 
   async function loadLocalContext() {
     const response = await fetch("./knowledge-base.json", { cache: "no-store" });
@@ -65,7 +256,7 @@
     return await response.json();
   }
 
-  async function askBackendChat({ prompt, channel, context }) {
+  async function askBackendChat({ prompt, channel, context, chatApiUrl }) {
     const channelLabel = channel === "innovative-startup" ? "innovative startup 研發新創" : "mind philosophy 心智哲學";
     const agent = context.agents?.[channel] || {};
     const contextText = compactContextText(context, channel);
@@ -142,92 +333,11 @@
     return `${label}: ${values.join("; ")}.`;
   }
 
-  function addMsg(role, text) {
-    const div = document.createElement("div");
-    div.className = `msg ${role === "user" ? "user" : "agent"}`;
-    div.textContent = `${role === "user" ? "You" : "Agent"}: ${text}`;
-    messagesEl.appendChild(div);
-    messagesEl.scrollTop = messagesEl.scrollHeight;
-    return div;
-  }
-
-  function updateMsg(element, role, text) {
-    element.className = `msg ${role === "user" ? "user" : "agent"}`;
-    element.textContent = `${role === "user" ? "You" : "Agent"}: ${text}`;
-    messagesEl.scrollTop = messagesEl.scrollHeight;
-  }
-
   function cleanResponse(text) {
     return text
       .replace(/\*\*(.*?)\*\*/g, "$1")
       .replace(/__(.*?)__/g, "$1")
       .replace(/^#{1,6}\s+/gm, "")
       .trim();
-  }
-
-  function setupMainCarousel() {
-    if (mainSlides.length === 0) return;
-
-    mainThumbs.forEach((thumb) => {
-      thumb.addEventListener("click", () => showMainSlide(Number(thumb.dataset.mainThumb || 0)));
-    });
-    showMainSlide(0);
-  }
-
-  function showMainSlide(index) {
-    selectedMainSlide = (index + mainSlides.length) % mainSlides.length;
-    mainSlides.forEach((slide, slideIndex) => {
-      const active = slideIndex === selectedMainSlide;
-      slide.hidden = !active;
-      slide.classList.toggle("active", active);
-    });
-    mainThumbs.forEach((thumb, thumbIndex) => {
-      const active = thumbIndex === selectedMainSlide;
-      thumb.classList.toggle("active", active);
-      thumb.setAttribute("aria-selected", String(active));
-    });
-
-    if (window.instgrm?.Embeds) window.instgrm.Embeds.process();
-    requestAnimationFrame(() => {
-      document.querySelector(".slide-thumbs")?.scrollIntoView({ block: "nearest" });
-    });
-  }
-
-  async function loadPixGallery() {
-    if (!pixGallery) return;
-
-    try {
-      const response = await fetch("./pix/manifest.json", { cache: "no-store" });
-      if (!response.ok) throw new Error(`Pix manifest returned ${response.status}`);
-      const items = await response.json();
-      if (!Array.isArray(items) || items.length === 0) throw new Error("Pix manifest is empty.");
-
-      pixGallery.replaceChildren(...items.map(createPixFigure));
-    } catch (_error) {
-      const fallback = document.createElement("p");
-      fallback.className = "pix-empty";
-      fallback.textContent = "PIX unavailable.";
-      pixGallery.replaceChildren(fallback);
-    }
-  }
-
-  function createPixFigure(item) {
-    const src = typeof item === "string" ? item : item.src;
-    const caption = typeof item === "string" ? titleFromFilename(item) : item.caption || titleFromFilename(src);
-    const figure = document.createElement("figure");
-    const image = document.createElement("img");
-    const figcaption = document.createElement("figcaption");
-
-    image.src = `./pix/${src}`;
-    image.alt = caption;
-    figcaption.textContent = caption;
-    figure.append(image, figcaption);
-    return figure;
-  }
-
-  function titleFromFilename(filename) {
-    return String(filename || "PIX")
-      .replace(/\.[^.]+$/, "")
-      .replace(/[_-]+/g, " ");
   }
 })();
