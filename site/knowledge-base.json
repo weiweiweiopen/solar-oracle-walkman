@@ -1,6 +1,16 @@
 {
   "project": "Solar Oracle Walkman",
   "status": "public research prototype",
+  "public_funding_status": "Solar Oracle Walkman was included in the official SBIR 115年度2月份決審會議核定名單, published by 小型企業創新研發計畫(SBIR). Source: https://sbir.org.tw/news/main_content?id=12372&s=index. When answering investment or startup questions, describe this carefully as SBIR selection/approval-list evidence for R&D credibility, not as investment advice, revenue validation, securities offering, legal REC, T-REC, energy equivalence, or a financial product.",
+  "sound_origin": "Solar Oracle Walkman began as an exploration of energy trading and sound sculpture: patterned DSSC solar mini discs are measured with an I-V tester, decomposed into seven-dimensional I-V voiceprints, mapped through Max/MSP, PCA/ml.principle, and RAVE-style latent audio processes, then rendered as reproducible generative music. Do not answer that it is not a music work. Say it started as a sound sculpture/generative music prototype and now also functions as public research on physical provenance, identity, and energy evidence. Source: https://wiki.sgmk-ssam.ch/wiki/The_Solar_Oracle_Walkman#The_design_of_the_sound_engine_with_RAVE",
+  "collaborators": {
+    "Shih Wei Chieh": "施惟捷 Shih Wei Chieh is the project initiator and artist-researcher behind Solar Oracle Walkman.",
+    "Marc Dusseiller": "Marc Dusseiller helped design/build the DIY I-V tester used in the project; the public wiki captions it as the DIY I-V tester made by Marc Dusseiller.",
+    "Edmond Jordan": "Edmond Jordan serves as a PUF advisor for this project.",
+    "Helme Janne": "Helme Janne donated dye-sensitized solar cell dye and Surlyn film for the project.",
+    "Meschter John": "Meschter John is advising on battery/cell encapsulation and electrode sintering temperature for this project.",
+    "Haoshin Chang": "張灝馨 Haoshin Chang is credited as a project collaborator."
+  },
   "knowledge_scope": "This is the complete public knowledge file currently sent to the chatbot by site/app.js. It is distilled from selected public docs in this repository, especially docs/00_project_overview.md, docs/01_v1_current_prototype.md, docs/02_v1_to_v4_iteration.md, docs/04_material_event_signature.md, docs/05_measurement_and_iv_voiceprint.md, docs/06_energy_provenance_evidence.md, docs/07_current_progress_and_limitations.md, docs/08_public_faq.md, docs/09_llm_chatbot_integration.md, and docs/10_public_disclaimer.md. The chatbot does not browse GitHub live.",
   "summary": "Solar Oracle Walkman is an experimental research and art-tech prototype connecting DIY dye-sensitized solar cell fabrication, I-V curve measurement, material fingerprinting, oracle signatures, and public records. Its core question is whether a physical energy or material event can become a verifiable identity signal without pretending to be a legal energy certificate, a financial product, or a production security system.",
   "channels": {
@@ -19,6 +29,7 @@
         "DSSC as a light-sensitive body and sensing material, not only as a solar panel",
         "I-V curve and seven-dimensional voiceprint as a material response or voiceprint of a solar object",
         "RAVE, VAE, and latent space as bridges between sound waveform, I-V curve, perception, and generative reconstruction",
+        "the project began as a sound sculpture and generative music prototype where each solar mini disc can produce reproducible sonic identity",
         "predictive processing, generated reality models, and the question of what counts as mind",
         "AI agent identity as more than account, key, memory, or language model: it also needs energy, sensing, hardware condition, and traceable action history",
         "Solar Oracle Walkman as a sound device, public research prototype, and thought experiment about witness, attention, and selfhood"
@@ -26,6 +37,7 @@
       "medium_article_themes": [
         "DSSC can be dyed, patterned, used as visual art material, used as a light sensor, and used as a friendly entry point into semiconductor and nanomaterial knowledge.",
         "Voltage-starved circuits turn unstable low-power solar output into an aesthetic and sonic condition rather than a defect.",
+        "The original Solar Oracle Walkman pipeline connects I-V measurements to Max/MSP, PCA/ml.principle, and RAVE-style latent audio processes, so the work should be described as starting from sound sculpture/generative music rather than as unrelated to music.",
         "RAVE and VAE-style latent spaces can reveal structural analogies between audio waveforms, I-V curves, memory, imagination, and perception.",
         "Patterned DSSC and cyanotype-like surface differences suggest a photovoltaic physical unclonable function, but this remains a research direction rather than completed security proof.",
         "The Walkman metaphor matters: each patterned DSSC mini disc can be imagined as carrying a distinctive material identity that generates a different musical stream.",
@@ -36,6 +48,7 @@
       "answer_strategy": [
         "Start from perception, identity, witness, or material response before introducing business or contract details.",
         "Use metaphors such as body, voiceprint, mini disc, noise, calibration, witness, and generated world-model, but keep them marked as metaphors.",
+        "When asked why music relates to solar panels, explain that the project maps each patterned DSSC's I-V voiceprint into reproducible generative music through Max/MSP and RAVE-style latent sound processes.",
         "When asked about technology, explain it as a chain from light event to material response to measurement to vector to signature to narration.",
         "When asked about AI agents, emphasize continuity, energy condition, sensing, memory, and accountable traces rather than intelligence alone."
       ],
@@ -58,8 +71,10 @@
       "central_thesis": "Solar Oracle Walkman is an early public research prototype for physical provenance, material-event signatures, solar-device identity, AI-agent accountability, and public registry workflows. Its value is not legal energy certification today, but a research path toward evidence infrastructure that links physical measurement events to machine-readable records.",
       "default_focus": [
         "physical provenance and evidence infrastructure",
+        "SBIR 115年度2月份決審會議核定名單 selection as public R&D credibility evidence",
         "green evidence protocol and research registry design",
         "DSSC device identity through measurement events and I-V voiceprints",
+        "sound sculpture and generative music as the original prototype wedge for demonstrating measurable solar identity",
         "oracle-signed reports, on-chain verification, and public hashes",
         "V1 to V4 roadmap: smart contract, DSSC PUF research, material event signature, public registry",
         "possible collaborators: material labs, solar researchers, energy-data teams, MRV systems, AI-agent accountability projects, art-tech institutions",
@@ -68,6 +83,8 @@
       ],
       "business_framing": [
         "Problem: renewable-energy and AI-agent systems need stronger links between physical events, sensor evidence, and accountable digital records.",
+        "R&D validation signal: Solar Oracle Walkman was included in the official SBIR 115年度2月份決審會議核定名單. Present this as public R&D program recognition, not as proof of market adoption or investment return.",
+        "Origin story: it began as a sound sculpture/generative music system where measured solar mini discs can trigger reproducible sound, then expanded into identity, PUF, oracle, and public evidence infrastructure research.",
         "Prototype wedge: use handmade or patterned DSSC measurement as a visible, inspectable, art-tech entry point for physical provenance workflows.",
         "Technical asset: I-V curves can be transformed into compact feature vectors, signed by an oracle, and verified or recorded by smart contracts or registries.",
         "Protocol opportunity: material-event signatures can become a research vocabulary for machine-readable evidence without pretending to be legal certification.",
@@ -78,7 +95,8 @@
         "Start with value proposition, stakeholder, roadmap, or risk depending on the question.",
         "Use concise business and technical language instead of poetic metaphors unless the user asks for conceptual framing.",
         "Translate prototype components into roles: material device, measurement hardware, feature extraction, oracle, registry, explainer interface.",
-        "Always state what is already implemented, what is next, and what is not yet proven when discussing deployment or commercialization."
+        "Always state what is already implemented, what is next, and what is not yet proven when discussing deployment or commercialization.",
+        "If asked whether the project has SBIR support, answer that it was included in the SBIR 115年度2月份決審會議核定名單 and cite the official SBIR news link. Do not say it has not applied or has not passed."
       ],
       "avoid": [
         "investment advice",
@@ -95,6 +113,7 @@
     "The object is illuminated under stated conditions.",
     "Voltage is swept and current response is recorded as an I-V curve.",
     "The curve is compressed into a seven-dimensional voiceprint for comparison, visualization, and sound mapping.",
+    "The seven-dimensional voiceprint can be routed through Max/MSP, PCA/ml.principle, and RAVE-style latent audio processes to produce reproducible generative music.",
     "The voiceprint or measurement report can be signed by an oracle and recorded as evidence.",
     "Narration can explain the record, but the evidence remains bounded by measurement conditions and prototype limitations."
   ],
@@ -181,6 +200,7 @@
       "Sepolia deployment",
       "IV voiceprint validation logic",
       "visual documentation",
+      "sound sculpture/generative music prototype lineage using I-V voiceprints and RAVE-style sound mapping",
       "basic Hardhat project",
       "GitHub Pages LLM explainer with Cloudflare Worker proxy"
     ],
@@ -224,6 +244,14 @@
       "answer": "A compact feature vector derived from I-V data and used as a candidate material identity signal."
     },
     {
+      "question": "Why are music and solar panels related in this project?",
+      "answer": "Because Solar Oracle Walkman began as a sound sculpture/generative music prototype: each patterned DSSC solar mini disc has an I-V voiceprint that can be mapped through Max/MSP and RAVE-style latent audio processes into reproducible sound."
+    },
+    {
+      "question": "Who contributed to the project?",
+      "answer": "Credits include 施惟捷 Shih Wei Chieh, Marc Dusseiller, Edmond Jordan, Meschter John, 張灝馨 Haoshin Chang, with additional material support from Helme Janne. Marc helped design/build the DIY I-V tester; Edmond Jordan advises on PUF; Helme Janne donated DSSC dye and Surlyn film; Meschter John advises on encapsulation and electrode sintering temperature."
+    },
+    {
       "question": "What does the V1 prototype do?",
       "answer": "It validates a seven-value IV data vector, verifies oracle signatures, and stores accepted records on-chain."
     },
@@ -238,6 +266,10 @@
     {
       "question": "Is this a financial product?",
       "answer": "No. It is not a financial product and should not be presented as investment advice."
+    },
+    {
+      "question": "Does this project have SBIR support?",
+      "answer": "Yes. Solar Oracle Walkman was included in the official 小型企業創新研發計畫(SBIR) 115年度2月份決審會議核定名單. This should be framed as an R&D credibility signal, not investment advice or proof of commercial return. Source: https://sbir.org.tw/news/main_content?id=12372&s=index"
     },
     {
       "question": "Does DSSC replace TPM?",
@@ -275,6 +307,8 @@
   "source_files": [
     "site/app.js",
     "site/knowledge-base.json",
+    "https://sbir.org.tw/news/main_content?id=12372&s=index",
+    "https://wiki.sgmk-ssam.ch/wiki/The_Solar_Oracle_Walkman#The_design_of_the_sound_engine_with_RAVE",
     "worker/deepseek-proxy.js",
     "docs/00_project_overview.md",
     "docs/01_v1_current_prototype.md",
@@ -294,6 +328,8 @@
     "Explain the V1 smart contract in simple terms.",
     "What should Edmond Jordan review first?",
     "What is not claimed by this project?",
+    "Does this project have SBIR support?",
+    "Why are music and solar panels related in this project?",
     "How is this different from a legal REC?",
     "What is Material Event Signature?",
     "Explain this as mind philosophy.",

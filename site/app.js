@@ -3,7 +3,8 @@
   if (ivGrid) setupIvDatabase(ivGrid);
 
   const pixGallery = document.querySelector("[data-pix-gallery]");
-  if (pixGallery) loadPixGallery(pixGallery);
+  const pixLightbox = pixGallery ? setupPixLightbox() : null;
+  if (pixGallery) loadPixGallery(pixGallery, pixLightbox);
 
   const mainSlides = Array.from(document.querySelectorAll("[data-main-slide]"));
   const mainThumbs = Array.from(document.querySelectorAll("[data-main-thumb]"));
@@ -12,7 +13,10 @@
   const form = document.querySelector("#chat-form");
   const promptEl = document.querySelector("#prompt");
   const messagesEl = document.querySelector("#messages");
-  if (form && promptEl && messagesEl) setupChat({ form, promptEl, messagesEl });
+  if (form && promptEl && messagesEl) {
+    setupIdentityMarquee({ form, promptEl });
+    setupChat({ form, promptEl, messagesEl });
+  }
 
   async function setupIvDatabase(grid) {
     try {
@@ -129,29 +133,82 @@
     return Array.isArray(values) ? values.map((value) => Number(value).toFixed(3)).join(" / ") : "n/a";
   }
 
-  async function loadPixGallery(gallery) {
+  async function loadPixGallery(gallery, lightbox) {
     try {
       const response = await fetch("./pix/manifest.json", { cache: "no-store" });
       if (!response.ok) throw new Error(`Pix manifest returned ${response.status}`);
       const items = await response.json();
       if (!Array.isArray(items) || items.length === 0) throw new Error("Pix manifest is empty.");
-      gallery.replaceChildren(...items.map(createPixFigure));
+      gallery.replaceChildren(...items.map((item) => createPixFigure(item, lightbox)));
     } catch (_error) {
       gallery.replaceChildren(createText("p", "pix-empty", "PIX unavailable."));
     }
   }
 
-  function createPixFigure(item) {
+  function createPixFigure(item, lightbox) {
     const src = typeof item === "string" ? item : item.src;
     const caption = typeof item === "string" ? titleFromFilename(item) : item.caption || titleFromFilename(src);
     const figure = document.createElement("figure");
+    const button = document.createElement("button");
     const image = document.createElement("img");
     const figcaption = document.createElement("figcaption");
-    image.src = `./pix/${src}`;
+    const fullSrc = `./pix/${src}`;
+    button.className = "pix-open";
+    button.type = "button";
+    button.setAttribute("aria-label", `Open large image: ${caption}`);
+    button.addEventListener("click", () => lightbox?.open(fullSrc, caption));
+    image.src = fullSrc;
     image.alt = caption;
     figcaption.textContent = caption;
-    figure.append(image, figcaption);
+    button.append(image);
+    figure.append(button, figcaption);
     return figure;
+  }
+
+  function setupPixLightbox() {
+    const overlay = document.createElement("div");
+    const closeButton = document.createElement("button");
+    const image = document.createElement("img");
+    const caption = document.createElement("p");
+
+    overlay.className = "pix-lightbox";
+    overlay.hidden = true;
+    overlay.setAttribute("role", "dialog");
+    overlay.setAttribute("aria-modal", "true");
+    overlay.setAttribute("aria-label", "Large project photo");
+
+    closeButton.className = "pix-lightbox-close";
+    closeButton.type = "button";
+    closeButton.setAttribute("aria-label", "Close large image");
+    closeButton.textContent = "Close";
+
+    caption.className = "pix-lightbox-caption";
+    overlay.append(closeButton, image, caption);
+    document.body.append(overlay);
+
+    closeButton.addEventListener("click", close);
+    overlay.addEventListener("click", (event) => {
+      if (event.target === overlay) close();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (!overlay.hidden && event.key === "Escape") close();
+    });
+
+    function open(src, text) {
+      image.src = src;
+      image.alt = text;
+      caption.textContent = text;
+      overlay.hidden = false;
+      document.body.classList.add("lightbox-open");
+      closeButton.focus();
+    }
+
+    function close() {
+      overlay.hidden = true;
+      document.body.classList.remove("lightbox-open");
+    }
+
+    return { open };
   }
 
   function titleFromFilename(filename) {
@@ -187,6 +244,7 @@
     const channelButtons = Array.from(document.querySelectorAll(".channel-button"));
     const chatApiUrl = document.querySelector('meta[name="sow-chat-api"]')?.getAttribute("content")?.trim();
     let selectedChannel = "mind-philosophy";
+    const visibleScrollbar = setupVisibleScrollbar(messagesEl);
 
     channelButtons.forEach((button) => {
       button.addEventListener("click", () => {
@@ -239,15 +297,98 @@
       div.className = `msg ${role === "user" ? "user" : "agent"}`;
       div.textContent = `${role === "user" ? "You" : "Agent"}: ${text}`;
       messagesEl.appendChild(div);
-      messagesEl.scrollTop = messagesEl.scrollHeight;
+      scrollToBottom();
       return div;
     }
 
     function updateMsg(element, role, text) {
       element.className = `msg ${role === "user" ? "user" : "agent"}`;
       element.textContent = `${role === "user" ? "You" : "Agent"}: ${text}`;
-      messagesEl.scrollTop = messagesEl.scrollHeight;
+      scrollToBottom();
     }
+
+    function scrollToBottom() {
+      requestAnimationFrame(() => {
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+        visibleScrollbar.update();
+      });
+    }
+  }
+
+  function setupVisibleScrollbar(messagesEl) {
+    const track = messagesEl.parentElement?.querySelector(".messages-scrollbar");
+    const thumb = track?.querySelector(".messages-scrollbar-thumb");
+    if (!track || !thumb) return { update() {} };
+
+    let dragging = false;
+    let dragStartY = 0;
+    let startScrollTop = 0;
+
+    messagesEl.addEventListener("scroll", update);
+    track.addEventListener("wheel", (event) => {
+      event.preventDefault();
+      messagesEl.scrollTop += event.deltaY;
+    }, { passive: false });
+    window.addEventListener("resize", update);
+    new ResizeObserver(update).observe(messagesEl);
+    new MutationObserver(update).observe(messagesEl, { childList: true, subtree: true, characterData: true });
+
+    track.addEventListener("pointerdown", (event) => {
+      const rect = track.getBoundingClientRect();
+      const thumbRect = thumb.getBoundingClientRect();
+      if (event.clientY < thumbRect.top || event.clientY > thumbRect.bottom) {
+        const ratio = (event.clientY - rect.top) / Math.max(rect.height, 1);
+        messagesEl.scrollTop = ratio * messagesEl.scrollHeight - messagesEl.clientHeight / 2;
+      }
+      dragging = true;
+      dragStartY = event.clientY;
+      startScrollTop = messagesEl.scrollTop;
+      thumb.classList.add("dragging");
+      track.setPointerCapture(event.pointerId);
+      update();
+    });
+
+    track.addEventListener("pointermove", (event) => {
+      if (!dragging) return;
+      const maxScroll = messagesEl.scrollHeight - messagesEl.clientHeight;
+      const maxThumbTop = track.clientHeight - thumb.offsetHeight;
+      messagesEl.scrollTop = startScrollTop + ((event.clientY - dragStartY) / Math.max(maxThumbTop, 1)) * maxScroll;
+    });
+
+    track.addEventListener("pointerup", stopDragging);
+    track.addEventListener("pointercancel", stopDragging);
+
+    update();
+
+    function stopDragging(event) {
+      dragging = false;
+      thumb.classList.remove("dragging");
+      if (track.hasPointerCapture(event.pointerId)) track.releasePointerCapture(event.pointerId);
+    }
+
+    function update() {
+      const visibleRatio = messagesEl.clientHeight / Math.max(messagesEl.scrollHeight, 1);
+      const thumbHeight = Math.max(track.clientHeight * visibleRatio, 34);
+      const maxScroll = messagesEl.scrollHeight - messagesEl.clientHeight;
+      const maxThumbTop = track.clientHeight - thumbHeight;
+      const top = maxScroll > 0 ? (messagesEl.scrollTop / maxScroll) * maxThumbTop : 0;
+
+      thumb.style.height = `${Math.min(thumbHeight, track.clientHeight)}px`;
+      thumb.style.transform = `translateY(${Math.max(0, top)}px)`;
+      thumb.hidden = maxScroll <= 1;
+      track.classList.toggle("disabled", maxScroll <= 1);
+    }
+
+    return { update };
+  }
+
+  function setupIdentityMarquee({ form, promptEl }) {
+    document.querySelectorAll(".identity-marquee button").forEach((button) => {
+      button.addEventListener("click", () => {
+        promptEl.value = button.textContent.trim();
+        form.requestSubmit();
+      });
+    });
   }
 
   async function loadLocalContext() {
@@ -266,7 +407,9 @@
       "Use only the provided project context before answering. Do not claim you can browse GitHub or inspect repository files live.",
       "If asked what you can see, say you are reading the static public knowledge file that this page sends with each question.",
       "Use precise boundary language: public research prototype; not legal REC; not T-REC; not energy equivalence; not financial product.",
-      "Keep every answer very short and easy to absorb: 1 to 3 short sentences, about 120 Chinese characters or fewer unless the user asks for detail. Avoid dense explanations. Invite the user to ask for more details if needed.",
+      "If asked about SBIR, answer from the provided public_funding_status. Do not say the project has not applied for or has not passed SBIR.",
+      "Keep answers concise but not too short: usually 2 to 5 short sentences, about 240 Chinese characters or fewer unless the user asks for detail. Avoid dense explanations. Invite the user to ask for more details if needed.",
+      "If asked about music or sound, do not say it is not a music work. Explain that it began as a sound sculpture and generative music prototype, while the current public site also frames it as identity and evidence research.",
       `Response channel: ${channelLabel}.`,
       agentPrompt,
       "Do not blend the two channel personalities. If the user selected mind philosophy, prioritize identity, perception, material witness, energy layer, and mind-philosophy framing. If the user selected innovative startup, prioritize roadmap, stakeholders, protocol design, technical status, business layout, and risk boundaries.",
@@ -285,7 +428,7 @@
           { role: "system", content: `Short project context from site/knowledge-base.json:\n${contextText}` },
           { role: "user", content: prompt }
         ],
-        max_tokens: 140
+        max_tokens: 280
       })
     });
 
@@ -313,7 +456,10 @@
     const agent = context.agents?.[channel] || {};
     return [
       `Project: ${context.project}. Status: ${context.status}.`,
+      context.public_funding_status ? `Public funding/R&D status: ${context.public_funding_status}` : "",
       `Summary: ${context.summary}`,
+      context.sound_origin ? `Sound/music origin: ${context.sound_origin}` : "",
+      context.collaborators ? formatList("Collaborators", Object.values(context.collaborators)) : "",
       `Agent thesis: ${agent.central_thesis || "Use the selected channel framing."}`,
       formatList("Agent focus", limitList(agent.default_focus, 3)),
       `Core workflow: ${limitList(context.core_workflow, 3).join(" -> ")}.`,

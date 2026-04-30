@@ -9,9 +9,29 @@
     />
     <meta name="sow-chat-api" content="https://solar-oracle-deepseek-proxy.dontmarryme.workers.dev/chat" />
     <title>Solar Oracle Walkman | IV Database</title>
-    <link rel="stylesheet" href="./style.css?v=20260430-cloud-iv1" />
+    <link rel="stylesheet" href="./style.css?v=20260430-footer-size1" />
   </head>
   <body>
+    <div class="identity-marquee" aria-label="Identity statements">
+      <div class="identity-marquee-track">
+        <button type="button">DIY太陽能與心智哲學的雙軸對話</button>
+        <button type="button">在噪音中維持身份 Maintaining Identity in Noise</button>
+        <button type="button">A Dual-Axis Dialogue between Photovoltaic PUF and Philosophy of Mind</button>
+        <button type="button">測量現實這件事本身到底意味著什麼？</button>
+        <button type="button">當生成變成一種普遍條件之後，就會直接碰到身份問題</button>
+        <button type="button">把身份層和能源層綁在一起是一種對未來基礎設施的直覺</button>
+        <button type="button">「我」可能不再只是自然形成的心理事實。</button>
+        <button type="button">為什麼音樂和太陽能板有關系？</button>
+        <button type="button" tabindex="-1" aria-hidden="true">DIY太陽能與心智哲學的雙軸對話</button>
+        <button type="button" tabindex="-1" aria-hidden="true">在噪音中維持身份 Maintaining Identity in Noise</button>
+        <button type="button" tabindex="-1" aria-hidden="true">A Dual-Axis Dialogue between Photovoltaic PUF and Philosophy of Mind</button>
+        <button type="button" tabindex="-1" aria-hidden="true">測量現實這件事本身到底意味著什麼？</button>
+        <button type="button" tabindex="-1" aria-hidden="true">當生成變成一種普遍條件之後，就會直接碰到身份問題</button>
+        <button type="button" tabindex="-1" aria-hidden="true">把身份層和能源層綁在一起是一種對未來基礎設施的直覺</button>
+        <button type="button" tabindex="-1" aria-hidden="true">「我」可能不再只是自然形成的心理事實。</button>
+        <button type="button" tabindex="-1" aria-hidden="true">為什麼音樂和太陽能板有關系？</button>
+      </div>
+    </div>
     <main class="page" aria-label="Solar Oracle Walkman slides and IV database">
       <section class="main-carousel" aria-label="Solar Oracle Walkman content carousel">
         <div class="main-slides">
@@ -36,7 +56,12 @@
                 <button class="channel-button" type="button" data-channel="innovative-startup" aria-pressed="false">innovative startup 研發新創</button>
               </div>
 
-              <div id="messages" class="messages" aria-live="polite"></div>
+              <div class="messages-shell">
+                <div id="messages" class="messages" aria-live="polite"></div>
+                <div class="messages-scrollbar" aria-hidden="true">
+                  <div class="messages-scrollbar-thumb"></div>
+                </div>
+              </div>
 
               <form id="chat-form" class="chat-form">
                 <textarea id="prompt" rows="4" placeholder="Ask for an explanation or plan... (Press Enter to send, Shift+Enter for newline)"></textarea>
@@ -96,9 +121,9 @@
       <section id="iv-grid" class="iv-grid" aria-label="I-V curve database products"></section>
     </main>
 
-    <footer class="footer">solar oracle walkman 2026</footer>
+    <footer class="footer">solar oracle walkman 2026 · credits: 施惟捷 Shih Wei Chieh, Marc Dusseiller, Edmond Jordan, Meschter John, 張灝馨 Haoshin Chang</footer>
 
     <script async src="https://www.instagram.com/embed.js"></script>
-    <script src="./app.js?v=20260430-cloud-iv1"></script>
+    <script src="./app.js?v=20260430-footer-size1"></script>
   </body>
 </html>
