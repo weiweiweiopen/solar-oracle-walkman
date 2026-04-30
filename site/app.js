@@ -244,6 +244,9 @@
     const channelButtons = Array.from(document.querySelectorAll(".channel-button"));
     const chatApiUrl = document.querySelector('meta[name="sow-chat-api"]')?.getAttribute("content")?.trim();
     let selectedChannel = "mind-philosophy";
+    const contextPromise = loadLocalContext();
+    contextPromise.catch(() => {});
+    const chatHistoryByChannel = new Map();
     const visibleScrollbar = setupVisibleScrollbar(messagesEl);
 
     channelButtons.forEach((button) => {
@@ -284,9 +287,15 @@
       const thinkingMsg = addMsg("agent", "Thinking...");
 
       try {
-        const context = await loadLocalContext();
-        const responseText = await askBackendChat({ prompt, channel: selectedChannel, context, chatApiUrl });
+        const context = await contextPromise;
+        const history = chatHistoryByChannel.get(selectedChannel) || [];
+        const responseText = await askBackendChat({ prompt, channel: selectedChannel, context, chatApiUrl, history });
         updateMsg(thinkingMsg, "agent", responseText);
+        chatHistoryByChannel.set(selectedChannel, trimChatHistory([
+          ...history,
+          { role: "user", content: prompt },
+          { role: "assistant", content: responseText }
+        ]));
       } catch (error) {
         updateMsg(thinkingMsg, "agent", `Error: ${error.message}`);
       }
@@ -397,7 +406,7 @@
     return await response.json();
   }
 
-  async function askBackendChat({ prompt, channel, context, chatApiUrl }) {
+  async function askBackendChat({ prompt, channel, context, chatApiUrl, history }) {
     const channelLabel = channel === "innovative-startup" ? "innovative startup 研發新創" : "mind philosophy 心智哲學";
     const agent = context.agents?.[channel] || {};
     const contextText = compactContextText(context, channel);
@@ -405,7 +414,7 @@
     const systemPrompt = [
       "You are the Solar Oracle Walkman chatbot, but you must inhabit the selected agent profile instead of answering as a generic assistant.",
       "Use only the provided project context before answering. Do not claim you can browse GitHub or inspect repository files live.",
-      "If asked what you can see, say you are reading the static public knowledge file that this page sends with each question.",
+      "If asked what you can see, say you are reading the static public knowledge file loaded when this page initializes.",
       "Use precise boundary language: public research prototype; not legal REC; not T-REC; not energy equivalence; not financial product.",
       "If asked about SBIR, answer from the provided public_funding_status. Do not say the project has not applied for or has not passed SBIR.",
       "Keep answers concise but not too short: usually 2 to 5 short sentences, about 240 Chinese characters or fewer unless the user asks for detail. Avoid dense explanations. Invite the user to ask for more details if needed.",
@@ -426,6 +435,7 @@
         messages: [
           { role: "system", content: systemPrompt },
           { role: "system", content: `Short project context from site/knowledge-base.json:\n${contextText}` },
+          ...trimChatHistory(history),
           { role: "user", content: prompt }
         ],
         max_tokens: 280
@@ -435,6 +445,10 @@
     const data = await response.json().catch(() => ({}));
     if (!response.ok) throw new Error(data.error || `Chat API returned ${response.status}`);
     return cleanResponse(data.content?.trim() || "No response content.");
+  }
+
+  function trimChatHistory(history) {
+    return Array.isArray(history) ? history.slice(-8) : [];
   }
 
   function formatAgentPrompt(agent, channelLabel) {
