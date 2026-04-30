@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Solar Oracle Walkman — agent console rendered as a technical sketch of a landscape solar cassette player." />
+    <meta name="sow-chat-api" content="https://solar-oracle-deepseek-proxy.dontmarryme.workers.dev/chat" />
+    <title>Solar Oracle Walkman | Agent Console</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;600;700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./style2.css?v=20260430-3" />
+  </head>
+  <body>
+    <main class="sheet" aria-label="Solar Oracle Walkman chat">
+
+      <!-- ============================================ -->
+      <!-- WALKMAN CHASSIS                              -->
+      <!-- All product text lives INSIDE the chassis.   -->
+      <!-- ============================================ -->
+      <section class="walkman" aria-labelledby="chat-title">
+        <!-- left-edge hinges -->
+        <div class="hinge h1" aria-hidden="true"></div>
+        <div class="hinge h2" aria-hidden="true"></div>
+
+        <!-- top-edge cutouts -->
+        <div class="lump" aria-hidden="true"></div>
+        <div class="dial-cutout" aria-hidden="true"><span>tuner</span></div>
+
+        <!-- right-edge clamp / cassette door -->
+        <div class="clamp" aria-hidden="true"></div>
+
+        <!-- ===== LEFT: solar panel = chat surface ===== -->
+        <div class="solar-panel">
+          <!-- ghosted SOLAR ORACLE WALKMAN watermark -->
+          <div class="solar-mark" aria-hidden="true">
+            <div class="word">SOLAR ORACLE</div>
+            <div class="word">WALKMAN</div>
+          </div>
+
+          <h1 id="chat-title" class="visually-hidden">Solar Oracle Walkman chat</h1>
+
+          <div class="channel-options" role="group" aria-label="Channel">
+            <button class="channel-button active" type="button" data-channel="mind-philosophy" aria-pressed="true">
+              <span class="led-lamp" aria-hidden="true"></span>
+              <span class="ch-label">CH&nbsp;01 · mind philosophy 心智哲學</span>
+            </button>
+            <button class="channel-button" type="button" data-channel="innovative-startup" aria-pressed="false">
+              <span class="led-lamp" aria-hidden="true"></span>
+              <span class="ch-label">CH&nbsp;02 · innovative startup 研發新創</span>
+            </button>
+          </div>
+
+          <!-- conversation log -->
+          <div id="messages" class="messages" aria-live="polite"></div>
+
+          <!-- input form -->
+          <form id="chat-form" class="chat-form">
+            <textarea id="prompt" rows="3" placeholder="// type a question and press ENTER · shift+enter = newline"></textarea>
+            <div class="input-row">
+              <span class="hint">input · plain text</span>
+              <span class="hint hint-short">enter to send · shift+enter newline</span>
+            </div>
+          </form>
+        </div>
+
+        <!-- ===== RIGHT: control column ===== -->
+        <aside class="controls" aria-label="Device controls">
+          <!-- wordmark -->
+          <div class="wordmark">
+            <div class="brand">S<span class="dot"></span>O<span class="dot"></span>W</div>
+            <div class="tag">Solar · Oracle · Walkman</div>
+          </div>
+
+          <!-- speaker grille pattern -->
+          <div class="grille" aria-hidden="true">
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          </div>
+
+          <!-- model label, vertical type, like a cassette door label -->
+          <div class="model-block">
+            <div class="vtext">SOW · 26</div>
+            <div class="meta">
+              <div class="row"><span>FM</span><span>AM</span></div>
+              <div class="row"><span>I-V</span><span>VOICEPRINT</span></div>
+              <div class="row"><span>CH</span><span>01 / 02</span></div>
+              <div class="row"><span>PWR</span><span>SOLAR</span></div>
+            </div>
+          </div>
+
+          <!-- status read-out -->
+          <div class="status-block" aria-label="Status">
+            <div class="pair">
+              <span>Link</span>
+              <span class="led on"><i></i> ONLINE</span>
+            </div>
+            <div class="pair">
+              <span>Channel</span>
+              <span id="status-channel">CH 01</span>
+            </div>
+            <div class="pair">
+              <span>Mode</span>
+              <span>research</span>
+            </div>
+            <div class="pair">
+              <span>Out</span>
+              <span>natural lang.</span>
+            </div>
+          </div>
+        </aside>
+      </section>
+    </main>
+
+    <script src="./app.js?v=20260430-2"></script>
+    <script>
+      // keep the right-side status panel in sync with the active channel
+      (function () {
+        const statusEl = document.getElementById("status-channel");
+        if (!statusEl) return;
+        const labelMap = {
+          "mind-philosophy": "CH 01 · MIND",
+          "innovative-startup": "CH 02 · STARTUP"
+        };
+        document.querySelectorAll(".channel-button").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const ch = btn.dataset.channel;
+            statusEl.textContent = labelMap[ch] || "CH 01";
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>
