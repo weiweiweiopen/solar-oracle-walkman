@@ -52,6 +52,7 @@
       buy,
       createText("h2", "song-title", record.title || "Untitled IV Curve"),
       createMeta("", record.light || "sunlight"),
+      createMeta("Sample status", record.sampleStatus || "status not documented", "sample-status"),
       createMeta("7D fingerprint", formatFingerprint(record.fingerprint))
     );
 
@@ -117,9 +118,9 @@
     return element;
   }
 
-  function createMeta(label, value) {
+  function createMeta(label, value, className) {
     const p = document.createElement("p");
-    p.className = label === "Light source" ? "light-source" : "fingerprint";
+    p.className = className || (label === "Light source" ? "light-source" : "fingerprint");
     if (label) {
       const span = document.createElement("span");
       span.textContent = label;
@@ -267,7 +268,7 @@
       }
     });
 
-    addMsg("agent", "Pick a channel, then ask one short question.");
+    addMsg("agent", "Wise mouse operator is online. Pick a channel, then ask one short question.");
 
     if (!chatApiUrl) {
       addMsg("agent", "Chat backend is not configured yet. Deploy worker/deepseek-proxy.js, then set the sow-chat-api meta tag in index.html to the Worker /chat URL.");
@@ -303,8 +304,14 @@
 
     function addMsg(role, text) {
       const div = document.createElement("div");
+      const label = document.createElement("span");
+      const body = document.createElement("span");
       div.className = `msg ${role === "user" ? "user" : "agent"}`;
-      div.textContent = `${role === "user" ? "You" : "Agent"}: ${text}`;
+      label.className = "msg-label";
+      body.className = "msg-text";
+      label.textContent = role === "user" ? "You" : "Wise mouse";
+      body.textContent = text;
+      div.append(label, body);
       messagesEl.appendChild(div);
       scrollToBottom();
       return div;
@@ -312,7 +319,14 @@
 
     function updateMsg(element, role, text) {
       element.className = `msg ${role === "user" ? "user" : "agent"}`;
-      element.textContent = `${role === "user" ? "You" : "Agent"}: ${text}`;
+      element.replaceChildren();
+      const label = document.createElement("span");
+      const body = document.createElement("span");
+      label.className = "msg-label";
+      body.className = "msg-text";
+      label.textContent = role === "user" ? "You" : "Wise mouse";
+      body.textContent = text;
+      element.append(label, body);
       scrollToBottom();
     }
 
