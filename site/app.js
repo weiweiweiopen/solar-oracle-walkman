@@ -54,7 +54,11 @@
 
     const info = document.createElement("div");
     info.className = "iv-info account-info";
-    info.append(createText("h2", "song-title", `Solar curve account ${group.id}`), createText("p", "sample-status", group.status || ""), createAccountMetrics(group.metrics || {}));
+    const listen = document.createElement("button");
+    listen.className = "buy-button listen-button";
+    listen.type = "button";
+    listen.textContent = "Listen";
+    info.append(listen, createText("h2", "song-title", `Solar curve account ${group.id}`), createText("p", "sample-status", group.status || ""), createAccountMetrics(group.metrics || {}));
     article.append(frame, info);
     return article;
   }
@@ -81,7 +85,7 @@
   function createAccountMetrics(metrics) {
     const dl = document.createElement("dl");
     dl.className = "account-metrics";
-    addMetric(dl, "η (%)", `${formatNumber(metrics.etaPercent || 0, 2)}%`);
+    addMetric(dl, "eta (%)", `${formatNumber(metrics.etaPercent || 0, 2)}%`);
     addMetric(dl, "Voc", `${formatNumber((metrics.voc || 0) * 1000, 1)} mV`);
     addMetric(dl, "Jsc", `${formatNumber(metrics.jsc || 0, 3)} mA`);
     addMetric(dl, "FF", formatNumber(metrics.ff || 0, 3));
@@ -167,7 +171,7 @@
       card.append(createText("h3", "metric-title", `Group ${group.id}`), createText("p", "sample-status", group.status || ""));
       const dl = document.createElement("dl");
       dl.className = "metric-list";
-      addMetric(dl, "η (%)", `${formatNumber(m.etaPercent || 0, 2)}%`);
+      addMetric(dl, "eta (%)", `${formatNumber(m.etaPercent || 0, 2)}%`);
       addMetric(dl, "Voc", `${formatNumber((m.voc || 0) * 1000, 1)} mV`);
       addMetric(dl, "Jsc", `${formatNumber(m.jsc || 0, 3)} mA`);
       addMetric(dl, "FF", formatNumber(m.ff || 0, 3));
@@ -187,22 +191,45 @@
 
   function createShapeRmsePanel(data) {
     const panel = document.createElement("section");
-    panel.className = "orange-card shape-rmse-card";
-    panel.append(createText("p", "eyebrow", "Shape RMSE analysis"), createText("h2", "curve-panel-title", "Intra-group max vs inter-group min, 2026-06-29"));
-    if (data.rmseRuler) panel.append(createRmseEvidenceBoard(data.rmseRuler));
-    const rows = data.shapeRmse || [];
-    const chart = document.createElement("div");
-    chart.className = "rmse-bars";
-    const max = Math.max(...rows.flatMap((row) => [row.intraMax, row.interMin]), 1);
-    rows.forEach((row) => {
-      const item = document.createElement("article");
-      item.className = "rmse-row";
-      item.append(createText("h3", "rmse-kind", `${row.kind} · ratio ${formatNumber(row.ratio, 2)}×`));
-      item.append(createRmseBar("intra max", row.intraMax, max), createRmseBar("inter min", row.interMin, max));
-      chart.append(item);
-    });
-    panel.append(chart);
+    panel.className = "orange-card shape-rmse-card shape-rmse-card--simple";
+    panel.append(createText("p", "eyebrow", "Shape RMSE"), createText("h2", "curve-panel-title", "Identity gap: same-cell variation vs nearest other cell"));
+    panel.append(createShapeHighlight(data.shapeHighlight));
     return panel;
+  }
+
+  function createShapeHighlight(highlight) {
+    const wrap = document.createElement("section");
+    wrap.className = "shape-highlight";
+    wrap.append(createText("p", "shape-summary", highlight?.summary || "A curve account is distinguishable when other-cell distance is larger than same-cell variation."));
+    const chart = document.createElement("div");
+    chart.className = "identity-gap-chart";
+    (highlight?.groups || []).forEach((group) => {
+      const row = document.createElement("article");
+      row.className = "identity-gap-row";
+      const title = createText("h3", "identity-gap-title", `Account ${group.group}: ${formatNumber(group.ratio, 2)}× gap`);
+      const bars = document.createElement("div");
+      bars.className = "identity-gap-bars";
+      bars.append(createNormalizedGapBar("same-cell max", 1, false), createNormalizedGapBar("nearest other", group.ratio, true));
+      const note = createText("p", "identity-gap-note", `Same panel repeats stay within ${formatNumber(group.sameCellMax, 4)} RMSE; nearest other panel is ${formatNumber(group.nearestOther, 4)} RMSE.`);
+      row.append(title, bars, note);
+      chart.append(row);
+    });
+    wrap.append(chart);
+    return wrap;
+  }
+
+  function createNormalizedGapBar(label, ratio, highlight) {
+    const row = document.createElement("div");
+    row.className = `identity-bar-row${highlight ? " is-highlight" : ""}`;
+    const name = createText("span", "identity-bar-label", label);
+    const track = document.createElement("span");
+    const fill = document.createElement("i");
+    const value = createText("span", "identity-bar-value", `${formatNumber(ratio, 2)}×`);
+    track.className = "identity-bar-track";
+    fill.style.width = `${Math.min(100, Math.max(4, (ratio / 5) * 100))}%`;
+    track.append(fill);
+    row.append(name, track, value);
+    return row;
   }
 
   function createRmseEvidenceBoard(ruler) {

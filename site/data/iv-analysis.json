@@ -5003,5 +5003,35 @@
       "Groups 1 and 2 may include leakage or evaporation, so lower shape separation should be treated as a device-failure effect, not only a fingerprint-method failure.",
       "Use intact samples for fingerprint claims; classify leaked/dried samples as a separate failed/uncertain category."
     ]
+  },
+  "shapeHighlight": {
+    "mode": "maxabs shape RMSE normalized ruler, 2026-06-29",
+    "summary": "A curve account is distinguishable when the nearest other-cell distance is larger than the worst same-cell variation.",
+    "groups": [
+      {
+        "group": "0",
+        "sameCellMax": 0.06511251385790318,
+        "sameCellMean": 0.03203670252651928,
+        "nearestOther": 0.22308410737727807,
+        "ratio": 3.4261326150626075,
+        "verdict": "pass"
+      },
+      {
+        "group": "1",
+        "sameCellMax": 0.023962483518331527,
+        "sameCellMean": 0.010806707250106759,
+        "nearestOther": 0.09941830689474727,
+        "ratio": 4.14891498281851,
+        "verdict": "pass"
+      },
+      {
+        "group": "2",
+        "sameCellMax": 0.05656454576961638,
+        "sameCellMean": 0.026435033425723852,
+        "nearestOther": 0.09941830689474727,
+        "ratio": 1.757608154402431,
+        "verdict": "pass"
+      }
+    ]
   }
 }
