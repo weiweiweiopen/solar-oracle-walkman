@@ -5,7 +5,7 @@
     {
       "id": "0",
       "title": "Group 0",
-      "color": "#2d8fb8",
+      "color": "#ff4a1c",
       "status": "visual check: intact / no clear leakage or evaporation",
       "metrics": {
         "n": 5,
@@ -15,7 +15,8 @@
         "jsc": 4.9091560585738385,
         "jscSd": 0.13654568274456827,
         "ff": 0.321194899232019,
-        "ffSd": 0.01974710747721472
+        "ffSd": 0.01974710747721472,
+        "etaPercent": 0.8612155339687819
       },
       "traces": [
         {
@@ -1493,7 +1494,8 @@
         "jsc": 5.338772914415188,
         "jscSd": 0.010836198569900281,
         "ff": 0.6069972752455022,
-        "ffSd": 0.0012739980022125625
+        "ffSd": 0.0012739980022125625,
+        "etaPercent": 1.921008241607709
       },
       "traces": [
         {
@@ -2961,7 +2963,7 @@
     {
       "id": "2",
       "title": "Group 2",
-      "color": "#2aa253",
+      "color": "#ff4a1c",
       "status": "visual check: possible leakage or evaporation; classify separately",
       "metrics": {
         "n": 5,
@@ -2971,7 +2973,8 @@
         "jsc": 5.738079045345482,
         "jscSd": 0.03446664034573497,
         "ff": 0.5575133062545894,
-        "ffSd": 0.002853882039075489
+        "ffSd": 0.002853882039075489,
+        "etaPercent": 1.712345071928954
       },
       "traces": [
         {

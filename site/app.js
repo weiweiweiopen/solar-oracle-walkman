@@ -81,7 +81,7 @@
   function createAccountMetrics(metrics) {
     const dl = document.createElement("dl");
     dl.className = "account-metrics";
-    addMetric(dl, "n (%)", `${metrics.n || 0} (${Math.round(metrics.pointPercent || 100)}%)`);
+    addMetric(dl, "η (%)", `${formatNumber(metrics.etaPercent || 0, 2)}%`);
     addMetric(dl, "Voc", `${formatNumber((metrics.voc || 0) * 1000, 1)} mV`);
     addMetric(dl, "Jsc", `${formatNumber(metrics.jsc || 0, 3)} mA`);
     addMetric(dl, "FF", formatNumber(metrics.ff || 0, 3));
@@ -167,7 +167,7 @@
       card.append(createText("h3", "metric-title", `Group ${group.id}`), createText("p", "sample-status", group.status || ""));
       const dl = document.createElement("dl");
       dl.className = "metric-list";
-      addMetric(dl, "n (%)", `${m.n || 0} (${Math.round(m.pointPercent || 100)}%)`);
+      addMetric(dl, "η (%)", `${formatNumber(m.etaPercent || 0, 2)}%`);
       addMetric(dl, "Voc", `${formatNumber((m.voc || 0) * 1000, 1)} mV`);
       addMetric(dl, "Jsc", `${formatNumber(m.jsc || 0, 3)} mA`);
       addMetric(dl, "FF", formatNumber(m.ff || 0, 3));
