@@ -1,4 +1,7 @@
 (function () {
+  const ivGrid = document.querySelector("#iv-grid");
+  if (ivGrid) setupCurveAccounts(ivGrid);
+
   const curveDashboard = document.querySelector("#curve-dashboard");
   const shapeRmsePanel = document.querySelector("#shape-rmse-panel");
   if (curveDashboard || shapeRmsePanel) setupCurveDashboard({ curveDashboard, shapeRmsePanel });
@@ -27,6 +30,62 @@
       floatingChatToggle.setAttribute("aria-expanded", String(!minimized));
       if (!minimized) document.querySelector("#prompt")?.focus();
     });
+  }
+
+  async function setupCurveAccounts(grid) {
+    try {
+      const response = await fetch("./data/iv-analysis.json", { cache: "no-store" });
+      if (!response.ok) throw new Error(`IV analysis returned ${response.status}`);
+      const data = await response.json();
+      grid.replaceChildren(...(data.groups || []).map(createCurveAccountCard));
+    } catch (_error) {
+      grid.replaceChildren(createText("p", "iv-empty", "Curve accounts unavailable."));
+    }
+  }
+
+  function createCurveAccountCard(group) {
+    const article = document.createElement("article");
+    article.className = "iv-card curve-account-card";
+    article.style.setProperty("--group-color", group.color || "#ff4a1c");
+
+    const frame = document.createElement("div");
+    frame.className = "curve-frame account-curve-frame";
+    frame.append(createAccountCurveSvg(group), createText("span", "curve-label", `account / group ${group.id}`));
+
+    const info = document.createElement("div");
+    info.className = "iv-info account-info";
+    info.append(createText("h2", "song-title", `Solar curve account ${group.id}`), createText("p", "sample-status", group.status || ""), createAccountMetrics(group.metrics || {}));
+    article.append(frame, info);
+    return article;
+  }
+
+  function createAccountCurveSvg(group) {
+    const traces = group.traces || [];
+    const allPoints = traces.flatMap((trace) => trace.points || []);
+    const xs = allPoints.map(([x]) => Number(x));
+    const ys = allPoints.map(([, y]) => Number(y));
+    const minX = Math.min(...xs), maxX = Math.max(...xs), minY = Math.min(...ys), maxY = Math.max(...ys);
+    const width = 240, height = 240, pad = 18;
+    const sx = (x) => pad + ((x - minX) / (maxX - minX || 1)) * (width - pad * 2);
+    const sy = (y) => height - pad - ((y - minY) / (maxY - minY || 1)) * (height - pad * 2);
+    const svg = svgEl("svg", { viewBox: `0 0 ${width} ${height}`, role: "img", "aria-label": `I-V account ${group.id} date overlay` });
+    svg.append(svgEl("line", { x1: pad, y1: height - pad, x2: width - pad, y2: height - pad, class: "account-axis" }));
+    svg.append(svgEl("line", { x1: pad, y1: pad, x2: pad, y2: height - pad, class: "account-axis" }));
+    traces.forEach((trace) => {
+      const d = (trace.points || []).map(([x, y], index) => `${index ? "L" : "M"}${sx(Number(x)).toFixed(2)} ${sy(Number(y)).toFixed(2)}`).join(" ");
+      svg.append(svgEl("path", { d, class: "account-curve-line", stroke: group.color || "#ff4a1c", "stroke-dasharray": trace.dash === "none" ? "" : trace.dash, "data-date": trace.date }));
+    });
+    return svg;
+  }
+
+  function createAccountMetrics(metrics) {
+    const dl = document.createElement("dl");
+    dl.className = "account-metrics";
+    addMetric(dl, "n (%)", `${metrics.n || 0} (${Math.round(metrics.pointPercent || 100)}%)`);
+    addMetric(dl, "Voc", `${formatNumber((metrics.voc || 0) * 1000, 1)} mV`);
+    addMetric(dl, "Jsc", `${formatNumber(metrics.jsc || 0, 3)} mA`);
+    addMetric(dl, "FF", formatNumber(metrics.ff || 0, 3));
+    return dl;
   }
 
   async function setupCurveDashboard({ curveDashboard, shapeRmsePanel }) {

@@ -1141,3 +1141,112 @@ input::placeholder {
   .rmse-evidence-board { grid-template-columns: 1fr; }
   .rmse-ruler-card { grid-row: auto; }
 }
+
+/* Restore curve-account landing: each panel is an account, report sits below */
+.site-hero,
+.curve-account-grid,
+.shape-rmse-panel,
+.main-carousel,
+.slide-thumbs {
+  width: 74vw;
+}
+.site-hero {
+  display: grid;
+  gap: 4px;
+  padding: clamp(10px, 1vw, 18px) 0 0;
+}
+.site-hero h1 {
+  margin: 0;
+  color: var(--mouse-red);
+  font-size: clamp(2.4rem, 6vw, 6.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.07em;
+}
+.curve-account-grid {
+  margin-top: clamp(18px, 2.5vw, 34px);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 1.5vw, 24px);
+}
+.curve-account-card {
+  border: 1px solid var(--group-color, var(--mouse-red));
+  padding: 10px;
+  background: #fffdf8;
+}
+.account-curve-frame {
+  border: 1px solid rgba(255, 74, 28, 0.24);
+  background: var(--mouse-cream);
+}
+.account-axis {
+  stroke: rgba(39, 28, 23, 0.34);
+  stroke-width: 1;
+}
+.account-curve-line {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.account-curve-line[data-date="2026-06-22"] { opacity: 0.38; }
+.account-curve-line[data-date="2026-06-29"] { opacity: 0.94; }
+.account-info { gap: 8px; }
+.account-metrics {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 5px 10px;
+  margin: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: clamp(0.68rem, 0.82vw, 0.84rem);
+}
+.account-metrics dt {
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.account-metrics dd {
+  margin: 0;
+  text-align: right;
+}
+.shape-rmse-panel {
+  margin-top: clamp(28px, 4vw, 62px);
+}
+.main-carousel {
+  margin-top: clamp(28px, 5vw, 72px);
+}
+.oracle-panel--intro {
+  align-content: center;
+  border: 1px solid var(--mouse-red);
+  background: #fffdf8;
+  color: var(--ink);
+}
+.oracle-panel--intro h2 {
+  margin: 0;
+  color: var(--mouse-red);
+  font-size: clamp(1.6rem, 3.5vw, 4rem);
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+}
+.oracle-panel--intro p:last-child {
+  max-width: 720px;
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.35vw, 1.45rem);
+}
+
+@media (min-width: 1300px) {
+  .curve-account-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .site-hero,
+  .curve-account-grid,
+  .shape-rmse-panel,
+  .main-carousel,
+  .slide-thumbs { width: min(92vw, 100%); }
+  .curve-account-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 8px;
+  }
+  .curve-account-card { padding: 6px; }
+  .account-metrics { font-size: 0.52rem; gap: 3px 5px; }
+  .curve-label { font-size: 0.46rem; }
+  .song-title { font-size: 0.68rem; letter-spacing: -0.04em; }
+  .sample-status { font-size: 0.5rem; line-height: 1.2; }
+}
