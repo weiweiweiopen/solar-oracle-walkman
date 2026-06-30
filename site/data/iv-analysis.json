@@ -4456,5 +4456,549 @@
       "interMin": 0.04042159212028217,
       "ratio": 0.5065342835122634
     }
-  ]
+  ],
+  "rmseRuler": {
+    "mode": "maxabs shape RMSE, 2026-06-29",
+    "pairs": [
+      {
+        "sameGroup": true,
+        "groupPair": "0-0",
+        "rmse": 0.06041467026333781
+      },
+      {
+        "sameGroup": true,
+        "groupPair": "0-0",
+        "rmse": 0.022502825620535634
+      },
+      {
+        "sameGroup": true,
+        "groupPair": "0-0",
+        "rmse": 0.0083087481866078
+      },
+      {
+        "sameGroup": true,
+        "groupPair": "0-0",
+        "rmse": 0.002039785770131046
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-1",
+        "rmse": 0.2805364896351546
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-1",
+        "rmse": 0.2826599753841741
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-1",
+        "rmse": 0.28446320778667994
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-1",
+        "rmse": 0.28317249614462575
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-1",
+        "rmse": 0.2809312377247767
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-2",
+        "rmse": 0.25403628719238747
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-2",
+        "rmse": 0.24052951884522078
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-2",
+        "rmse": 0.2334731103150324
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-2",
+        "rmse": 0.23109466751129346
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-2",
+        "rmse": 0.23091765722233193
+      },
+      {
+        "sameGroup": true,
+        "groupPair": "0-0",
+        "rmse": 0.06511251385790318
+      },
+      {
+        "sameGroup": true,
+        "groupPair": "0-0",
+        "rmse": 0.06044436075564785
+      },
+      {
+        "sameGroup": true,
+        "groupPair": "0-0",
+        "rmse": 0.060070133515820696
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-1",
+        "rmse": 0.3320233263027518
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-1",
+        "rmse": 0.33428515293274746
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-1",
+        "rmse": 0.3361164709344575
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-1",
+        "rmse": 0.33478920379107235
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-1",
+        "rmse": 0.332611117379542
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-2",
+        "rmse": 0.30087099124257477
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-2",
+        "rmse": 0.29049118009636155
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-2",
+        "rmse": 0.28462134200982797
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-2",
+        "rmse": 0.2823590732330259
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-2",
+        "rmse": 0.2825871901101674
+      },
+      {
+        "sameGroup": true,
+        "groupPair": "0-0",
+        "rmse": 0.014313442869664168
+      },
+      {
+        "sameGroup": true,
+        "groupPair": "0-0",
+        "rmse": 0.020682088215538436
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-1",
+        "rmse": 0.27944382127541006
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-1",
+        "rmse": 0.28323822108221103
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-1",
+        "rmse": 0.28522767088028744
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-1",
+        "rmse": 0.28396124322101207
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-1",
+        "rmse": 0.2815738428112691
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-2",
+        "rmse": 0.2418654744275843
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-2",
+        "rmse": 0.23112332787989184
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-2",
+        "rmse": 0.22526948131076757
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-2",
+        "rmse": 0.22308410737727807
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-2",
+        "rmse": 0.22316774342594436
+      },
+      {
+        "sameGroup": true,
+        "groupPair": "0-0",
+        "rmse": 0.006478456210006188
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-1",
+        "rmse": 0.28083299570008485
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-1",
+        "rmse": 0.2835710112118845
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-1",
+        "rmse": 0.2854437614265572
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-1",
+        "rmse": 0.28416055132464474
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-1",
+        "rmse": 0.2818644160688929
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-2",
+        "rmse": 0.2501558804253035
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-2",
+        "rmse": 0.23768187477447614
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-2",
+        "rmse": 0.2310687805366038
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-2",
+        "rmse": 0.22875961775443493
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-2",
+        "rmse": 0.22867943625394402
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-1",
+        "rmse": 0.28078131901772974
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-1",
+        "rmse": 0.28304350667872974
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-1",
+        "rmse": 0.2848626716891712
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-1",
+        "rmse": 0.28357327375756625
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-1",
+        "rmse": 0.28131983428341917
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-2",
+        "rmse": 0.25332656230171313
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-2",
+        "rmse": 0.24006181522474473
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-2",
+        "rmse": 0.23310880315072174
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-2",
+        "rmse": 0.23074592625424972
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "0-2",
+        "rmse": 0.23059235437316333
+      },
+      {
+        "sameGroup": true,
+        "groupPair": "1-1",
+        "rmse": 0.021184520298296487
+      },
+      {
+        "sameGroup": true,
+        "groupPair": "1-1",
+        "rmse": 0.023934736479490536
+      },
+      {
+        "sameGroup": true,
+        "groupPair": "1-1",
+        "rmse": 0.023962483518331527
+      },
+      {
+        "sameGroup": true,
+        "groupPair": "1-1",
+        "rmse": 0.021811889501516534
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "1-2",
+        "rmse": 0.1428118800924451
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "1-2",
+        "rmse": 0.11178894650093357
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "1-2",
+        "rmse": 0.10199167575443538
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "1-2",
+        "rmse": 0.1010367698061558
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "1-2",
+        "rmse": 0.09941830689474727
+      },
+      {
+        "sameGroup": true,
+        "groupPair": "1-1",
+        "rmse": 0.0032792321647008974
+      },
+      {
+        "sameGroup": true,
+        "groupPair": "1-1",
+        "rmse": 0.003026338827511623
+      },
+      {
+        "sameGroup": true,
+        "groupPair": "1-1",
+        "rmse": 0.0020520390566211313
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "1-2",
+        "rmse": 0.16207800046059267
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "1-2",
+        "rmse": 0.12977732764389233
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "1-2",
+        "rmse": 0.11883922319591564
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "1-2",
+        "rmse": 0.11756436462888761
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "1-2",
+        "rmse": 0.11565637292872893
+      },
+      {
+        "sameGroup": true,
+        "groupPair": "1-1",
+        "rmse": 0.0015251603396746756
+      },
+      {
+        "sameGroup": true,
+        "groupPair": "1-1",
+        "rmse": 0.0040893940672506925
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "1-2",
+        "rmse": 0.16496379221163207
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "1-2",
+        "rmse": 0.1326352797281934
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "1-2",
+        "rmse": 0.12166395550713967
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "1-2",
+        "rmse": 0.1203858732657805
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "1-2",
+        "rmse": 0.11844777750045582
+      },
+      {
+        "sameGroup": true,
+        "groupPair": "1-1",
+        "rmse": 0.003201278247673482
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "1-2",
+        "rmse": 0.16459587859995953
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "1-2",
+        "rmse": 0.13215704981737936
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "1-2",
+        "rmse": 0.1211016345544914
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "1-2",
+        "rmse": 0.11979314718636017
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "1-2",
+        "rmse": 0.11785338115388608
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "1-2",
+        "rmse": 0.1618540549505864
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "1-2",
+        "rmse": 0.1293428034696448
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "1-2",
+        "rmse": 0.11824479064649045
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "1-2",
+        "rmse": 0.11692500876434651
+      },
+      {
+        "sameGroup": false,
+        "groupPair": "1-2",
+        "rmse": 0.11498795723837078
+      },
+      {
+        "sameGroup": true,
+        "groupPair": "2-2",
+        "rmse": 0.03612130577304915
+      },
+      {
+        "sameGroup": true,
+        "groupPair": "2-2",
+        "rmse": 0.05099811608988972
+      },
+      {
+        "sameGroup": true,
+        "groupPair": "2-2",
+        "rmse": 0.05367011396220945
+      },
+      {
+        "sameGroup": true,
+        "groupPair": "2-2",
+        "rmse": 0.05656454576961638
+      },
+      {
+        "sameGroup": true,
+        "groupPair": "2-2",
+        "rmse": 0.015141150683136047
+      },
+      {
+        "sameGroup": true,
+        "groupPair": "2-2",
+        "rmse": 0.01803515810056526
+      },
+      {
+        "sameGroup": true,
+        "groupPair": "2-2",
+        "rmse": 0.020892659509978168
+      },
+      {
+        "sameGroup": true,
+        "groupPair": "2-2",
+        "rmse": 0.0032537069639006406
+      },
+      {
+        "sameGroup": true,
+        "groupPair": "2-2",
+        "rmse": 0.005922090108750816
+      },
+      {
+        "sameGroup": true,
+        "groupPair": "2-2",
+        "rmse": 0.0037514872961428862
+      }
+    ],
+    "keyNumbers": {
+      "meanSameCellRmse": 0.023092814400783295,
+      "maxSameCellRmse": 0.06511251385790318,
+      "meanDifferentCellRmse": 0.22160099032260464,
+      "minDifferentCellRmse": 0.09941830689474727,
+      "separationRatio": 1.526869429610882,
+      "samePairCount": 30,
+      "differentPairCount": 75
+    },
+    "interpretation": [
+      "Group 0 is the cleanest sample category by visual inspection.",
+      "Groups 1 and 2 may include leakage or evaporation, so lower shape separation should be treated as a device-failure effect, not only a fingerprint-method failure.",
+      "Use intact samples for fingerprint claims; classify leaked/dried samples as a separate failed/uncertain category."
+    ]
+  }
 }

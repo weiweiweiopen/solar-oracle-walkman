@@ -130,6 +130,7 @@
     const panel = document.createElement("section");
     panel.className = "orange-card shape-rmse-card";
     panel.append(createText("p", "eyebrow", "Shape RMSE analysis"), createText("h2", "curve-panel-title", "Intra-group max vs inter-group min, 2026-06-29"));
+    if (data.rmseRuler) panel.append(createRmseEvidenceBoard(data.rmseRuler));
     const rows = data.shapeRmse || [];
     const chart = document.createElement("div");
     chart.className = "rmse-bars";
@@ -143,6 +144,103 @@
     });
     panel.append(chart);
     return panel;
+  }
+
+  function createRmseEvidenceBoard(ruler) {
+    const board = document.createElement("section");
+    board.className = "rmse-evidence-board";
+    board.append(createRmseRulerChart(ruler), createRmseKeyNumbers(ruler), createRmseInterpretation(ruler));
+    return board;
+  }
+
+  function createRmseRulerChart(ruler) {
+    const wrap = document.createElement("article");
+    wrap.className = "rmse-ruler-card";
+    wrap.append(createText("h3", "rmse-board-title", "RMSE distance ruler: same-cell vs different-cell"));
+    const pairs = ruler.pairs || [];
+    const max = Math.max(...pairs.map((pair) => Number(pair.rmse)), 1);
+    const svg = svgEl("svg", { viewBox: "0 0 980 360", class: "rmse-ruler-svg", role: "img", "aria-label": "RMSE distance ruler" });
+    const pad = { left: 68, right: 34, top: 28, bottom: 58 };
+    const x = (value) => pad.left + (Number(value) / max) * (980 - pad.left - pad.right);
+    svg.append(svgEl("line", { x1: pad.left, y1: 302, x2: 946, y2: 302, class: "axis" }));
+    for (let i = 0; i <= 5; i += 1) {
+      const value = (max / 5) * i;
+      const tx = x(value);
+      svg.append(svgEl("line", { x1: tx, y1: 40, x2: tx, y2: 302, class: "rmse-grid-line" }));
+      const label = svgEl("text", { x: tx, y: 330, class: "rmse-axis-text" });
+      label.textContent = value.toFixed(2);
+      svg.append(label);
+    }
+    const same = pairs.filter((pair) => pair.sameGroup);
+    const different = pairs.filter((pair) => !pair.sameGroup);
+    same.forEach((pair, index) => svg.append(svgEl("circle", { cx: x(pair.rmse), cy: 252 + jitter(index, 28), r: 4, class: "rmse-dot same" })));
+    different.forEach((pair, index) => svg.append(svgEl("circle", { cx: x(pair.rmse), cy: 72 + groupOffset(pair.groupPair) + jitter(index, 26), r: 4, class: "rmse-dot different" })));
+    const minDifferent = ruler.keyNumbers?.minDifferentCellRmse || 0;
+    const maxSame = ruler.keyNumbers?.maxSameCellRmse || 0;
+    svg.append(svgEl("line", { x1: x(maxSame), y1: 40, x2: x(maxSame), y2: 302, class: "rmse-threshold same-threshold" }));
+    svg.append(svgEl("line", { x1: x(minDifferent), y1: 40, x2: x(minDifferent), y2: 302, class: "rmse-threshold diff-threshold" }));
+    [["max same-cell", maxSame, 46], ["closest different-cell", minDifferent, 282]].forEach(([text, value, y]) => {
+      const t = svgEl("text", { x: x(value) + 8, y, class: "rmse-annotation" });
+      t.textContent = text;
+      svg.append(t);
+    });
+    const xLabel = svgEl("text", { x: 500, y: 354, class: "rmse-axis-label" });
+    xLabel.textContent = "RMSE of normalized curves (smaller = more similar)";
+    svg.append(xLabel);
+    wrap.append(svg);
+    return wrap;
+  }
+
+  function createRmseKeyNumbers(ruler) {
+    const card = document.createElement("article");
+    card.className = "rmse-key-card";
+    card.append(createText("h3", "rmse-board-title", "Key numbers"));
+    const table = document.createElement("table");
+    table.className = "rmse-key-table";
+    const body = document.createElement("tbody");
+    const k = ruler.keyNumbers || {};
+    [
+      ["Mean same-cell RMSE", k.meanSameCellRmse],
+      ["Max same-cell RMSE", k.maxSameCellRmse],
+      ["Mean different-cell RMSE", k.meanDifferentCellRmse],
+      ["Min different-cell RMSE", k.minDifferentCellRmse],
+      ["Separation ratio", `${formatNumber(k.separationRatio, 2)}×`]
+    ].forEach(([label, value]) => {
+      const tr = document.createElement("tr");
+      const th = document.createElement("th");
+      const td = document.createElement("td");
+      th.textContent = label;
+      td.textContent = typeof value === "number" ? formatNumber(value, 4) : value;
+      tr.append(th, td);
+      body.append(tr);
+    });
+    table.append(body);
+    card.append(table);
+    return card;
+  }
+
+  function createRmseInterpretation(ruler) {
+    const card = document.createElement("article");
+    card.className = "rmse-interpretation-card";
+    card.append(createText("h3", "rmse-board-title", "Interpretation"));
+    const ul = document.createElement("ul");
+    (ruler.interpretation || []).forEach((text) => {
+      const li = document.createElement("li");
+      li.textContent = text;
+      ul.append(li);
+    });
+    card.append(ul);
+    return card;
+  }
+
+  function jitter(index, amount) {
+    return ((index * 37) % amount) - amount / 2;
+  }
+
+  function groupOffset(groupPair) {
+    if (groupPair === "0-1") return 0;
+    if (groupPair === "0-2") return 70;
+    return 140;
   }
 
   function createRmseBar(label, value, max) {
