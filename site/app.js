@@ -1,6 +1,7 @@
 (function () {
-  const ivGrid = document.querySelector("#iv-grid");
-  if (ivGrid) setupIvDatabase(ivGrid);
+  const curveDashboard = document.querySelector("#curve-dashboard");
+  const shapeRmsePanel = document.querySelector("#shape-rmse-panel");
+  if (curveDashboard || shapeRmsePanel) setupCurveDashboard({ curveDashboard, shapeRmsePanel });
 
   const pixGallery = document.querySelector("[data-pix-gallery]");
   const pixLightbox = pixGallery ? setupPixLightbox() : null;
@@ -16,6 +17,150 @@
   if (form && promptEl && messagesEl) {
     setupIdentityMarquee({ form, promptEl });
     setupChat({ form, promptEl, messagesEl });
+  }
+
+  const floatingChat = document.querySelector("[data-floating-chat]");
+  const floatingChatToggle = document.querySelector("[data-floating-chat-toggle]");
+  if (floatingChat && floatingChatToggle) {
+    floatingChatToggle.addEventListener("click", () => {
+      const minimized = floatingChat.classList.toggle("is-minimized");
+      floatingChatToggle.setAttribute("aria-expanded", String(!minimized));
+      if (!minimized) document.querySelector("#prompt")?.focus();
+    });
+  }
+
+  async function setupCurveDashboard({ curveDashboard, shapeRmsePanel }) {
+    try {
+      const response = await fetch("./data/iv-analysis.json", { cache: "no-store" });
+      if (!response.ok) throw new Error(`IV analysis returned ${response.status}`);
+      const data = await response.json();
+      if (curveDashboard) curveDashboard.replaceChildren(createOverlayPanel(data), createMetricsGrid(data));
+      if (shapeRmsePanel) shapeRmsePanel.replaceChildren(createShapeRmsePanel(data));
+    } catch (_error) {
+      if (curveDashboard) curveDashboard.replaceChildren(createText("p", "iv-empty", "Curve dashboard unavailable."));
+    }
+  }
+
+  function createOverlayPanel(data) {
+    const panel = document.createElement("section");
+    panel.className = "curve-overlay-panel orange-card";
+    panel.append(
+      createText("p", "eyebrow", "I–V curve overlay"),
+      createText("h2", "curve-panel-title", "2026-06-22 dashed / 2026-06-29 solid")
+    );
+    panel.append(createOverlaySvg(data));
+    return panel;
+  }
+
+  function createOverlaySvg(data) {
+    const allPoints = (data.groups || []).flatMap((group) => (group.traces || []).flatMap((trace) => trace.points || []));
+    const xs = allPoints.map(([x]) => Number(x));
+    const ys = allPoints.map(([, y]) => Number(y));
+    const minX = Math.min(...xs), maxX = Math.max(...xs), minY = Math.min(...ys), maxY = Math.max(...ys);
+    const pad = { left: 52, right: 18, top: 22, bottom: 42 };
+    const width = 1000, height = 560;
+    const sx = (x) => pad.left + ((x - minX) / (maxX - minX || 1)) * (width - pad.left - pad.right);
+    const sy = (y) => height - pad.bottom - ((y - minY) / (maxY - minY || 1)) * (height - pad.top - pad.bottom);
+    const svg = svgEl("svg", { viewBox: `0 0 ${width} ${height}`, class: "overlay-svg", role: "img", "aria-label": "I-V curves by date" });
+    svg.append(svgEl("line", { x1: pad.left, y1: sy(0), x2: width - pad.right, y2: sy(0), class: "axis zero-axis" }));
+    svg.append(svgEl("line", { x1: sx(0), y1: pad.top, x2: sx(0), y2: height - pad.bottom, class: "axis zero-axis" }));
+    svg.append(svgEl("line", { x1: pad.left, y1: height - pad.bottom, x2: width - pad.right, y2: height - pad.bottom, class: "axis" }));
+    svg.append(svgEl("line", { x1: pad.left, y1: pad.top, x2: pad.left, y2: height - pad.bottom, class: "axis" }));
+    (data.groups || []).forEach((group) => {
+      (group.traces || []).forEach((trace) => {
+        const d = (trace.points || []).map(([x, y], index) => `${index ? "L" : "M"}${sx(Number(x)).toFixed(2)} ${sy(Number(y)).toFixed(2)}`).join(" ");
+        svg.append(svgEl("path", { d, class: "iv-overlay-line", stroke: group.color || "#ff4a1c", "stroke-dasharray": trace.dash === "none" ? "" : trace.dash, "data-date": trace.date }));
+      });
+    });
+    const legend = svgEl("g", { class: "overlay-legend" });
+    (data.groups || []).forEach((group, index) => {
+      const y = 34 + index * 24;
+      legend.append(svgEl("line", { x1: 72, y1: y, x2: 112, y2: y, stroke: group.color || "#ff4a1c", class: "legend-line" }));
+      const t = svgEl("text", { x: 122, y: y + 5, class: "legend-text" });
+      t.textContent = `group ${group.id}`;
+      legend.append(t);
+    });
+    [["2026-06-22", "6 5"], ["2026-06-29", ""]].forEach(([label, dash], index) => {
+      const y = 112 + index * 24;
+      legend.append(svgEl("line", { x1: 72, y1: y, x2: 112, y2: y, stroke: "#271c17", "stroke-dasharray": dash, class: "legend-line date-line" }));
+      const t = svgEl("text", { x: 122, y: y + 5, class: "legend-text" });
+      t.textContent = label;
+      legend.append(t);
+    });
+    svg.append(legend);
+    const xLabel = svgEl("text", { x: width / 2, y: height - 8, class: "axis-label" });
+    xLabel.textContent = data.xLabel || "Ewe (V vs Ref)";
+    svg.append(xLabel);
+    const yLabel = svgEl("text", { x: 18, y: height / 2, class: "axis-label y-axis-label", transform: `rotate(-90 18 ${height / 2})` });
+    yLabel.textContent = data.yLabel || "Current <I> (mA)";
+    svg.append(yLabel);
+    return svg;
+  }
+
+  function createMetricsGrid(data) {
+    const grid = document.createElement("section");
+    grid.className = "metrics-grid";
+    (data.groups || []).forEach((group) => {
+      const m = group.metrics || {};
+      const card = document.createElement("article");
+      card.className = "metric-card orange-card";
+      card.style.setProperty("--group-color", group.color || "#ff4a1c");
+      card.append(createText("h3", "metric-title", `Group ${group.id}`), createText("p", "sample-status", group.status || ""));
+      const dl = document.createElement("dl");
+      dl.className = "metric-list";
+      addMetric(dl, "n (%)", `${m.n || 0} (${Math.round(m.pointPercent || 100)}%)`);
+      addMetric(dl, "Voc", `${formatNumber((m.voc || 0) * 1000, 1)} mV`);
+      addMetric(dl, "Jsc", `${formatNumber(m.jsc || 0, 3)} mA`);
+      addMetric(dl, "FF", formatNumber(m.ff || 0, 3));
+      card.append(dl);
+      grid.append(card);
+    });
+    return grid;
+  }
+
+  function addMetric(dl, label, value) {
+    const dt = document.createElement("dt");
+    const dd = document.createElement("dd");
+    dt.textContent = label;
+    dd.textContent = value;
+    dl.append(dt, dd);
+  }
+
+  function createShapeRmsePanel(data) {
+    const panel = document.createElement("section");
+    panel.className = "orange-card shape-rmse-card";
+    panel.append(createText("p", "eyebrow", "Shape RMSE analysis"), createText("h2", "curve-panel-title", "Intra-group max vs inter-group min, 2026-06-29"));
+    const rows = data.shapeRmse || [];
+    const chart = document.createElement("div");
+    chart.className = "rmse-bars";
+    const max = Math.max(...rows.flatMap((row) => [row.intraMax, row.interMin]), 1);
+    rows.forEach((row) => {
+      const item = document.createElement("article");
+      item.className = "rmse-row";
+      item.append(createText("h3", "rmse-kind", `${row.kind} · ratio ${formatNumber(row.ratio, 2)}×`));
+      item.append(createRmseBar("intra max", row.intraMax, max), createRmseBar("inter min", row.interMin, max));
+      chart.append(item);
+    });
+    panel.append(chart);
+    return panel;
+  }
+
+  function createRmseBar(label, value, max) {
+    const row = document.createElement("div");
+    row.className = "rmse-bar-row";
+    const name = createText("span", "rmse-label", label);
+    const track = document.createElement("span");
+    const fill = document.createElement("i");
+    const num = createText("span", "rmse-value", formatNumber(value, 4));
+    track.className = "rmse-track";
+    fill.style.width = `${Math.max(3, (value / max) * 100)}%`;
+    track.append(fill);
+    row.append(name, track, num);
+    return row;
+  }
+
+  function formatNumber(value, digits) {
+    return Number(value || 0).toFixed(digits);
   }
 
   async function setupIvDatabase(grid) {

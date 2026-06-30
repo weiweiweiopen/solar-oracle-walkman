@@ -25,7 +25,7 @@
     <link rel="image_src" href="https://weiweiweiopen.github.io/solar-oracle-walkman/og-image.png" />
     <meta name="sow-chat-api" content="https://solar-oracle-deepseek-proxy.dontmarryme.workers.dev/chat" />
     <title>Solar Oracle Walkman | IV Database</title>
-    <link rel="stylesheet" href="./style.css?v=20260630-mouse-dialog" />
+    <link rel="stylesheet" href="./style.css?v=20260630-curves-floating-mouse" />
   </head>
   <body>
     <div class="identity-marquee" aria-label="Identity statements">
@@ -52,39 +52,12 @@
       <section class="main-carousel" aria-label="Solar Oracle Walkman content carousel">
         <div class="main-slides">
           <section class="main-slide active" data-main-slide aria-labelledby="chat-title">
-            <div class="chat-window mouse-dialog">
-              <header class="chat-header">
-                <div class="chat-kicker-row">
-                  <div class="mouse-brand" aria-label="Wise mouse dialogue interface">
-                    <span class="mouse-square" aria-hidden="true">🐁</span>
-                    <p class="eyebrow">Wise mouse operator · public research prototype</p>
-                  </div>
-                  <div class="device-status" aria-label="Solar charging status">
-                    <svg class="sun-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
-                      <circle cx="16" cy="16" r="5.2"></circle>
-                      <path d="M16 1.5v6M16 24.5v6M1.5 16h6M24.5 16h6M5.75 5.75l4.25 4.25M22 22l4.25 4.25M26.25 5.75 22 10M10 22l-4.25 4.25"></path>
-                    </svg>
-                    <span class="battery-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-                  </div>
-                </div>
+            <div class="oracle-panel">
+              <header class="oracle-header">
+                <p class="eyebrow">Public research prototype</p>
                 <h1 id="chat-title">Solar Oracle Walkman</h1>
               </header>
-
-              <div class="channel-options" role="group" aria-label="Channel">
-                <button class="channel-button active" type="button" data-channel="mind-philosophy" aria-pressed="true">mind philosophy 心智哲學</button>
-                <button class="channel-button" type="button" data-channel="innovative-startup" aria-pressed="false">innovative startup 研發新創</button>
-              </div>
-
-              <div class="messages-shell">
-                <div id="messages" class="messages" aria-live="polite"></div>
-                <div class="messages-scrollbar" aria-hidden="true">
-                  <div class="messages-scrollbar-thumb"></div>
-                </div>
-              </div>
-
-              <form id="chat-form" class="chat-form">
-                <textarea id="prompt" rows="4" placeholder="Ask the wise mouse operator about I–V curves, identity, or evidence…"></textarea>
-              </form>
+              <section id="curve-dashboard" class="curve-dashboard" aria-label="I-V curve overlay and metrics"></section>
             </div>
           </section>
 
@@ -137,12 +110,29 @@
         </button>
       </div>
 
-      <section id="iv-grid" class="iv-grid" aria-label="I-V curve database products"></section>
+      <section id="shape-rmse-panel" class="shape-rmse-panel" aria-label="Shape RMSE analysis"></section>
     </main>
+
+    <aside class="llm-footer-chat is-minimized" data-floating-chat aria-label="Wise mouse floating dialogue">
+      <div class="llm-footer-chat__inner">
+        <div class="channel-options" role="group" aria-label="Channel">
+          <button class="channel-button active" type="button" data-channel="mind-philosophy" aria-pressed="true">mind philosophy 心智哲學</button>
+          <button class="channel-button" type="button" data-channel="innovative-startup" aria-pressed="false">innovative startup 研發新創</button>
+        </div>
+        <div class="messages-shell">
+          <div id="messages" class="messages" aria-live="polite"></div>
+          <div class="messages-scrollbar" aria-hidden="true"><div class="messages-scrollbar-thumb"></div></div>
+        </div>
+        <form id="chat-form" class="chat-form">
+          <textarea id="prompt" rows="4" placeholder="Ask the wise mouse operator about I–V curves, identity, or evidence…"></textarea>
+        </form>
+        <button class="llm-footer-chat__toggle" data-floating-chat-toggle type="button" aria-expanded="false" aria-label="Expand wise mouse operator"><span class="llm-footer-chat__toggle-icon" aria-hidden="true">🐁</span></button>
+      </div>
+    </aside>
 
     <footer class="footer">solar oracle walkman 2026 · credits: 施惟捷 Shih Wei Chieh, Marc Dusseiller, Edmond Jordan, Meschter John, 張灝馨 Haoshin Chang</footer>
 
     <script async src="https://www.instagram.com/embed.js"></script>
-    <script src="./app.js?v=20260630-mouse-dialog"></script>
+    <script src="./app.js?v=20260630-curves-floating-mouse"></script>
   </body>
 </html>
