@@ -1,4 +1,6 @@
 (function () {
+  setupLocaleText();
+
   const ivGrid = document.querySelector("#iv-grid");
   if (ivGrid) setupCurveAccounts(ivGrid);
 
@@ -29,6 +31,27 @@
       const minimized = floatingChat.classList.toggle("is-minimized");
       floatingChatToggle.setAttribute("aria-expanded", String(!minimized));
       if (!minimized) document.querySelector("#prompt")?.focus();
+    });
+  }
+
+  function setupLocaleText() {
+    const language = (navigator.language || "en").toLowerCase();
+    const useZh = language.startsWith("zh");
+    document.documentElement.lang = useZh ? "zh-Hant" : "en";
+    const copy = {
+      heroEyebrow: {
+        en: "Public research prototype",
+        zh: "公開研究原型"
+      },
+      heroIntro: {
+        en: "This is an experiment in how solar panels can develop unique identities at the semiconductor level. To make the result more intuitive for people without a scientific background, the identity of each handmade solar cell—its I–V curve—is translated into a one-of-a-kind glass-music MiniDisc that can be played online as generative music. We are also building a portable Walkman made from an I–V curve tester, making physical Walkman solar music possible. Ultimately, this experiment asks how independent, distributed green certificates and energy trading might become possible—and I believe it is also connected to future open compute systems.",
+        zh: "這是一個關於太陽能板如何在半導體層級建立獨特身分的實驗。為了讓沒有科學背景的人也能更直觀地理解，每一片手工製作太陽能電池的身分——也就是它的 I–V 曲線——會被轉換成獨一無二的玻璃音樂 MiniDisc，並能在線上播放為生成音樂。我們也正在製作一台由 I–V 曲線測試儀構成的可攜式 Walkman，讓實體的 Walkman 太陽能音樂成為可能。這個實驗最終想追問的是：獨立、分散式的綠色憑證與能源交易如何成為可能；我也相信這與未來的開放算力（open compute）系統有所關聯。"
+      }
+    };
+    document.querySelectorAll("[data-i18n]").forEach((element) => {
+      const key = element.getAttribute("data-i18n");
+      const value = copy[key]?.[useZh ? "zh" : "en"];
+      if (value) element.textContent = value;
     });
   }
 

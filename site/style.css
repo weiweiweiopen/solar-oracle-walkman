@@ -1464,3 +1464,15 @@ input::placeholder {
   .shape-explain { font-size: 0.82rem; }
   .footer { width: calc(100vw - 20px); margin-inline: auto; }
 }
+
+.hero-intro {
+  max-width: 980px;
+  margin: 8px 0 0;
+  color: var(--ink);
+  font-size: clamp(0.98rem, 1.25vw, 1.3rem);
+  line-height: 1.45;
+}
+html[lang="zh-Hant"] .hero-intro {
+  line-height: 1.62;
+  letter-spacing: 0.02em;
+}
