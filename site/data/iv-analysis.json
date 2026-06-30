@@ -5006,7 +5006,7 @@
   },
   "shapeHighlight": {
     "mode": "maxabs shape RMSE normalized ruler, 2026-06-29",
-    "summary": "A curve account is distinguishable when the nearest other-cell distance is larger than the worst same-cell variation.",
+    "summary": "A cell is distinguishable when the nearest other-cell distance is larger than the worst same-cell variation.",
     "groups": [
       {
         "group": "0",

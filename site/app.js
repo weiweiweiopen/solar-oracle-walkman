@@ -58,7 +58,7 @@
     listen.className = "buy-button listen-button";
     listen.type = "button";
     listen.textContent = "Listen";
-    info.append(listen, createText("h2", "song-title", `Solar curve account ${group.id}`), createText("p", "sample-status", group.status || ""), createAccountMetrics(group.metrics || {}));
+    info.append(createText("h2", "song-title", `Solar curve account ${group.id}`), createText("p", "sample-status", group.status || ""), createAccountMetrics(group.metrics || {}), listen);
     article.append(frame, info);
     return article;
   }
@@ -85,7 +85,7 @@
   function createAccountMetrics(metrics) {
     const dl = document.createElement("dl");
     dl.className = "account-metrics";
-    addMetric(dl, "eta (%)", `${formatNumber(metrics.etaPercent || 0, 2)}%`);
+    addMetric(dl, "η (%)", `${formatNumber(metrics.etaPercent || 0, 2)}%`);
     addMetric(dl, "Voc", `${formatNumber((metrics.voc || 0) * 1000, 1)} mV`);
     addMetric(dl, "Jsc", `${formatNumber(metrics.jsc || 0, 3)} mA`);
     addMetric(dl, "FF", formatNumber(metrics.ff || 0, 3));
@@ -171,7 +171,7 @@
       card.append(createText("h3", "metric-title", `Group ${group.id}`), createText("p", "sample-status", group.status || ""));
       const dl = document.createElement("dl");
       dl.className = "metric-list";
-      addMetric(dl, "eta (%)", `${formatNumber(m.etaPercent || 0, 2)}%`);
+      addMetric(dl, "η (%)", `${formatNumber(m.etaPercent || 0, 2)}%`);
       addMetric(dl, "Voc", `${formatNumber((m.voc || 0) * 1000, 1)} mV`);
       addMetric(dl, "Jsc", `${formatNumber(m.jsc || 0, 3)} mA`);
       addMetric(dl, "FF", formatNumber(m.ff || 0, 3));
@@ -194,19 +194,20 @@
     panel.className = "orange-card shape-rmse-card shape-rmse-card--simple";
     panel.append(createText("p", "eyebrow", "Shape RMSE"), createText("h2", "curve-panel-title", "Identity gap: same-cell variation vs nearest other cell"));
     panel.append(createShapeHighlight(data.shapeHighlight));
+    panel.append(createText("p", "shape-explain", "Shape RMSE first normalizes each I–V curve so the comparison focuses on curve shape rather than total current size. It then uses RMSE, the root mean square error, to turn the point-by-point shape difference into one distance number. If repeated measurements from the same cell have a smaller RMSE than the nearest different cell, the shape is distinguishable."));
     return panel;
   }
 
   function createShapeHighlight(highlight) {
     const wrap = document.createElement("section");
     wrap.className = "shape-highlight";
-    wrap.append(createText("p", "shape-summary", highlight?.summary || "A curve account is distinguishable when other-cell distance is larger than same-cell variation."));
+    wrap.append(createText("p", "shape-summary", highlight?.summary || "A cell is distinguishable when other-cell distance is larger than same-cell variation."));
     const chart = document.createElement("div");
     chart.className = "identity-gap-chart";
     (highlight?.groups || []).forEach((group) => {
       const row = document.createElement("article");
       row.className = "identity-gap-row";
-      const title = createText("h3", "identity-gap-title", `Account ${group.group}: ${formatNumber(group.ratio, 2)}× gap`);
+      const title = createText("h3", "identity-gap-title", `Cell ${group.group}: ${formatNumber(group.ratio, 2)}× gap`);
       const bars = document.createElement("div");
       bars.className = "identity-gap-bars";
       bars.append(createNormalizedGapBar("same-cell max", 1, false), createNormalizedGapBar("nearest other", group.ratio, true));
