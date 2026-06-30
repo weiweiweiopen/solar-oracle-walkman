@@ -1331,3 +1331,48 @@ input::placeholder {
   .slide-thumb { height: 54px; }
   .listen-button { font-size: 0.5rem; padding: 4px; }
 }
+
+/* Patch: remove dead space between PIX photo frame and PIX/REELS tabs */
+.main-carousel,
+.main-slides,
+.main-slide,
+.photo-panel,
+.reel-carousel {
+  height: auto !important;
+  min-height: 0 !important;
+}
+.main-slide {
+  overflow: visible !important;
+}
+.photo-panel {
+  align-content: start !important;
+  overflow: visible !important;
+}
+.slide-thumbs {
+  margin-top: 0 !important;
+}
+.photo-panel figure {
+  min-height: 0 !important;
+}
+.photo-panel img {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  object-fit: contain !important;
+}
+@media (max-width: 760px) {
+  .main-slide,
+  .photo-panel,
+  .reel-carousel {
+    height: auto !important;
+    min-height: 0 !important;
+  }
+  .photo-panel {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+  .photo-panel img {
+    width: 100% !important;
+    height: auto !important;
+  }
+}
