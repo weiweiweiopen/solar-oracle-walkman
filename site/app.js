@@ -26,12 +26,15 @@
 
   const floatingChat = document.querySelector("[data-floating-chat]");
   const floatingChatToggle = document.querySelector("[data-floating-chat-toggle]");
+  const floatingChatClose = document.querySelector("[data-floating-chat-close]");
   if (floatingChat && floatingChatToggle) {
-    floatingChatToggle.addEventListener("click", () => {
-      const minimized = floatingChat.classList.toggle("is-minimized");
-      floatingChatToggle.setAttribute("aria-expanded", String(!minimized));
-      if (!minimized) document.querySelector("#prompt")?.focus();
-    });
+    const setFloatingChatOpen = (open) => {
+      floatingChat.classList.toggle("is-minimized", !open);
+      floatingChatToggle.setAttribute("aria-expanded", String(open));
+      if (open) document.querySelector("#prompt")?.focus();
+    };
+    floatingChatToggle.addEventListener("click", () => setFloatingChatOpen(true));
+    floatingChatClose?.addEventListener("click", () => setFloatingChatOpen(false));
   }
 
   function setupLocaleText() {
@@ -595,24 +598,12 @@
   }
 
   function setupChat({ form, promptEl, messagesEl }) {
-    const channelButtons = Array.from(document.querySelectorAll(".channel-button"));
     const chatApiUrl = document.querySelector('meta[name="sow-chat-api"]')?.getAttribute("content")?.trim();
-    let selectedChannel = "mind-philosophy";
+    const selectedChannel = "solar-oracle-walkman";
     const contextPromise = loadLocalContext();
     contextPromise.catch(() => {});
     const chatHistoryByChannel = new Map();
     const visibleScrollbar = setupVisibleScrollbar(messagesEl);
-
-    channelButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        selectedChannel = button.dataset.channel;
-        channelButtons.forEach((item) => {
-          const active = item === button;
-          item.classList.toggle("active", active);
-          item.setAttribute("aria-pressed", String(active));
-        });
-      });
-    });
 
     promptEl.addEventListener("keydown", (event) => {
       if (event.key === "Enter" && !event.shiftKey) {
@@ -620,8 +611,6 @@
         form.requestSubmit();
       }
     });
-
-    addMsg("agent", "Wise mouse operator is online. Pick a channel, then ask one short question.");
 
     if (!chatApiUrl) {
       addMsg("agent", "Chat backend is not configured yet. Deploy worker/deepseek-proxy.js, then set the sow-chat-api meta tag in index.html to the Worker /chat URL.");
@@ -665,6 +654,7 @@
       label.textContent = role === "user" ? "You" : "Wise mouse";
       body.textContent = text;
       div.append(label, body);
+      messagesEl.hidden = false;
       messagesEl.appendChild(div);
       scrollToBottom();
       return div;
@@ -774,24 +764,22 @@
   }
 
   async function askBackendChat({ prompt, channel, context, chatApiUrl, history }) {
-    const channelLabel = channel === "innovative-startup" ? "innovative startup 研發新創" : "mind philosophy 心智哲學";
-    const agent = context.agents?.[channel] || {};
+    const channelLabel = "Solar Oracle Walkman";
+    const agent = context.agents?.[channel] || context.agents?.["mind-philosophy"] || {};
     const contextText = compactContextText(context, channel);
     const agentPrompt = formatAgentPrompt(agent, channelLabel);
     const systemPrompt = [
-      "You are the Solar Oracle Walkman chatbot, but you must inhabit the selected agent profile instead of answering as a generic assistant.",
+      "You are the Solar Oracle Walkman wise mouse operator.",
       "Use only the provided project context before answering. Do not claim you can browse GitHub or inspect repository files live.",
       "If asked what you can see, say you are reading the static public knowledge file loaded when this page initializes.",
       "Use precise boundary language: public research prototype; not legal REC; not T-REC; not energy equivalence; not financial product.",
       "If asked about SBIR, answer from the provided public_funding_status. Do not say the project has not applied for or has not passed SBIR.",
       "Keep answers concise but not too short: usually 2 to 5 short sentences, about 240 Chinese characters or fewer unless the user asks for detail. Avoid dense explanations. Invite the user to ask for more details if needed.",
       "If asked about music or sound, do not say it is not a music work. Explain that it began as a sound sculpture and generative music prototype, while the current public site also frames it as identity and evidence research.",
-      `Response channel: ${channelLabel}.`,
       agentPrompt,
-      "Do not blend the two channel personalities. If the user selected mind philosophy, prioritize identity, perception, material witness, energy layer, and mind-philosophy framing. If the user selected innovative startup, prioritize roadmap, stakeholders, protocol design, technical status, business layout, and risk boundaries.",
       "Answer in natural conversational language. Do not use Markdown formatting, asterisks, bold syntax, headings, numbered lists, or bullet lists unless the user explicitly asks for a list.",
       "Use Traditional Chinese when the user writes Chinese; otherwise use clear English.",
-      "Task: explain the project clearly in the selected channel without overclaiming."
+      "Task: explain the project clearly without overclaiming."
     ].join(" ");
 
     const response = await fetch(chatApiUrl, {

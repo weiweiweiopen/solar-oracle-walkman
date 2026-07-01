@@ -25,7 +25,7 @@
     <link rel="image_src" href="https://weiweiweiopen.github.io/solar-oracle-walkman/og-image.png" />
     <meta name="sow-chat-api" content="https://solar-oracle-deepseek-proxy.dontmarryme.workers.dev/chat" />
     <title>Solar Oracle Walkman | IV Database</title>
-    <link rel="stylesheet" href="./style.css?v=20260630-curves-floating-mouse" />
+    <link rel="stylesheet" href="./style.css?v=20260701-minimal-mouse" />
   </head>
   <body>
     <div class="identity-marquee" aria-label="Identity statements">
@@ -111,24 +111,21 @@
 
     <aside class="llm-footer-chat is-minimized" data-floating-chat aria-label="Wise mouse floating dialogue">
       <div class="llm-footer-chat__inner">
-        <div class="channel-options" role="group" aria-label="Channel">
-          <button class="channel-button active" type="button" data-channel="mind-philosophy" aria-pressed="true">mind philosophy 心智哲學</button>
-          <button class="channel-button" type="button" data-channel="innovative-startup" aria-pressed="false">innovative startup 研發新創</button>
-        </div>
-        <div class="messages-shell">
-          <div id="messages" class="messages" aria-live="polite"></div>
-          <div class="messages-scrollbar" aria-hidden="true"><div class="messages-scrollbar-thumb"></div></div>
-        </div>
-        <form id="chat-form" class="chat-form">
-          <textarea id="prompt" rows="4" placeholder="Ask the wise mouse operator about I–V curves, identity, or evidence…"></textarea>
+        <div class="llm-footer-chat__message" id="messages" aria-live="polite" hidden></div>
+        <form id="chat-form" class="llm-footer-chat__form">
+          <label class="visually-hidden" for="prompt">Ask wise mouse operator</label>
+          <textarea id="prompt" class="llm-footer-chat__input" rows="6" placeholder="Ask about I–V curves, identity, or evidence…" autocomplete="off"></textarea>
         </form>
-        <button class="llm-footer-chat__toggle" data-floating-chat-toggle type="button" aria-expanded="false" aria-label="Expand wise mouse operator"><span class="llm-footer-chat__toggle-icon" aria-hidden="true">🐁</span></button>
+        <button class="llm-footer-chat__toggle" data-floating-chat-toggle type="button" aria-expanded="false" aria-label="Expand wise mouse operator">
+          <span class="llm-footer-chat__toggle-icon" aria-hidden="true">🐁</span>
+        </button>
+        <button class="llm-footer-chat__close" data-floating-chat-close type="button" aria-label="Close wise mouse operator">×</button>
       </div>
     </aside>
 
     <footer class="footer">solar oracle walkman 2026 · credits: 施惟捷 Shih Wei Chieh, Marc Dusseiller, Edmond Jordan, Meschter John, 張灝馨 Haoshin Chang</footer>
 
     <script async src="https://www.instagram.com/embed.js"></script>
-    <script src="./app.js?v=20260630-curves-floating-mouse"></script>
+    <script src="./app.js?v=20260701-minimal-mouse"></script>
   </body>
 </html>
