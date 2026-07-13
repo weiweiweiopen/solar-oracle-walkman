@@ -633,9 +633,9 @@ textarea { resize: vertical; }
   --bg: #fcfaf5;
   --ink: #271c17;
   --muted: rgba(39, 28, 23, 0.58);
-  --line: #ea580c;
+  --line: #cc4b0d;
   --panel: #fcfaf5;
-  --mouse-red: #ea580c;
+  --mouse-red: #cc4b0d;
   --mouse-cream: #fcfaf5;
 }
 
@@ -1692,4 +1692,32 @@ html[lang="zh-Hant"] .hero-intro {
 
 .date-style-guide--cards .legend-line {
   stroke-width: 2.2;
+}
+
+/* Caption-style gray date legend */
+.date-style-guide-row {
+  color: rgba(39, 28, 23, 0.46) !important;
+  margin: -0.25rem 0 0.05rem !important;
+}
+
+.date-style-guide--cards {
+  font-size: 0.66rem !important;
+  letter-spacing: 0.035em !important;
+  text-transform: uppercase;
+  gap: 0.62rem !important;
+}
+
+.date-style-guide--cards .date-style-label {
+  color: rgba(39, 28, 23, 0.48) !important;
+}
+
+.date-style-guide--cards .legend-line {
+  stroke: currentColor !important;
+  stroke-width: 1.6 !important;
+  opacity: 0.72;
+}
+
+.date-style-guide--cards .date-style-sample {
+  width: 32px !important;
+  height: 8px !important;
 }
