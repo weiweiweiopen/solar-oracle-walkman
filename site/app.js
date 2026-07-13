@@ -65,7 +65,7 @@
         fetchJson("./data/iv-analysis-20260713-included.json").catch(() => null)
       ]);
       const [baseline, july13] = datasets;
-      const baselineGroups = (baseline?.groups || []).map((group) => ({ ...group, sourceDate: "2026-06-22 / 2026-06-29" }));
+      const baselineGroups = (baseline?.groups || []).map((group) => ({ ...group, status: "", sourceDate: "2026-06-21 / 2026-06-29" }));
       const july13Groups = normalizeJuly13Groups(july13);
       grid.replaceChildren(...[...baselineGroups, ...july13Groups].map(createCurveAccountCard));
     } catch (_error) {
@@ -136,7 +136,7 @@
     svg.append(svgEl("line", { x1: pad, y1: pad, x2: pad, y2: height - pad, class: "account-axis" }));
     traces.forEach((trace) => {
       const d = (trace.points || []).map(([x, y], index) => `${index ? "L" : "M"}${sx(Number(x)).toFixed(2)} ${sy(Number(y)).toFixed(2)}`).join(" ");
-      svg.append(svgEl("path", { d, class: "account-curve-line", stroke: group.color || "#ff4a1c", "stroke-dasharray": trace.dash === "none" ? "" : trace.dash, "data-date": trace.date }));
+      svg.append(svgEl("path", { d, class: "account-curve-line", stroke: group.color || "#ff4a1c", "stroke-linecap": "round", "stroke-dasharray": trace.dash === "2 3" ? "1 7" : (trace.dash === "none" ? "" : trace.dash), "data-date": trace.date }));
     });
     return svg;
   }
@@ -179,14 +179,14 @@
     const guide = document.createElement("div");
     guide.className = "date-style-guide";
     [
-      ["2026-06-22", "6 5"],
-      ["2026-06-29", ""],
-      ["2026-07-13", "2 3"]
+      ["6/21", "7 5"],
+      ["6/29", ""],
+      ["7/13", "1 7"]
     ].forEach(([label, dash]) => {
       const item = document.createElement("span");
       item.className = "date-style-item";
       const sample = svgEl("svg", { viewBox: "0 0 60 12", class: "date-style-sample", "aria-hidden": "true" });
-      sample.append(svgEl("line", { x1: 4, y1: 6, x2: 56, y2: 6, stroke: "#ff4a1c", "stroke-dasharray": dash, class: "legend-line date-line" }));
+      sample.append(svgEl("line", { x1: 4, y1: 6, x2: 56, y2: 6, stroke: "#ff4a1c", "stroke-linecap": "round", "stroke-dasharray": dash, class: "legend-line date-line" }));
       item.append(sample, createText("span", "date-style-label", label));
       guide.append(item);
     });
@@ -210,7 +210,7 @@
     (data.groups || []).forEach((group) => {
       (group.traces || []).forEach((trace) => {
         const d = (trace.points || []).map(([x, y], index) => `${index ? "L" : "M"}${sx(Number(x)).toFixed(2)} ${sy(Number(y)).toFixed(2)}`).join(" ");
-        svg.append(svgEl("path", { d, class: "iv-overlay-line", stroke: group.color || "#ff4a1c", "stroke-dasharray": trace.dash === "none" ? "" : trace.dash, "data-date": trace.date }));
+        svg.append(svgEl("path", { d, class: "iv-overlay-line", stroke: group.color || "#ff4a1c", "stroke-linecap": "round", "stroke-dasharray": trace.dash === "2 3" ? "1 7" : (trace.dash === "none" ? "" : trace.dash), "data-date": trace.date }));
       });
     });
     const xLabel = svgEl("text", { x: width / 2, y: height - 8, class: "axis-label" });
@@ -256,10 +256,10 @@
     panel.className = "orange-card shape-rmse-card shape-rmse-card--figures";
     panel.append(
       createText("p", "eyebrow", "Shape RMSE"),
-      createText("h2", "curve-panel-title", "2026-07-13 pairwise RMSE and shape overview")
+      createText("h2", "curve-panel-title", "RMSE maps")
     );
 
-    const note = createText("p", "shape-explain", "Dark cells are more similar; lighter cells are more different. The figures use a red-orange monochrome palette so color does not imply different devices or dates.");
+    const note = createText("p", "shape-explain", "Dark = similar. Light = different.");
     const grid = document.createElement("div");
     grid.className = "shape-rmse-figure-grid";
 

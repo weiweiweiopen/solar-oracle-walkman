@@ -1577,3 +1577,68 @@ html[lang="zh-Hant"] .hero-intro {
     grid-column: 1 / -1;
   }
 }
+
+/* Mobile-safe RMSE figures and minimal text */
+.shape-rmse-card,
+.shape-rmse-card--figures,
+.shape-rmse-figure-grid,
+.shape-rmse-figure {
+  min-width: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box;
+}
+
+.shape-rmse-card--figures {
+  overflow: hidden !important;
+}
+
+.shape-rmse-card--figures .curve-panel-title {
+  overflow-wrap: anywhere;
+  max-width: 100%;
+}
+
+.shape-rmse-card--figures .shape-explain {
+  padding-top: 0;
+  border-top: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.shape-rmse-figure {
+  overflow: hidden !important;
+}
+
+.shape-rmse-figure img {
+  max-width: 100% !important;
+  width: 100% !important;
+  height: auto !important;
+  object-fit: contain !important;
+}
+
+@media (max-width: 760px) {
+  .shape-rmse-card--figures {
+    padding: 12px !important;
+    gap: 10px !important;
+  }
+
+  .shape-rmse-figure-grid {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 12px !important;
+  }
+
+  .shape-rmse-figure {
+    border-radius: 0 !important;
+  }
+
+  .shape-rmse-caption {
+    font-size: 0.72rem !important;
+    line-height: 1.25 !important;
+  }
+
+  .date-style-guide {
+    gap: 0.45rem 0.7rem !important;
+    margin: 0.2rem 0 0.65rem !important;
+    font-size: 0.78rem !important;
+  }
+}
