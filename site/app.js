@@ -60,13 +60,42 @@
 
   async function setupCurveAccounts(grid) {
     try {
-      const response = await fetch("./data/iv-analysis.json", { cache: "no-store" });
-      if (!response.ok) throw new Error(`IV analysis returned ${response.status}`);
-      const data = await response.json();
-      grid.replaceChildren(...(data.groups || []).map(createCurveAccountCard));
+      const datasets = await Promise.all([
+        fetchJson("./data/iv-analysis.json"),
+        fetchJson("./data/iv-analysis-20260713-included.json").catch(() => null)
+      ]);
+      const [baseline, july13] = datasets;
+      const baselineGroups = (baseline?.groups || []).map((group) => ({ ...group, sourceDate: "2026-06-22 / 2026-06-29" }));
+      const july13Groups = normalizeJuly13Groups(july13);
+      grid.replaceChildren(...[...baselineGroups, ...july13Groups].map(createCurveAccountCard));
     } catch (_error) {
       grid.replaceChildren(createText("p", "iv-empty", "Curve accounts unavailable."));
     }
+  }
+
+  async function fetchJson(path) {
+    const response = await fetch(path, { cache: "no-store" });
+    if (!response.ok) throw new Error(`${path} returned ${response.status}`);
+    return response.json();
+  }
+
+  function normalizeJuly13Groups(data) {
+    const palette = ["#4c78a8", "#f58518", "#54a24b", "#e45756", "#72b7b2", "#b279a2"];
+    return (data?.groups || []).map((group, index) => ({
+      id: `20260713-${group.id}`,
+      title: `N719 2026-07-13 group ${group.id}`,
+      color: palette[index % palette.length],
+      status: group.id === "0" ? "2026-07-13 included cross-date record" : "2026-07-13 included exploratory group",
+      metrics: group.metrics || {},
+      sourceDate: "2026-07-13",
+      traces: [
+        {
+          date: "2026-07-13",
+          dash: "none",
+          points: group.points || []
+        }
+      ]
+    }));
   }
 
   function createCurveAccountCard(group) {
@@ -76,7 +105,7 @@
 
     const frame = document.createElement("div");
     frame.className = "curve-frame account-curve-frame";
-    frame.append(createAccountCurveSvg(group), createText("span", "curve-label", `account / group ${group.id}`));
+    frame.append(createAccountCurveSvg(group), createText("span", "curve-label", group.sourceDate ? `${group.sourceDate} / group ${group.id}` : `account / group ${group.id}`));
 
     const info = document.createElement("div");
     info.className = "iv-info account-info";
@@ -84,7 +113,7 @@
     listen.className = "buy-button listen-button";
     listen.type = "button";
     listen.textContent = "Listen";
-    info.append(createText("h2", "song-title", `Solar curve account ${group.id}`), createText("p", "sample-status", group.status || ""), createAccountMetrics(group.metrics || {}), listen);
+    info.append(createText("h2", "song-title", group.title || `Solar curve account ${group.id}`), createText("p", "sample-status", group.status || ""), createAccountMetrics(group.metrics || {}), listen);
     article.append(frame, info);
     return article;
   }
@@ -111,10 +140,17 @@
   function createAccountMetrics(metrics) {
     const dl = document.createElement("dl");
     dl.className = "account-metrics";
-    addMetric(dl, "η (%)", `${formatNumber(metrics.etaPercent || 0, 2)}%`);
-    addMetric(dl, "Voc", `${formatNumber((metrics.voc || 0) * 1000, 1)} mV`);
-    addMetric(dl, "Jsc", `${formatNumber(metrics.jsc || 0, 3)} mA`);
-    addMetric(dl, "FF", formatNumber(metrics.ff || 0, 3));
+    if ("I_at_0V_mA_mean" in metrics || "zero_cross_E_V_vs_SCE_mean" in metrics) {
+      addMetric(dl, "I@0V", `${formatNumber(metrics.I_at_0V_mA_mean || 0, 3)} mA`);
+      addMetric(dl, "zero-cross", `${formatNumber(metrics.zero_cross_E_V_vs_SCE_mean || 0, 3)} V`);
+      addMetric(dl, "n", String(metrics.n_scans || 0));
+      addMetric(dl, "Imax", `${formatNumber(metrics.I_max_mA_mean || 0, 3)} mA`);
+    } else {
+      addMetric(dl, "η (%)", `${formatNumber(metrics.etaPercent || 0, 2)}%`);
+      addMetric(dl, "Voc", `${formatNumber((metrics.voc || 0) * 1000, 1)} mV`);
+      addMetric(dl, "Jsc", `${formatNumber(metrics.jsc || 0, 3)} mA`);
+      addMetric(dl, "FF", formatNumber(metrics.ff || 0, 3));
+    }
     return dl;
   }
 
