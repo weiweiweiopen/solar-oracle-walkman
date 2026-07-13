@@ -633,9 +633,9 @@ textarea { resize: vertical; }
   --bg: #fcfaf5;
   --ink: #271c17;
   --muted: rgba(39, 28, 23, 0.58);
-  --line: #ff7f2a;
+  --line: #ea580c;
   --panel: #fcfaf5;
-  --mouse-red: #ff7f2a;
+  --mouse-red: #ea580c;
   --mouse-cream: #fcfaf5;
 }
 
@@ -1686,7 +1686,7 @@ html[lang="zh-Hant"] .hero-intro {
 }
 
 .date-style-guide--cards .date-style-label {
-  color: #7a3513 !important;
+  color: #9a3412 !important;
   letter-spacing: 0.02em;
 }
 
