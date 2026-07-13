@@ -80,11 +80,10 @@
   }
 
   function normalizeJuly13Groups(data) {
-    const palette = ["#4c78a8", "#f58518", "#54a24b", "#e45756", "#72b7b2", "#b279a2"];
-    return (data?.groups || []).map((group, index) => ({
+    return (data?.groups || []).map((group) => ({
       id: `20260713-${group.id}`,
       title: `N719 2026-07-13 group ${group.id}`,
-      color: palette[index % palette.length],
+      color: "#ff4a1c",
       status: group.id === "0" ? "2026-07-13 included cross-date record" : "2026-07-13 included exploratory group",
       metrics: group.metrics || {},
       sourceDate: "2026-07-13",
@@ -207,7 +206,7 @@
     });
     [["2026-06-22", "6 5"], ["2026-06-29", ""], ["2026-07-13", "2 3"]].forEach(([label, dash], index) => {
       const y = 112 + index * 24;
-      legend.append(svgEl("line", { x1: 72, y1: y, x2: 112, y2: y, stroke: "#271c17", "stroke-dasharray": dash, class: "legend-line date-line" }));
+      legend.append(svgEl("line", { x1: 72, y1: y, x2: 112, y2: y, stroke: "#ff4a1c", "stroke-dasharray": dash, class: "legend-line date-line" }));
       const t = svgEl("text", { x: 122, y: y + 5, class: "legend-text" });
       t.textContent = label;
       legend.append(t);
