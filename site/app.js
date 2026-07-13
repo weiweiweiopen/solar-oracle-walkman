@@ -67,7 +67,9 @@
       const [baseline, july13] = datasets;
       const baselineGroups = (baseline?.groups || []).map((group) => ({ ...group, status: "", sourceDate: "2026-06-21 / 2026-06-29" }));
       const july13Groups = normalizeJuly13Groups(july13);
-      grid.replaceChildren(...[...baselineGroups, ...july13Groups].map(createCurveAccountCard));
+      const guide = createDateStyleGuide();
+      guide.classList.add("date-style-guide--cards");
+      grid.replaceChildren(guide, ...[...baselineGroups, ...july13Groups].map(createCurveAccountCard));
     } catch (_error) {
       grid.replaceChildren(createText("p", "iv-empty", "Curve accounts unavailable."));
     }
