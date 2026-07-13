@@ -2,28 +2,28 @@
   <rect width="1200" height="630" fill="#fcfaf5"/>
   <defs>
     <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
-      <path d="M42 0H0V42" fill="none" stroke="#ff4a1c" stroke-width="1" opacity="0.16"/>
+      <path d="M42 0H0V42" fill="none" stroke="#cc4b0d" stroke-width="1" opacity="0.16"/>
     </pattern>
     <clipPath id="plotClip"><rect x="70" y="265" width="660" height="225"/></clipPath>
   </defs>
   <rect width="1200" height="630" fill="url(#grid)"/>
-  <g fill="none" stroke="#ff4a1c" stroke-width="2">
+  <g fill="none" stroke="#cc4b0d" stroke-width="2">
     <rect x="28" y="28" width="1144" height="574"/>
     <line x1="28" y1="92" x2="1172" y2="92"/>
     <line x1="805" y1="92" x2="805" y2="602"/>
   </g>
   <g font-family="Arial, Helvetica, sans-serif" fill="#271c17">
     <text x="52" y="68" font-size="20" font-weight="700" letter-spacing="5">SOLAR ORACLE WALKMAN</text>
-    <text x="820" y="68" font-size="15" font-weight="700" letter-spacing="3" fill="#ff4a1c">PUBLIC RESEARCH PROTOTYPE</text>
+    <text x="820" y="68" font-size="15" font-weight="700" letter-spacing="3" fill="#cc4b0d">PUBLIC RESEARCH PROTOTYPE</text>
 
     <text x="54" y="165" font-size="76" font-weight="900" letter-spacing="-4">Solar Oracle</text>
     <text x="54" y="236" font-size="76" font-weight="900" letter-spacing="-4">Walkman</text>
-    <text x="820" y="146" font-size="22" font-weight="800" fill="#ff4a1c" letter-spacing="2">I–V CURVE AS IDENTITY</text>
+    <text x="820" y="146" font-size="22" font-weight="800" fill="#cc4b0d" letter-spacing="2">I–V CURVE AS IDENTITY</text>
     <text x="820" y="186" font-size="24" font-weight="700">Handmade solar cells</text>
     <text x="820" y="222" font-size="24" font-weight="700">translated into evidence,</text>
     <text x="820" y="258" font-size="24" font-weight="700">glass music, and reels.</text>
 
-    <g stroke="#ff4a1c" stroke-width="2" fill="none">
+    <g stroke="#cc4b0d" stroke-width="2" fill="none">
       <rect x="54" y="265" width="690" height="225"/>
       <line x1="70" y1="450" x2="720" y2="450"/>
       <line x1="70" y1="286" x2="70" y2="472"/>
@@ -33,20 +33,20 @@
       </g>
       <path d="M76 422 C160 382, 252 315, 346 318 S560 365, 718 286" stroke-width="5"/>
     </g>
-    <g fill="#ff4a1c" font-size="18" font-weight="800" letter-spacing="2">
+    <g fill="#cc4b0d" font-size="18" font-weight="800" letter-spacing="2">
       <text x="78" y="523">η (%)</text>
       <text x="190" y="523">VOC</text>
       <text x="306" y="523">JSC</text>
       <text x="420" y="523">FF</text>
     </g>
 
-    <g stroke="#ff4a1c" stroke-width="2" fill="none">
+    <g stroke="#cc4b0d" stroke-width="2" fill="none">
       <rect x="820" y="322" width="286" height="180"/>
       <circle cx="858" cy="366" r="18" fill="#fcfaf5"/>
       <path d="M876 366 C920 318, 985 330, 1040 384 S1110 448, 1160 396"/>
       <path d="M850 430 C900 410, 960 454, 1012 420 S1102 356, 1160 382" stroke-dasharray="8 8"/>
     </g>
-    <text x="820" y="540" font-size="20" font-weight="800" fill="#ff4a1c" letter-spacing="2">PIX · REEL · ORACLE</text>
+    <text x="820" y="540" font-size="20" font-weight="800" fill="#cc4b0d" letter-spacing="2">PIX · REEL · ORACLE</text>
     <text x="820" y="572" font-size="19" font-weight="700">orange-line evidence interface</text>
   </g>
 </svg>
