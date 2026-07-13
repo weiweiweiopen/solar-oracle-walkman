@@ -67,9 +67,12 @@
       const [baseline, july13] = datasets;
       const baselineGroups = (baseline?.groups || []).map((group) => ({ ...group, status: "", sourceDate: "2026-06-21 / 2026-06-29" }));
       const july13Groups = normalizeJuly13Groups(july13);
+      const legendWrap = document.createElement("div");
+      legendWrap.className = "date-style-guide-row";
       const guide = createDateStyleGuide();
       guide.classList.add("date-style-guide--cards");
-      grid.replaceChildren(guide, ...[...baselineGroups, ...july13Groups].map(createCurveAccountCard));
+      legendWrap.append(guide);
+      grid.replaceChildren(legendWrap, ...[...baselineGroups, ...july13Groups].map(createCurveAccountCard));
     } catch (_error) {
       grid.replaceChildren(createText("p", "iv-empty", "Curve accounts unavailable."));
     }
@@ -87,7 +90,7 @@
       .map((group) => ({
       id: `20260713-${group.id}`,
       title: `N719 group ${group.id}`,
-      color: "#ff4a1c",
+      color: "var(--mouse-red)",
       status: "",
       metrics: group.metrics || {},
       sourceDate: "2026-07-13",
@@ -105,7 +108,7 @@
   function createCurveAccountCard(group) {
     const article = document.createElement("article");
     article.className = "iv-card curve-account-card";
-    article.style.setProperty("--group-color", group.color || "#ff4a1c");
+    article.style.setProperty("--group-color", group.color || "var(--mouse-red)");
 
     const frame = document.createElement("div");
     frame.className = "curve-frame account-curve-frame";
@@ -138,7 +141,7 @@
     svg.append(svgEl("line", { x1: pad, y1: pad, x2: pad, y2: height - pad, class: "account-axis" }));
     traces.forEach((trace) => {
       const d = (trace.points || []).map(([x, y], index) => `${index ? "L" : "M"}${sx(Number(x)).toFixed(2)} ${sy(Number(y)).toFixed(2)}`).join(" ");
-      svg.append(svgEl("path", { d, class: "account-curve-line", stroke: group.color || "#ff4a1c", "stroke-linecap": "round", "stroke-dasharray": trace.dash === "2 3" ? "1 7" : (trace.dash === "none" ? "" : trace.dash), "data-date": trace.date }));
+      svg.append(svgEl("path", { d, class: "account-curve-line", stroke: group.color || "var(--mouse-red)", "stroke-linecap": "round", "stroke-dasharray": trace.dash === "2 3" ? "1 7" : (trace.dash === "none" ? "" : trace.dash), "data-date": trace.date }));
     });
     return svg;
   }
@@ -188,7 +191,7 @@
       const item = document.createElement("span");
       item.className = "date-style-item";
       const sample = svgEl("svg", { viewBox: "0 0 60 12", class: "date-style-sample", "aria-hidden": "true" });
-      sample.append(svgEl("line", { x1: 4, y1: 6, x2: 56, y2: 6, stroke: "#ff4a1c", "stroke-linecap": "round", "stroke-dasharray": dash, class: "legend-line date-line" }));
+      sample.append(svgEl("line", { x1: 4, y1: 6, x2: 56, y2: 6, stroke: "currentColor", "stroke-linecap": "round", "stroke-dasharray": dash, class: "legend-line date-line" }));
       item.append(sample, createText("span", "date-style-label", label));
       guide.append(item);
     });
@@ -212,7 +215,7 @@
     (data.groups || []).forEach((group) => {
       (group.traces || []).forEach((trace) => {
         const d = (trace.points || []).map(([x, y], index) => `${index ? "L" : "M"}${sx(Number(x)).toFixed(2)} ${sy(Number(y)).toFixed(2)}`).join(" ");
-        svg.append(svgEl("path", { d, class: "iv-overlay-line", stroke: group.color || "#ff4a1c", "stroke-linecap": "round", "stroke-dasharray": trace.dash === "2 3" ? "1 7" : (trace.dash === "none" ? "" : trace.dash), "data-date": trace.date }));
+        svg.append(svgEl("path", { d, class: "iv-overlay-line", stroke: group.color || "var(--mouse-red)", "stroke-linecap": "round", "stroke-dasharray": trace.dash === "2 3" ? "1 7" : (trace.dash === "none" ? "" : trace.dash), "data-date": trace.date }));
       });
     });
     const xLabel = svgEl("text", { x: width / 2, y: height - 8, class: "axis-label" });
@@ -231,7 +234,7 @@
       const m = group.metrics || {};
       const card = document.createElement("article");
       card.className = "metric-card orange-card";
-      card.style.setProperty("--group-color", group.color || "#ff4a1c");
+      card.style.setProperty("--group-color", group.color || "var(--mouse-red)");
       card.append(createText("h3", "metric-title", `Group ${group.id}`), createText("p", "sample-status", group.status || ""));
       const dl = document.createElement("dl");
       dl.className = "metric-list";

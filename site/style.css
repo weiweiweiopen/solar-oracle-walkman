@@ -633,9 +633,9 @@ textarea { resize: vertical; }
   --bg: #fcfaf5;
   --ink: #271c17;
   --muted: rgba(39, 28, 23, 0.58);
-  --line: #ff4a1c;
+  --line: #ff7f2a;
   --panel: #fcfaf5;
-  --mouse-red: #ff4a1c;
+  --mouse-red: #ff7f2a;
   --mouse-cream: #fcfaf5;
 }
 
@@ -1653,4 +1653,43 @@ html[lang="zh-Hant"] .hero-intro {
 
 .date-style-guide--cards .date-style-label {
   color: #5f2f13;
+}
+
+/* Compact date legend above curve cards */
+.date-style-guide-row {
+  grid-column: 1 / -1;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: -0.15rem 0 0.1rem;
+  padding: 0;
+  color: var(--mouse-red);
+}
+
+.date-style-guide--cards {
+  display: inline-flex !important;
+  width: auto !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  gap: 0.75rem !important;
+  font-size: 0.72rem !important;
+  line-height: 1 !important;
+  background: transparent !important;
+  border: 0 !important;
+}
+
+.date-style-guide--cards .date-style-sample {
+  width: 38px !important;
+  height: 10px !important;
+}
+
+.date-style-guide--cards .date-style-label {
+  color: #7a3513 !important;
+  letter-spacing: 0.02em;
+}
+
+.date-style-guide--cards .legend-line {
+  stroke-width: 2.2;
 }
