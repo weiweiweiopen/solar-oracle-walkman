@@ -19,3 +19,21 @@ Suggested feature vector:
 - `area_star`
 
 These features are candidates for characterization, not yet final cryptographic proof.
+
+## 2026-07-13 N719 LSV dataset update
+
+A new EC-Lab LSV dataset was added at `data/lab/2026-07-13-n719/`.
+
+Included in the repository update:
+
+- N719 group `0`
+- N719 groups `a`, `b`, `c`, `d`, `e`
+
+Excluded from this update:
+
+- N719 group `1` from 2026-07-13
+- N719 group `2` from 2026-07-13
+
+Reason: the 2026-07-13 lab labels for N719-1 and N719-2 may have been swapped, so they are not used as formal records until re-measurement resolves the ambiguity.
+
+The included 2026-07-13 dataset is useful for short-term repeatability and device-to-device separability checks. It should not be treated as proof that every DSSC identity remains stable forever.
