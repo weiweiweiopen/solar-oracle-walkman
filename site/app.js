@@ -253,12 +253,38 @@
 
   function createShapeRmsePanel(data) {
     const panel = document.createElement("section");
-    panel.className = "orange-card shape-rmse-card shape-rmse-card--simple";
-    panel.append(createText("p", "eyebrow", "Shape RMSE"), createText("h2", "curve-panel-title", "Identity gap: same-cell variation vs nearest other cell"));
-    panel.append(createShapeHighlight(data.shapeHighlight));
-    panel.append(createText("p", "shape-explain", "Shape RMSE first normalizes each I–V curve so the comparison focuses on curve shape rather than total current size. It then uses RMSE, the root mean square error, to turn the point-by-point shape difference into one distance number. If repeated measurements from the same cell have a smaller RMSE than the nearest different cell, the shape is distinguishable."));
+    panel.className = "orange-card shape-rmse-card shape-rmse-card--figures";
+    panel.append(
+      createText("p", "eyebrow", "Shape RMSE"),
+      createText("h2", "curve-panel-title", "2026-07-13 pairwise RMSE and shape overview")
+    );
+
+    const note = createText("p", "shape-explain", "Dark cells are more similar; lighter cells are more different. The figures use a red-orange monochrome palette so color does not imply different devices or dates.");
+    const grid = document.createElement("div");
+    grid.className = "shape-rmse-figure-grid";
+
+    [
+      ["Pairwise IV-curve RMSE (raw current)", "./pix/rmse/rmse-20260713-raw-current.png"],
+      ["Pairwise IV-shape RMSE (max-abs normalized)", "./pix/rmse/rmse-20260713-maxabs.png"],
+      ["Pairwise IV-shape RMSE (z-score normalized)", "./pix/rmse/rmse-20260713-zshape.png"],
+      ["Raw current group means ± SD", "./pix/rmse/rmse-20260713-raw-group-means.png"],
+      ["Max-abs normalized group means ± SD", "./pix/rmse/rmse-20260713-maxabs-group-means.png"]
+    ].forEach(([caption, src]) => {
+      const figure = document.createElement("figure");
+      figure.className = "shape-rmse-figure";
+      const img = document.createElement("img");
+      img.src = src;
+      img.alt = caption;
+      img.loading = "lazy";
+      const figcaption = createText("figcaption", "shape-rmse-caption", caption);
+      figure.append(img, figcaption);
+      grid.append(figure);
+    });
+
+    panel.append(note, grid);
     return panel;
   }
+
 
   function createShapeHighlight(highlight) {
     const wrap = document.createElement("section");

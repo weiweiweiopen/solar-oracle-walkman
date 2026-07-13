@@ -1535,3 +1535,45 @@ html[lang="zh-Hant"] .hero-intro {
 .date-style-label {
   white-space: nowrap;
 }
+
+.shape-rmse-card--figures .shape-explain {
+  max-width: 860px;
+  margin-bottom: 1rem;
+}
+
+.shape-rmse-figure-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.shape-rmse-figure {
+  margin: 0;
+  border: 1px solid rgba(194, 65, 12, 0.22);
+  border-radius: 18px;
+  overflow: hidden;
+  background: #fffaf4;
+}
+
+.shape-rmse-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.shape-rmse-caption {
+  padding: 0.65rem 0.85rem 0.8rem;
+  color: #5f2f13;
+  font-size: 0.85rem;
+  border-top: 1px solid rgba(194, 65, 12, 0.16);
+}
+
+@media (min-width: 900px) {
+  .shape-rmse-figure-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .shape-rmse-figure:first-child {
+    grid-column: 1 / -1;
+  }
+}
