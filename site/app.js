@@ -98,7 +98,7 @@
       traces: [
         {
           date: "2026-07-13",
-          dash: "none",
+          dash: "2 3",
           points: group.points || []
         }
       ]
@@ -259,10 +259,7 @@
   function createShapeRmsePanel(data) {
     const panel = document.createElement("section");
     panel.className = "orange-card shape-rmse-card shape-rmse-card--figures";
-    panel.append(
-      createText("p", "eyebrow", "Shape RMSE"),
-      createText("h2", "curve-panel-title", "RMSE maps")
-    );
+    panel.append(createText("h2", "curve-panel-title", "RMSE maps"));
 
     const note = createText("p", "shape-explain", "Dark = similar. Light = different.");
     const grid = document.createElement("div");
