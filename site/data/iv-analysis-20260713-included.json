@@ -1326,7 +1326,12 @@
         "I_at_0V_mA_mean": 4.5575122045403695,
         "I_at_0V_mA_sd": 0.08608886933425161,
         "zero_cross_E_V_vs_SCE_mean": -0.6730776956855247,
-        "zero_cross_E_V_vs_SCE_sd": 0.005640140693465574
+        "zero_cross_E_V_vs_SCE_sd": 0.005640140693465574,
+        "voc": 0.6730230128411675,
+        "jsc": 4.556878974025974,
+        "ff": 0.9936248306312029,
+        "etaPercent": 1.5236662543317006,
+        "display_note": "VOC/JSC/FF/eta derived from 2026-07-13 LSV group mean for consistency with earlier site cards."
       }
     },
     {
@@ -2634,7 +2639,12 @@
         "I_at_0V_mA_mean": 2.524909061618499,
         "I_at_0V_mA_sd": 0.01946976196881874,
         "zero_cross_E_V_vs_SCE_mean": -0.5769260525508955,
-        "zero_cross_E_V_vs_SCE_sd": 0.005038546255371626
+        "zero_cross_E_V_vs_SCE_sd": 0.005038546255371626,
+        "voc": 0.5768316596335232,
+        "jsc": 2.5246528831168833,
+        "ff": 0.990380706970581,
+        "etaPercent": 0.7211455694465159,
+        "display_note": "VOC/JSC/FF/eta derived from 2026-07-13 LSV group mean for consistency with earlier site cards."
       }
     },
     {
@@ -3942,7 +3952,12 @@
         "I_at_0V_mA_mean": 3.1980559010812364,
         "I_at_0V_mA_sd": 0.02179468797561998,
         "zero_cross_E_V_vs_SCE_mean": -0.6093180653397002,
-        "zero_cross_E_V_vs_SCE_sd": 0.002063131029708979
+        "zero_cross_E_V_vs_SCE_sd": 0.002063131029708979,
+        "voc": 0.60923608980806,
+        "jsc": 3.1980803896103898,
+        "ff": 0.9894573723627713,
+        "etaPercent": 0.9639224417282679,
+        "display_note": "VOC/JSC/FF/eta derived from 2026-07-13 LSV group mean for consistency with earlier site cards."
       }
     },
     {
@@ -5250,7 +5265,12 @@
         "I_at_0V_mA_mean": 1.3067940891046337,
         "I_at_0V_mA_sd": 0.058963155080594,
         "zero_cross_E_V_vs_SCE_mean": -0.2605721000682443,
-        "zero_cross_E_V_vs_SCE_sd": 0.007198717860545159
+        "zero_cross_E_V_vs_SCE_sd": 0.007198717860545159,
+        "voc": 0.2607070069961634,
+        "jsc": 1.306777987012987,
+        "ff": 0.9720653401513952,
+        "etaPercent": 0.16558461265529473,
+        "display_note": "VOC/JSC/FF/eta derived from 2026-07-13 LSV group mean for consistency with earlier site cards."
       }
     },
     {
@@ -6558,7 +6578,12 @@
         "I_at_0V_mA_mean": 2.118872743170774,
         "I_at_0V_mA_sd": 0.031109510218602122,
         "zero_cross_E_V_vs_SCE_mean": -0.41859220443438944,
-        "zero_cross_E_V_vs_SCE_sd": 0.011860579407406407
+        "zero_cross_E_V_vs_SCE_sd": 0.011860579407406407,
+        "voc": 0.4183915930741118,
+        "jsc": 2.1186750519480517,
+        "ff": 0.9839489788043949,
+        "etaPercent": 0.4361038149459918,
+        "display_note": "VOC/JSC/FF/eta derived from 2026-07-13 LSV group mean for consistency with earlier site cards."
       }
     },
     {
@@ -7866,7 +7891,12 @@
         "I_at_0V_mA_mean": 1.5063408551176507,
         "I_at_0V_mA_sd": 0.005308246181849427,
         "zero_cross_E_V_vs_SCE_mean": -0.23235692027811508,
-        "zero_cross_E_V_vs_SCE_sd": 0.008995903507094042
+        "zero_cross_E_V_vs_SCE_sd": 0.008995903507094042,
+        "voc": 0.23212715734539754,
+        "jsc": 1.5060914545454545,
+        "ff": 0.9675521021992826,
+        "etaPercent": 0.16913039477977632,
+        "display_note": "VOC/JSC/FF/eta derived from 2026-07-13 LSV group mean for consistency with earlier site cards."
       }
     }
   ],

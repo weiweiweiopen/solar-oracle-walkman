@@ -144,17 +144,10 @@
   function createAccountMetrics(metrics) {
     const dl = document.createElement("dl");
     dl.className = "account-metrics";
-    if ("I_at_0V_mA_mean" in metrics || "zero_cross_E_V_vs_SCE_mean" in metrics) {
-      addMetric(dl, "I@0V", `${formatNumber(metrics.I_at_0V_mA_mean || 0, 3)} mA`);
-      addMetric(dl, "zero-cross", `${formatNumber(metrics.zero_cross_E_V_vs_SCE_mean || 0, 3)} V`);
-      addMetric(dl, "n", String(metrics.n_scans || 0));
-      addMetric(dl, "Imax", `${formatNumber(metrics.I_max_mA_mean || 0, 3)} mA`);
-    } else {
-      addMetric(dl, "η (%)", `${formatNumber(metrics.etaPercent || 0, 2)}%`);
-      addMetric(dl, "Voc", `${formatNumber((metrics.voc || 0) * 1000, 1)} mV`);
-      addMetric(dl, "Jsc", `${formatNumber(metrics.jsc || 0, 3)} mA`);
-      addMetric(dl, "FF", formatNumber(metrics.ff || 0, 3));
-    }
+    addMetric(dl, "η (%)", `${formatNumber(metrics.etaPercent || 0, 2)}%`);
+    addMetric(dl, "Voc", `${formatNumber((metrics.voc || 0) * 1000, 1)} mV`);
+    addMetric(dl, "Jsc", `${formatNumber(metrics.jsc || 0, 3)} mA`);
+    addMetric(dl, "FF", formatNumber(metrics.ff || 0, 3));
     return dl;
   }
 
