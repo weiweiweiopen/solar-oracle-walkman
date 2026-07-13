@@ -171,7 +171,7 @@
     panel.className = "curve-overlay-panel orange-card";
     panel.append(
       createText("p", "eyebrow", "I–V curve overlay"),
-      createText("h2", "curve-panel-title", "2026-06-22 dashed / 2026-06-29 solid")
+      createText("h2", "curve-panel-title", "2026-06-22 dashed / 2026-06-29 solid / 2026-07-13 dotted for N719-0")
     );
     panel.append(createOverlaySvg(data));
     return panel;
@@ -205,7 +205,7 @@
       t.textContent = `group ${group.id}`;
       legend.append(t);
     });
-    [["2026-06-22", "6 5"], ["2026-06-29", ""]].forEach(([label, dash], index) => {
+    [["2026-06-22", "6 5"], ["2026-06-29", ""], ["2026-07-13", "2 3"]].forEach(([label, dash], index) => {
       const y = 112 + index * 24;
       legend.append(svgEl("line", { x1: 72, y1: y, x2: 112, y2: y, stroke: "#271c17", "stroke-dasharray": dash, class: "legend-line date-line" }));
       const t = svgEl("text", { x: 122, y: y + 5, class: "legend-text" });
