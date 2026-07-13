@@ -134,7 +134,8 @@
     const ys = allPoints.map(([, y]) => Number(y));
     const minX = Math.min(...xs), maxX = Math.max(...xs), minY = Math.min(...ys), maxY = Math.max(...ys);
     const width = 240, height = 240, pad = 18;
-    const sx = (x) => pad + ((x - minX) / (maxX - minX || 1)) * (width - pad * 2);
+    // Account cards use the IV curve tester visual convention: mirror the EC-Lab E axis horizontally.
+    const sx = (x) => width - pad - ((x - minX) / (maxX - minX || 1)) * (width - pad * 2);
     const sy = (y) => height - pad - ((y - minY) / (maxY - minY || 1)) * (height - pad * 2);
     const svg = svgEl("svg", { viewBox: `0 0 ${width} ${height}`, role: "img", "aria-label": `I-V account ${group.id} date overlay` });
     svg.append(svgEl("line", { x1: pad, y1: height - pad, x2: width - pad, y2: height - pad, class: "account-axis" }));
