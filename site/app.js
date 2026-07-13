@@ -80,13 +80,16 @@
   }
 
   function normalizeJuly13Groups(data) {
-    return (data?.groups || []).map((group) => ({
+    return (data?.groups || [])
+      .filter((group) => group.id !== "0")
+      .map((group) => ({
       id: `20260713-${group.id}`,
-      title: `N719 2026-07-13 group ${group.id}`,
+      title: `N719 group ${group.id}`,
       color: "#ff4a1c",
-      status: group.id === "0" ? "2026-07-13 included cross-date record" : "2026-07-13 included exploratory group",
+      status: "",
       metrics: group.metrics || {},
       sourceDate: "2026-07-13",
+      displayGroupId: group.id,
       traces: [
         {
           date: "2026-07-13",
@@ -104,7 +107,7 @@
 
     const frame = document.createElement("div");
     frame.className = "curve-frame account-curve-frame";
-    frame.append(createAccountCurveSvg(group), createText("span", "curve-label", group.sourceDate ? `${group.sourceDate} / group ${group.id}` : `account / group ${group.id}`));
+    frame.append(createAccountCurveSvg(group), createText("span", "curve-label", group.displayGroupId ? `group ${group.displayGroupId}` : `account / group ${group.id}`));
 
     const info = document.createElement("div");
     info.className = "iv-info account-info";
@@ -112,7 +115,9 @@
     listen.className = "buy-button listen-button";
     listen.type = "button";
     listen.textContent = "Listen";
-    info.append(createText("h2", "song-title", group.title || `Solar curve account ${group.id}`), createText("p", "sample-status", group.status || ""), createAccountMetrics(group.metrics || {}), listen);
+    info.append(createText("h2", "song-title", group.title || `Solar curve account ${group.id}`));
+    if (group.status) info.append(createText("p", "sample-status", group.status));
+    info.append(createAccountMetrics(group.metrics || {}), listen);
     article.append(frame, info);
     return article;
   }
@@ -170,10 +175,29 @@
     panel.className = "curve-overlay-panel orange-card";
     panel.append(
       createText("p", "eyebrow", "I–V curve overlay"),
-      createText("h2", "curve-panel-title", "2026-06-22 dashed / 2026-06-29 solid / 2026-07-13 dotted for N719-0")
+      createText("h2", "curve-panel-title", "N719 cross-date overlay")
     );
-    panel.append(createOverlaySvg(data));
+    panel.append(createDateStyleGuide(), createOverlaySvg(data));
     return panel;
+  }
+
+
+  function createDateStyleGuide() {
+    const guide = document.createElement("div");
+    guide.className = "date-style-guide";
+    [
+      ["2026-06-22", "6 5"],
+      ["2026-06-29", ""],
+      ["2026-07-13", "2 3"]
+    ].forEach(([label, dash]) => {
+      const item = document.createElement("span");
+      item.className = "date-style-item";
+      const sample = svgEl("svg", { viewBox: "0 0 60 12", class: "date-style-sample", "aria-hidden": "true" });
+      sample.append(svgEl("line", { x1: 4, y1: 6, x2: 56, y2: 6, stroke: "#ff4a1c", "stroke-dasharray": dash, class: "legend-line date-line" }));
+      item.append(sample, createText("span", "date-style-label", label));
+      guide.append(item);
+    });
+    return guide;
   }
 
   function createOverlaySvg(data) {
@@ -196,22 +220,6 @@
         svg.append(svgEl("path", { d, class: "iv-overlay-line", stroke: group.color || "#ff4a1c", "stroke-dasharray": trace.dash === "none" ? "" : trace.dash, "data-date": trace.date }));
       });
     });
-    const legend = svgEl("g", { class: "overlay-legend" });
-    (data.groups || []).forEach((group, index) => {
-      const y = 34 + index * 24;
-      legend.append(svgEl("line", { x1: 72, y1: y, x2: 112, y2: y, stroke: group.color || "#ff4a1c", class: "legend-line" }));
-      const t = svgEl("text", { x: 122, y: y + 5, class: "legend-text" });
-      t.textContent = `group ${group.id}`;
-      legend.append(t);
-    });
-    [["2026-06-22", "6 5"], ["2026-06-29", ""], ["2026-07-13", "2 3"]].forEach(([label, dash], index) => {
-      const y = 112 + index * 24;
-      legend.append(svgEl("line", { x1: 72, y1: y, x2: 112, y2: y, stroke: "#ff4a1c", "stroke-dasharray": dash, class: "legend-line date-line" }));
-      const t = svgEl("text", { x: 122, y: y + 5, class: "legend-text" });
-      t.textContent = label;
-      legend.append(t);
-    });
-    svg.append(legend);
     const xLabel = svgEl("text", { x: width / 2, y: height - 8, class: "axis-label" });
     xLabel.textContent = data.xLabel || "Ewe (V vs Ref)";
     svg.append(xLabel);

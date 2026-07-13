@@ -1509,3 +1509,29 @@ html[lang="zh-Hant"] .hero-intro {
   line-height: 1.62;
   letter-spacing: 0.02em;
 }
+
+.date-style-guide {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem 1rem;
+  align-items: center;
+  margin: 0.35rem 0 0.75rem;
+  color: #5f4638;
+  font-size: 0.9rem;
+}
+
+.date-style-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.date-style-sample {
+  width: 54px;
+  height: 12px;
+  overflow: visible;
+}
+
+.date-style-label {
+  white-space: nowrap;
+}
