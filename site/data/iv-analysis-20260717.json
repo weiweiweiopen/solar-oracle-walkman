@@ -25,7 +25,7 @@
   ],
   "exclusionNote": "The separately labelled 6x6 board was excluded by instruction and is not committed to this dataset.",
   "measurementQuality": {
-    "status": "suspect_shared_hse_batch",
+    "status": "manufacturing_and_seal_confounded",
     "affectedGroups": [
       "a",
       "b",
@@ -33,9 +33,43 @@
       "d",
       "e"
     ],
-    "reportedCondition": "The experimenter later reported that all A–E boards used the same HSE bottle after a pipette tip had fallen into it. The tip's prior contents, cleanliness, and residence time are unknown, so this is a suspected batch confound rather than proof that the HSE caused the low current.",
+    "reportedCondition": "A–E combine an aged-HSE cell cohort, a reused unrefrigerated N719 bath, and reportedly off-ratio, incompletely cured epoxy seals. These manufacturing conditions make the four-day identity comparison inconclusive; none is individually proven to have caused the current loss.",
+    "subFlags": [
+      {
+        "status": "aged_hse_sealed_cell_cohort",
+        "reportedCondition": "A–E were fabricated with HSE from an older bottle in which a pipette tip used only to aspirate that HSE had remained immersed for about 18 months. The cells were sealed after filling and were not refilled between 2026-07-13 and 2026-07-17. F–K used a separate, newer-year HSE bottle."
+      },
+      {
+        "status": "reused_unrefrigerated_n719_bath",
+        "reportedCondition": "Boards 0, 1, and 2 used fourfold-concentration N719 freshly removed from refrigeration. Subsequent boards, including A–K, were stained from the same bath, initially about 100 mL, which was reused without being returned to refrigeration. Elapsed storage time, cumulative TiO2 area, final bath volume, light exposure, and temperature were not logged, so neither concentration loss nor chemical stability can be inferred from appearance alone."
+      },
+      {
+        "status": "off_ratio_incompletely_cured_epoxy_seals",
+        "reportedCondition": "The boards were sealed with HI SUPER 30 two-part epoxy. The experimenter reports that the A/B ratio was not correct on many boards, the adhesive remained incompletely cured for a long time, and the boards were stored together in one sealed bag. Direct leaching at the fill seal, barrier failure, solvent loss, and moisture/oxygen ingress are plausible; shared-bag vapor transfer is secondary and unproven."
+      }
+    ],
     "acquisitionOrder": "F–K were acquired from 13:55–14:56; A–E followed from 14:59–15:22.",
-    "interpretation": "The files are valid EC-Lab exports, but A–E cannot support a clean cross-date identity verdict until the suspected HSE batch, acquisition-time drift, and contact/wetting effects are separated by controls."
+    "interpretation": "The files are valid EC-Lab exports. Because A–E stayed sealed and received no new HSE between dates, the 2026-07-17 low current is a change in sealed-cell response, not a new solution exposure that day. Off-ratio incompletely cured seals provide a direct route for barrier failure, solvent loss, ingress, or leaching and are therefore a leading explanation for rapid decline. HSE history, dye-bath history, cell aging, acquisition drift, and contact/wetting remain additional unresolved factors."
+  },
+  "manufacturingQuality": {
+    "dyeBathStatus": "reused_unrefrigerated_n719_bath",
+    "sealStatus": "off_ratio_incompletely_cured_epoxy_seals",
+    "affectedGroups": [
+      "a",
+      "b",
+      "c",
+      "d",
+      "e",
+      "f",
+      "g",
+      "h",
+      "i",
+      "j",
+      "k"
+    ],
+    "dyeBathCondition": "Boards 0, 1, and 2 used fourfold-concentration N719 freshly removed from refrigeration. Subsequent boards, including A–K, were stained from the same bath, initially about 100 mL, which was reused without being returned to refrigeration. Elapsed storage time, cumulative TiO2 area, final bath volume, light exposure, and temperature were not logged, so neither concentration loss nor chemical stability can be inferred from appearance alone.",
+    "sealCondition": "The boards were sealed with HI SUPER 30 two-part epoxy. The experimenter reports that the A/B ratio was not correct on many boards, the adhesive remained incompletely cured for a long time, and the boards were stored together in one sealed bag. Direct leaching at the fill seal, barrier failure, solvent loss, and moisture/oxygen ingress are plausible; shared-bag vapor transfer is secondary and unproven.",
+    "interpretation": "Repeated TiO2 uptake can lower N719 concentration, while solvent evaporation can raise nominal concentration and alter solvent composition. Room-temperature reuse also leaves light, heat, moisture, and carry-over uncontrolled. Without matched UV–Vis samples, bath volume, or cumulative TiO2 area, the direction and size of any concentration change are unknown. This can confound dye loading and board-to-board differences, but cannot by itself explain A–E's four-day sealed-cell decline because A–E already functioned on 2026-07-13."
   },
   "crossDateReference": {
     "date": "2026-07-13",
@@ -47,7 +81,7 @@
       "e"
     ],
     "criterion": "A board is called recognizable only when both amplitude-normalized views (max-abs and z-score) select its own 2026-07-13 template for the group mean and both 2026-07-17 repeat scans, and the same-label distance stays within the provisional 2026-07-13 leave-one-out enrollment band. Raw-current RMSE is supplemental.",
-    "resultSummary": "No A–E board passes the matcher, but the newly reported shared HSE-bottle condition confounds the run. Treat A–E identity as inconclusive pending controlled remeasurement, not as permanent identity loss."
+    "resultSummary": "No A–E board passes the matcher. Off-ratio incompletely cured epoxy seals, one aged HSE cohort, and an unquantified reused N719 bath make this a confounded four-day sealed-cell stability observation rather than a clean identity test. Treat identity as inconclusive pending correctly sealed matched trajectories, not as permanent identity loss."
   },
   "firstMeasurementGroups": [
     "f",
@@ -63,7 +97,7 @@
       "title": "N719 group a",
       "date": "2026-07-17",
       "replicates": 2,
-      "status": "Inconclusive — A–E share a suspected HSE-batch confound; controlled remeasurement is required before an identity verdict.",
+      "status": "Inconclusive — aged HSE, reused N719, and incompletely cured epoxy seals confound the trajectory; matched controls are required before an identity verdict.",
       "comparisonResult": "inconclusive_batch_confounded",
       "points": [
         [
@@ -1364,7 +1398,7 @@
       "title": "N719 group b",
       "date": "2026-07-17",
       "replicates": 2,
-      "status": "Inconclusive — A–E share a suspected HSE-batch confound; controlled remeasurement is required before an identity verdict.",
+      "status": "Inconclusive — aged HSE, reused N719, and incompletely cured epoxy seals confound the trajectory; matched controls are required before an identity verdict.",
       "comparisonResult": "inconclusive_batch_confounded",
       "points": [
         [
@@ -2665,7 +2699,7 @@
       "title": "N719 group c",
       "date": "2026-07-17",
       "replicates": 2,
-      "status": "Inconclusive — A–E share a suspected HSE-batch confound; controlled remeasurement is required before an identity verdict.",
+      "status": "Inconclusive — aged HSE, reused N719, and incompletely cured epoxy seals confound the trajectory; matched controls are required before an identity verdict.",
       "comparisonResult": "inconclusive_batch_confounded",
       "points": [
         [
@@ -3966,7 +4000,7 @@
       "title": "N719 group d",
       "date": "2026-07-17",
       "replicates": 2,
-      "status": "Inconclusive — A–E share a suspected HSE-batch confound; controlled remeasurement is required before an identity verdict.",
+      "status": "Inconclusive — aged HSE, reused N719, and incompletely cured epoxy seals confound the trajectory; matched controls are required before an identity verdict.",
       "comparisonResult": "inconclusive_batch_confounded",
       "points": [
         [
@@ -5267,7 +5301,7 @@
       "title": "N719 group e",
       "date": "2026-07-17",
       "replicates": 2,
-      "status": "Inconclusive — A–E share a suspected HSE-batch confound; controlled remeasurement is required before an identity verdict.",
+      "status": "Inconclusive — aged HSE, reused N719, and incompletely cured epoxy seals confound the trajectory; matched controls are required before an identity verdict.",
       "comparisonResult": "inconclusive_batch_confounded",
       "points": [
         [
@@ -14375,9 +14409,12 @@
       "group": "a",
       "result": "inconclusive_batch_confounded",
       "matcherResult": "not_recognizable",
-      "qualityFlag": "suspect_shared_hse_batch",
-      "status": "Inconclusive pending controlled remeasurement — A–E share a suspected HSE-batch confound. Matcher outcome: Not re-identified — only z-score shape chose the expected label, and the distance exceeded enrollment variation.",
-      "siteStatus": "Inconclusive — A–E share a suspected HSE-batch confound; controlled remeasurement is required before an identity verdict.",
+      "qualityFlag": "manufacturing_and_seal_confounded",
+      "hseQualityFlag": "aged_hse_sealed_cell_cohort",
+      "dyeBathQualityFlag": "reused_unrefrigerated_n719_bath",
+      "sealQualityFlag": "off_ratio_incompletely_cured_epoxy_seals",
+      "status": "Inconclusive pending matched manufacturing controls — aged HSE, reused N719, and off-ratio incompletely cured epoxy seals are confounded. Matcher outcome: Not re-identified — only z-score shape chose the expected label, and the distance exceeded enrollment variation.",
+      "siteStatus": "Inconclusive — aged HSE, reused N719, and incompletely cured epoxy seals confound the trajectory; matched controls are required before an identity verdict.",
       "nearestLabelViews": [
         "zshape"
       ],
@@ -14475,9 +14512,12 @@
       "group": "b",
       "result": "inconclusive_batch_confounded",
       "matcherResult": "not_recognizable",
-      "qualityFlag": "suspect_shared_hse_batch",
-      "status": "Inconclusive pending controlled remeasurement — A–E share a suspected HSE-batch confound. Matcher outcome: Not re-identified — only max-abs normalized chose the expected label, and the distance exceeded enrollment variation.",
-      "siteStatus": "Inconclusive — A–E share a suspected HSE-batch confound; controlled remeasurement is required before an identity verdict.",
+      "qualityFlag": "manufacturing_and_seal_confounded",
+      "hseQualityFlag": "aged_hse_sealed_cell_cohort",
+      "dyeBathQualityFlag": "reused_unrefrigerated_n719_bath",
+      "sealQualityFlag": "off_ratio_incompletely_cured_epoxy_seals",
+      "status": "Inconclusive pending matched manufacturing controls — aged HSE, reused N719, and off-ratio incompletely cured epoxy seals are confounded. Matcher outcome: Not re-identified — only max-abs normalized chose the expected label, and the distance exceeded enrollment variation.",
+      "siteStatus": "Inconclusive — aged HSE, reused N719, and incompletely cured epoxy seals confound the trajectory; matched controls are required before an identity verdict.",
       "nearestLabelViews": [
         "maxabs"
       ],
@@ -14575,9 +14615,12 @@
       "group": "c",
       "result": "inconclusive_batch_confounded",
       "matcherResult": "not_recognizable",
-      "qualityFlag": "suspect_shared_hse_batch",
-      "status": "Inconclusive pending controlled remeasurement — A–E share a suspected HSE-batch confound. Matcher outcome: Not re-identified against the 2026-07-13 references. At least one matcher view assigns the two repeat scans differently.",
-      "siteStatus": "Inconclusive — A–E share a suspected HSE-batch confound; controlled remeasurement is required before an identity verdict.",
+      "qualityFlag": "manufacturing_and_seal_confounded",
+      "hseQualityFlag": "aged_hse_sealed_cell_cohort",
+      "dyeBathQualityFlag": "reused_unrefrigerated_n719_bath",
+      "sealQualityFlag": "off_ratio_incompletely_cured_epoxy_seals",
+      "status": "Inconclusive pending matched manufacturing controls — aged HSE, reused N719, and off-ratio incompletely cured epoxy seals are confounded. Matcher outcome: Not re-identified against the 2026-07-13 references. At least one matcher view assigns the two repeat scans differently.",
+      "siteStatus": "Inconclusive — aged HSE, reused N719, and incompletely cured epoxy seals confound the trajectory; matched controls are required before an identity verdict.",
       "nearestLabelViews": [],
       "normalizedViewsPassed": [],
       "rawViewPassed": false,
@@ -14673,9 +14716,12 @@
       "group": "d",
       "result": "inconclusive_batch_confounded",
       "matcherResult": "not_recognizable",
-      "qualityFlag": "suspect_shared_hse_batch",
-      "status": "Inconclusive pending controlled remeasurement — A–E share a suspected HSE-batch confound. Matcher outcome: Not re-identified by normalized shape — raw current chose the expected label, but its distance exceeded enrollment variation. At least one matcher view assigns the two repeat scans differently.",
-      "siteStatus": "Inconclusive — A–E share a suspected HSE-batch confound; controlled remeasurement is required before an identity verdict.",
+      "qualityFlag": "manufacturing_and_seal_confounded",
+      "hseQualityFlag": "aged_hse_sealed_cell_cohort",
+      "dyeBathQualityFlag": "reused_unrefrigerated_n719_bath",
+      "sealQualityFlag": "off_ratio_incompletely_cured_epoxy_seals",
+      "status": "Inconclusive pending matched manufacturing controls — aged HSE, reused N719, and off-ratio incompletely cured epoxy seals are confounded. Matcher outcome: Not re-identified by normalized shape — raw current chose the expected label, but its distance exceeded enrollment variation. At least one matcher view assigns the two repeat scans differently.",
+      "siteStatus": "Inconclusive — aged HSE, reused N719, and incompletely cured epoxy seals confound the trajectory; matched controls are required before an identity verdict.",
       "nearestLabelViews": [
         "raw"
       ],
@@ -14773,9 +14819,12 @@
       "group": "e",
       "result": "inconclusive_batch_confounded",
       "matcherResult": "not_recognizable",
-      "qualityFlag": "suspect_shared_hse_batch",
-      "status": "Inconclusive pending controlled remeasurement — A–E share a suspected HSE-batch confound. Matcher outcome: Not re-identified against the 2026-07-13 references. At least one matcher view assigns the two repeat scans differently.",
-      "siteStatus": "Inconclusive — A–E share a suspected HSE-batch confound; controlled remeasurement is required before an identity verdict.",
+      "qualityFlag": "manufacturing_and_seal_confounded",
+      "hseQualityFlag": "aged_hse_sealed_cell_cohort",
+      "dyeBathQualityFlag": "reused_unrefrigerated_n719_bath",
+      "sealQualityFlag": "off_ratio_incompletely_cured_epoxy_seals",
+      "status": "Inconclusive pending matched manufacturing controls — aged HSE, reused N719, and off-ratio incompletely cured epoxy seals are confounded. Matcher outcome: Not re-identified against the 2026-07-13 references. At least one matcher view assigns the two repeat scans differently.",
+      "siteStatus": "Inconclusive — aged HSE, reused N719, and incompletely cured epoxy seals confound the trajectory; matched controls are required before an identity verdict.",
       "nearestLabelViews": [],
       "normalizedViewsPassed": [],
       "rawViewPassed": false,

@@ -63,7 +63,7 @@
       const datasets = await Promise.all([
         fetchJson("./data/iv-analysis.json"),
         fetchJson("./data/iv-analysis-20260713-included.json").catch(() => null),
-        fetchJson("./data/iv-analysis-20260717.json").catch(() => null)
+        fetchJson("./data/iv-analysis-20260717.json?v=20260718-manufacturing-confounds").catch(() => null)
       ]);
       const [baseline, july13, july17] = datasets;
       const baselineGroups = withSharedAccountDomain((baseline?.groups || []).map((group) => ({ ...group, status: "", sourceDate: "2026-06-21 / 2026-06-29" })));
@@ -243,7 +243,7 @@
     try {
       const [data, latest] = await Promise.all([
         fetchJson("./data/iv-analysis.json"),
-        fetchJson("./data/iv-analysis-20260717.json").catch(() => null)
+        fetchJson("./data/iv-analysis-20260717.json?v=20260718-manufacturing-confounds").catch(() => null)
       ]);
       if (curveDashboard) curveDashboard.replaceChildren(createOverlayPanel(data), createMetricsGrid(data));
       if (shapeRmsePanel) shapeRmsePanel.replaceChildren(createShapeRmsePanel(data, latest));
@@ -383,7 +383,7 @@
     const card = document.createElement("section");
     card.className = "rmse-key-card cross-date-decision-card";
     card.append(
-      createText("h3", "rmse-board-title", "A–E cross-date result · batch-confounded"),
+      createText("h3", "rmse-board-title", "A–E cross-date result · manufacturing-confounded"),
       createText("p", "shape-explain", data.crossDateReference?.resultSummary || "Cross-date result unavailable.")
     );
 

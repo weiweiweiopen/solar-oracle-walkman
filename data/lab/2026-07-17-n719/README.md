@@ -11,9 +11,25 @@ This dataset records the 2026-07-17 EC-Lab LSV measurements for boards A–K.
 
 ## A–E data-quality flag
 
-**Status: `suspect_shared_hse_batch`.** The experimenter later reported that all A–E boards used the same HSE bottle after a pipette tip had fallen into it. The tip's prior contents, cleanliness, and residence time are unknown, so this is a suspected batch confound rather than proof that the HSE caused the low current.
+**Status: `manufacturing_and_seal_confounded`.** A–E combine an aged-HSE cell cohort, a reused unrefrigerated N719 bath, and reportedly off-ratio, incompletely cured epoxy seals. These manufacturing conditions make the four-day identity comparison inconclusive; none is individually proven to have caused the current loss.
 
-The EC-Lab exports are structurally valid acquisitions, but this shared solution condition makes the A–E cross-date identity verdict **inconclusive pending controlled remeasurement**. It does not prove that the HSE caused the shift; A–E were also acquired as one later block (14:59–15:22), after F–K (13:55–14:56), so solution, time/order, contact, wetting, and electrode-condition effects are confounded.
+**HSE subflag: `aged_hse_sealed_cell_cohort`.** A–E were fabricated with HSE from an older bottle in which a pipette tip used only to aspirate that HSE had remained immersed for about 18 months. The cells were sealed after filling and were not refilled between 2026-07-13 and 2026-07-17. F–K used a separate, newer-year HSE bottle.
+
+The EC-Lab exports are structurally valid acquisitions. Because A–E stayed sealed and received no new HSE between dates, the 2026-07-17 drop is a change in the same sealed cells over four days, not a fresh HSE exposure on measurement day. The newly reported off-ratio, incompletely cured epoxy makes seal-barrier failure, solvent loss, moisture/oxygen ingress, or direct leaching at the fill seal a leading explanation. HSE history, post-fabrication aging, contact, acquisition order, and electrode/session effects remain confounded.
+
+A–E still produced 1.307–3.198 mA at 0 V on 2026-07-13 despite that fabrication history. The evidence therefore points to a rapid four-day trajectory change rather than cells that were inactive from the outset.
+
+## Epoxy seal-quality flag
+
+**Status: `off_ratio_incompletely_cured_epoxy_seals`.** The boards were sealed with HI SUPER 30 two-part epoxy. The experimenter reports that the A/B ratio was not correct on many boards, the adhesive remained incompletely cured for a long time, and the boards were stored together in one sealed bag. Direct leaching at the fill seal, barrier failure, solvent loss, and moisture/oxygen ingress are plausible; shared-bag vapor transfer is secondary and unproven.
+
+Incorrect two-part stoichiometry can leave reactive resin or hardener and can prevent a durable barrier from forming even after long waiting. The shared sealed bag could permit some vapor transfer if seals were already imperfect, but each board's own under-cured fill seal is the more direct pathway. The photograph shows a HI SUPER 30 dual-cartridge product with lot code D2621 and use-by code 270420; the date-code format and HSE compatibility were not independently verified.
+
+## N719 dye-bath quality flag
+
+**Status: `reused_unrefrigerated_n719_bath`.** Boards 0, 1, and 2 used fourfold-concentration N719 freshly removed from refrigeration. Subsequent boards, including A–K, were stained from the same bath, initially about 100 mL, which was reused without being returned to refrigeration. Elapsed storage time, cumulative TiO2 area, final bath volume, light exposure, and temperature were not logged, so neither concentration loss nor chemical stability can be inferred from appearance alone.
+
+Repeated TiO2 uptake can lower N719 concentration, but solvent evaporation can instead raise nominal concentration while changing solvent composition. Light, heat, moisture, and sample carry-over can also reduce effective staining quality. The current photographs and solution color cannot distinguish these mechanisms or quantify concentration. This dye-bath history can confound dye loading and board-to-board differences, but cannot by itself explain the four-day A–E decline because the cells were already sealed and functioning on 2026-07-13.
 
 ## Cross-date decision rule
 
@@ -23,19 +39,19 @@ A board is called **recognizable** only if both normalized views (max-abs and z-
 
 ## A–E matcher result
 
-**No A–E board passes both normalized cross-date views. Because of the shared suspected HSE-batch confound, the scientific identity verdict is inconclusive rather than permanent identity loss.**
+**No A–E board passes both normalized cross-date views. Because incompletely cured epoxy seals, aged-HSE history, and an unquantified reused N719 bath are uncontrolled manufacturing variables, the scientific identity verdict is inconclusive rather than permanent identity loss.**
 
 | board | I@0 V: 7/13 → 7/17 (mA) | raw nearest | max-abs nearest | z-shape nearest | same-label / 7/13 band (raw / max / z) | conclusion |
 |---|---:|---:|---:|---:|---:|---|
-| A | 2.525 → 0.469 (-81.4%) | D | B | A | 15.0× / 14.8× / 7.2× | Inconclusive pending controlled remeasurement — A–E share a suspected HSE-batch confound. Matcher outcome: Not re-identified — only z-score shape chose the expected label, and the distance exceeded enrollment variation. |
-| B | 3.198 → 1.027 (-67.9%) | A | B | A | 27.1× / 36.0× / 19.6× | Inconclusive pending controlled remeasurement — A–E share a suspected HSE-batch confound. Matcher outcome: Not re-identified — only max-abs normalized chose the expected label, and the distance exceeded enrollment variation. |
-| C | 1.307 → 0.126 (-90.3%) | D | D | A | 14.0× / 15.0× / 15.2× | Inconclusive pending controlled remeasurement — A–E share a suspected HSE-batch confound. Matcher outcome: Not re-identified against the 2026-07-13 references. At least one matcher view assigns the two repeat scans differently. |
-| D | 2.119 → 0.309 (-85.4%) | D | B | A | 7.5× / 10.6× / 10.5× | Inconclusive pending controlled remeasurement — A–E share a suspected HSE-batch confound. Matcher outcome: Not re-identified by normalized shape — raw current chose the expected label, but its distance exceeded enrollment variation. At least one matcher view assigns the two repeat scans differently. |
-| E | 1.506 → 0.301 (-80.0%) | D | D | B | 7.8× / 16.5× / 30.5× | Inconclusive pending controlled remeasurement — A–E share a suspected HSE-batch confound. Matcher outcome: Not re-identified against the 2026-07-13 references. At least one matcher view assigns the two repeat scans differently. |
+| A | 2.525 → 0.469 (-81.4%) | D | B | A | 15.0× / 14.8× / 7.2× | Inconclusive pending matched manufacturing controls — aged HSE, reused N719, and off-ratio incompletely cured epoxy seals are confounded. Matcher outcome: Not re-identified — only z-score shape chose the expected label, and the distance exceeded enrollment variation. |
+| B | 3.198 → 1.027 (-67.9%) | A | B | A | 27.1× / 36.0× / 19.6× | Inconclusive pending matched manufacturing controls — aged HSE, reused N719, and off-ratio incompletely cured epoxy seals are confounded. Matcher outcome: Not re-identified — only max-abs normalized chose the expected label, and the distance exceeded enrollment variation. |
+| C | 1.307 → 0.126 (-90.3%) | D | D | A | 14.0× / 15.0× / 15.2× | Inconclusive pending matched manufacturing controls — aged HSE, reused N719, and off-ratio incompletely cured epoxy seals are confounded. Matcher outcome: Not re-identified against the 2026-07-13 references. At least one matcher view assigns the two repeat scans differently. |
+| D | 2.119 → 0.309 (-85.4%) | D | B | A | 7.5× / 10.6× / 10.5× | Inconclusive pending matched manufacturing controls — aged HSE, reused N719, and off-ratio incompletely cured epoxy seals are confounded. Matcher outcome: Not re-identified by normalized shape — raw current chose the expected label, but its distance exceeded enrollment variation. At least one matcher view assigns the two repeat scans differently. |
+| E | 1.506 → 0.301 (-80.0%) | D | D | B | 7.8× / 16.5× / 30.5× | Inconclusive pending matched manufacturing controls — aged HSE, reused N719, and off-ratio incompletely cured epoxy seals are confounded. Matcher outcome: Not re-identified against the 2026-07-13 references. At least one matcher view assigns the two repeat scans differently. |
 
 Single-view nearest-label signals are not successful re-identification: A points to itself only in z-score shape, B only in max-abs normalization, and D only in raw current; all three same-label distances remain outside their 2026-07-13 leave-one-out bands. C and E do not return their own prior label in any group-mean view.
 
-These are matcher outputs, not a clean material-identity test, because every A–E query shares the newly reported HSE-bottle condition.
+These are matcher outputs, not a clean material-identity test, because the cohort combines reported seal-cure failures, aged-HSE history, and an unquantified reused N719 bath.
 
 ## A–E short-interval repeat check
 
@@ -47,7 +63,7 @@ These are matcher outputs, not a clean material-identity test, because every A�
 | D | 0.306841 → 0.310700 | 0.073 | good short-term repeat of a low-current state |
 | E | 0.289882 → 0.311991 | 0.048 | mixed; I@0 V is close, but the negative-potential branch changes |
 
-A, B, and D show that the low-current state can repeat over a few minutes; that supports short-term precision but not accuracy. The same suspect solution, contact geometry, electrodes, and method can reproduce the same systematic bias twice. C is plainly unstable, and E retains a changing negative-potential branch.
+A, B, and D show that the low-current state can repeat over a few minutes; that supports short-term precision but not accuracy. A degraded or leaking sealed-cell state, unchanged contact geometry, electrodes, and method can reproduce the same systematic bias twice. C is plainly unstable, and E retains a changing negative-potential branch.
 
 ## F–K first-measurement baseline
 
@@ -68,18 +84,26 @@ F repeats well and K is reasonably shape-stable. G is moderate; H fails the repe
 - Instrument export: EC-Lab ASCII text
 - Reference electrode: SCE (Saturated Calomel Electrode)
 - Scan setting from headers: Ei = -0.800 V vs Ref, EL = 0.010 V vs Ref, scan rate = 10 mV/s
-- Electrolyte header: NaCl (0.2 M); comment: Fe(CN)6^3-/Fe(CN)6^4- 5×10^-3 M
+- Cell fill reported by experimenter: HSE; A–E and F–K used different HSE bottles
+- Seal reported by experimenter: HI SUPER 30 two-part epoxy; many boards had incorrect A/B ratio and remained incompletely cured
+- EC-Lab header label: NaCl (0.2 M); comment: Fe(CN)6^3-/Fe(CN)6^4- 5×10^-3 M. This stored header does not verify the sealed-cell HSE batch.
 - Initial zero-current stabilization rows are removed before RMSE/shape analysis.
 
 ## Recommended controlled remeasurement
 
-1. Quarantine and label the suspect HSE; do not return aliquots to fresh stock. Record HSE lot/preparation date, tip condition, temperature, illumination, equilibration time, electrode identity, and contact geometry.
-2. If solution exchange is reversible without altering a board, use A and B as sentinels and test suspect HSE (`S`) versus independently fresh/verified HSE (`F`) with balanced order: A `S→F`, B `F→S`. Otherwise use matched sacrificial sentinels rather than re-filling A/B.
-3. For each board × solution, acquire two scans without reseating and one after a force-defined reseat: 12 board LSVs total. Randomize board order and hold equilibration time constant.
-4. Bracket the sequence with a stable electrochemical check cell in each solution at start/end and verify the SCE before/after.
-5. Compare the archived 2026-07-13 and 2026-07-17 EC-Lab setting files directly; if they differ beyond displayed parameters, test the check cell under both programs.
+1. Quarantine the poorly cured cell cohort, old HSE, and reused N719 bath. Keep A–E sealed; adding more epoxy or reopening them would create a new object, not restore the original identity trajectory.
+2. Obtain the HI SUPER 30 technical data sheet and confirm the required A/B ratio, mixing method, full-cure schedule, date-code format, and chemical compatibility. Use the intended dual-cartridge plunger/static mixer or weigh components to the specified ratio; do not judge cure by elapsed time alone.
+3. Before making identity cells, compare HSE alone, HSE with a fully cured correctly mixed epoxy coupon, and HSE with a retained suspect-seal coupon in separate sealed compatibility vials. Monitor appearance and, where available, UV–Vis/electrochemistry; avoid intentionally placing off-ratio adhesive into new cells.
+4. With one verified seal process, fabricate a same-day 2×2 matched dummy-cell experiment: old versus fresh HSE crossed with reused versus fresh N719, at least three cells per condition (12 total). Compare reused and fresh N719 by identically diluted UV–Vis and log bath volume, TiO2 area, time, light, and temperature.
+5. Measure fixed-condition trajectories after initial equilibration, 24 hours, 4 days, and 7 days. Photograph seals/bubbles, track cell mass if possible, store cells separately until full cure, and bracket sessions with a stable check cell and SCE verification.
 
-This matrix separates a solution-wide shift from board contact/wetting, electrode/session drift, and persistent board aging more effectively than repeating the same unchanged setup twice.
+This sequence first removes seal failure, then separates HSE history, dye-bath history, their interaction, ordinary aging, contact/wetting, and session drift without reopening A–E.
+
+## PUF claim boundary: unsealed versus sealed
+
+- **Track U — intrinsic electrode identity:** use an unsealed but fixture-defined gasket/spacer, active area, alignment, contact force, fresh-electrolyte volume, and equilibration time. Independently disassemble and reconstitute the same electrode across at least three sessions. One droplet followed by two scans proves only short-interval precision.
+- **Track S — persistent device identity:** use the new verified seal process and monitor the same unopened DSSC at Day 0, 1, 4, 7, 14, and 30.
+- Track U can establish re-readable solid-electrode identity without package failure; Track S is required for a self-contained long-lived device claim. Neither track alone establishes unclonability without a separate replication/attack experiment.
 
 ## Reproduce
 
@@ -91,8 +115,12 @@ python3 scripts/analyze_20260717_n719.py
 ## Limits
 
 - This is an exploratory comparison with only two 2026-07-17 repeats per board.
-- A–E carry the `suspect_shared_hse_batch` flag because they shared a potentially compromised HSE bottle; the exact contamination state is unknown.
-- F–K were measured earlier and are different boards, so they are not a clean same-board or contemporaneous solution control for A–E.
+- A–E carry the overall `manufacturing_and_seal_confounded` flag because multiple manufacturing and sealing variables were uncontrolled.
+- A–E carry the `aged_hse_sealed_cell_cohort` subflag: they were sealed with an older HSE batch that had contained a submerged pipette tip for about 18 months; no refilling occurred between dates.
+- A–K carry the `reused_unrefrigerated_n719_bath` subflag because they used a reused N719 bath that was not returned to refrigeration; actual concentration and chemical stability were not measured.
+- The cohort carries the `off_ratio_incompletely_cured_epoxy_seals` subflag because the reported epoxy A/B ratio was wrong on many boards and cure remained incomplete.
+- F–K used a separate, newer-year HSE bottle and are different boards with no earlier baseline, so they are not a clean control for A–E.
+- The present data cannot separate off-ratio adhesive/leaching, barrier failure, HSE age, long tip immersion, dye-bath depletion/composition, or ordinary post-fabrication aging as causes of the observed differences.
 - Temperature, illumination, contact pressure, wetting/bubbles, equilibration time, and electrolyte/aging state were not modeled as separate covariates.
 - The decision rule was applied retrospectively and must be validated prospectively on later sessions.
 - The acquisition headers match on instrument/channel, SCE, electrolyte, sweep range, and scan rate, but the loaded EC-Lab setting-file path differs between dates and should be checked at the next controlled session.

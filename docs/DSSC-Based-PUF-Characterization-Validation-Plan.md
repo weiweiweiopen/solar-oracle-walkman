@@ -44,7 +44,18 @@ Controlled stimulus to PUF quality metrics:
 - Operating temperature range: 20 deg C to 40 deg C
 - All PUF metrics must be validated within this thermal window
 - Temperature coefficients for Voc and Isc must be characterized and compensated if needed
-- Long-term stability aging is a secondary goal; initial focus is functional PUF demonstration
+- Long-term stability aging is a secondary goal for the first screening gate, but it is required before claiming a persistent deployable PUF
+
+### 1.4 Define the PUF Object: Two Validation Tracks
+
+Packaging must not be allowed to obscure whether an intrinsic device fingerprint exists. Run two linked tracks and keep their claims separate:
+
+| Track | PUF object | Electrolyte / package role | Claim supported |
+|---|---|---|---|
+| U: reconfigurable unsealed fixture | The same dye-sensitized TiO2 electrode and its solid microstructure | Fresh electrolyte is a controlled readout challenge; gasket, area, spacing, alignment, volume, and contact force are fixture variables | Intrinsic distinguishability and re-readability across independent wetting/assembly sessions |
+| S: correctly sealed cell | The complete DSSC, including electrodes, electrolyte, seal, and package state | Package is part of the physical object | Persistence and operational identity of a self-contained device |
+
+A single electrolyte application followed by repeated scans tests only short-interval measurement precision. Track U is meaningful only when the same electrode is independently disassembled and reconstituted across sessions. Track S is required for a long-lived device claim. Neither track alone proves unclonability; that requires an explicit replication/attack model.
 
 ---
 
@@ -108,19 +119,20 @@ Establish that devices are individually distinct and that measurements are repea
 
 **Procedure**
 
-1. Prepare N >= 20 DSSC devices using the same nominal fabrication process.
-2. Place each device in the light isolation box.
-3. Apply white LED at 100% intensity as the fixed challenge.
-4. Measure full I-V curve using SMU or DIY current-sense circuit.
-5. Extract Isc, Voc, FF, Pmax, Rs, and Rsh.
-6. Repeat 20 times per device without removing from fixture.
-7. Record all raw data.
+1. Prepare N >= 20 nominally identical dye-sensitized electrodes and assign immutable physical labels before electrical testing.
+2. Establish the instrument noise floor on a stable check cell with 10–20 consecutive scans.
+3. For Track U, use a fixture-defined gasket/spacer, active area, counter-electrode alignment, contact force, electrolyte volume, aliquot freshness, and equilibration time. Free-form droplet geometry is not acceptable.
+4. Measure two or three consecutive I-V curves, then disassemble and store the same electrode under a documented procedure. Repeat independent assembly/wetting on at least three sessions, including different days.
+5. For Track S, fabricate a separately labelled cohort using a verified mix ratio, compatible sealant, and complete cure schedule. Record the initial response after fixed equilibration.
+6. Extract Isc, Voc, FF, Pmax, Rs, Rsh, and full-curve shape features from every raw trace.
+7. Randomize device order and retain failed, leaking, or unstable runs with quality flags rather than deleting them.
 
 **Pass Criteria**
 
-- Device-to-device spread in Isc > 3x measurement noise floor
-- Within-device repeat CV < 2% for Isc and Voc
-- All devices produce statistically distinct I-V signatures
+- Device-to-device spread exceeds 3x the check-cell measurement noise floor.
+- Track U: the expected electrode is recovered across independent reconstruction sessions, and within-electrode variation is smaller than nearest other-electrode distance under a prospectively declared rule.
+- Track S: correctly sealed cells pass the same initial separability gate before longitudinal testing.
+- Consecutive-scan CV is reported as precision only; it is not accepted as cross-session reliability.
 
 ### 3.2 Phase 2: Bit Extraction & Uniqueness
 
@@ -160,11 +172,11 @@ Interpretation:
 
 **Procedure**
 
-1. Select 5 representative devices.
-2. Enroll each device by recording reference PUF response R_ref.
-3. Remove and re-insert device 10 times.
-4. Each time, measure and extract new response R_i.
-5. Compute intra-device HD between R_ref and each R_i.
+1. Select at least 5 representative objects per validation track and enroll each with reference response R_ref.
+2. Track U: independently disassemble and reconstitute the fixture at least 10 times across at least three days, using a fresh controlled electrolyte aliquot for every reconstruction.
+3. Track S: measure the same sealed cells at Day 0, 1, 4, 7, 14, and 30 without opening or repairing them.
+4. At each session, randomize order, bracket with a check cell, and log illumination, temperature, contact force, electrolyte lot/volume where applicable, seal condition, bubbles, and cell mass where feasible.
+5. Extract response R_i and compute intra-object HD or analog distance from R_ref. Report Track U reconstruction error separately from Track S aging error.
 
 **Reliability Metric**
 
@@ -322,7 +334,9 @@ SMU-based I-V sweep with RGB LEDs, oscilloscope, and Peltier thermal control.
 | High BER due to contact noise | High | Pogo pin fixture with controlled pressure; average 10+ measurements per challenge |
 | Temperature drift causes bit flips | Medium | Per-temperature threshold recalibration; log temperature with every measurement |
 | LED intensity drift between sessions | High | Recalibrate against reference photodiode; log intensity with every measurement |
-| Dye degradation over time | Medium | Seal devices with UV-resistant encapsulant; track Isc drift as aging metric |
+| Dye degradation or reused dye-bath drift | High until controlled | Use fresh quantified aliquots; log refrigeration/light/time/volume/TiO2 area; compare old vs fresh by UV–Vis |
+| Off-ratio or incompatible sealant | High until corrected | Verify manufacturer ratio and cure schedule; use a mixing nozzle or gravimetric ratio; validate HSE compatibility; track bubbles and mass loss |
+| Free droplet geometry dominates unsealed response | High | Use a gasket/spacer fixture with fixed active area, volume, alignment, pressure, and equilibration time |
 
 ---
 
@@ -334,6 +348,9 @@ A DSSC device is confirmed to exhibit strong PUF behavior when all of the follow
 2. **Reliability:** Intra-device BER < 5% pre-ECC and < 0.1% post-ECC.
 3. **Randomness:** Min-entropy per bit > 0.9; NIST frequency test p > 0.01.
 4. **Stability:** BER < 10% across 20 deg C to 40 deg C without compensation; BER < 5% across 20 deg C to 40 deg C with compensation.
+5. **Track U reconstruction reliability:** the same electrode is recovered across independently rebuilt wetting sessions under a prospectively declared acceptance rule.
+6. **Track S persistence:** the same unopened sealed device remains recoverable over the declared monitoring interval.
+7. **Claim boundary:** uniqueness, reliability, randomness, and persistence do not by themselves prove unclonability; a separate attack/replication experiment is required.
 
 ---
 
