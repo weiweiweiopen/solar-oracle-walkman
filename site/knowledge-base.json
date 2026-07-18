@@ -177,7 +177,14 @@
       "curvature_sum",
       "area_star"
     ],
-    "feature_warning": "These features are candidates for characterization, not final cryptographic proof."
+    "feature_warning": "These features are candidates for characterization, not final cryptographic proof.",
+    "latest_measurement_2026_07_17": {
+      "scope": "Boards A–K were measured twice; the separately labelled 6x6 board was excluded. A–E were queried against 2026-07-13 templates, while F–K are first-measurement baselines only.",
+      "decision_rule": "Cross-date recognition requires both max-abs-normalized and z-score-shape RMSE to select the expected 2026-07-13 label for the group mean and both repeat scans, with the same-label distance inside a provisional 2026-07-13 leave-one-out enrollment band.",
+      "result": "No A–E board passed the cross-date rule. A pointed to itself only in z-score shape, B only in max-abs normalization, and D only in raw current; all remained outside their enrollment-variation bands. C and E did not return their own prior labels in any group-mean view.",
+      "interpretation": "Say that A–E were not identifiable in this specific cross-date comparison, not that their physical identities were permanently lost. Current magnitude fell strongly, and aging, illumination, temperature, contact pressure, electrolyte state, and a changed loaded EC-Lab setting-file path were not isolated as covariates.",
+      "source": "data/lab/2026-07-17-n719/README.md"
+    }
   },
   "energy_provenance_evidence": {
     "meaning": "Energy Provenance Evidence means research-oriented evidence records connecting measured physical events to verifiable records. It is not legal certification.",

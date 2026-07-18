@@ -1721,3 +1721,24 @@ html[lang="zh-Hant"] .hero-intro {
   width: 32px !important;
   height: 8px !important;
 }
+
+.cross-date-decision-card {
+  margin: 0 0 14px;
+  overflow-x: auto;
+}
+
+.cross-date-decision-table th,
+.cross-date-decision-table td {
+  padding: 7px 9px;
+  white-space: nowrap;
+}
+
+.cross-date-decision-table th:last-child,
+.cross-date-decision-table td:last-child {
+  text-align: left;
+}
+
+.decision-rule-note {
+  margin: 10px 0 0;
+  max-width: 92ch;
+}

@@ -62,17 +62,18 @@
     try {
       const datasets = await Promise.all([
         fetchJson("./data/iv-analysis.json"),
-        fetchJson("./data/iv-analysis-20260713-included.json").catch(() => null)
+        fetchJson("./data/iv-analysis-20260713-included.json").catch(() => null),
+        fetchJson("./data/iv-analysis-20260717.json").catch(() => null)
       ]);
-      const [baseline, july13] = datasets;
+      const [baseline, july13, july17] = datasets;
       const baselineGroups = (baseline?.groups || []).map((group) => ({ ...group, status: "", sourceDate: "2026-06-21 / 2026-06-29" }));
-      const july13Groups = normalizeJuly13Groups(july13);
+      const latestGroups = normalizeLatestGroups(july13, july17);
       const legendWrap = document.createElement("div");
       legendWrap.className = "date-style-guide-row";
       const guide = createDateStyleGuide();
       guide.classList.add("date-style-guide--cards");
       legendWrap.append(guide);
-      grid.replaceChildren(legendWrap, ...[...baselineGroups, ...july13Groups].map(createCurveAccountCard));
+      grid.replaceChildren(legendWrap, ...[...baselineGroups, ...latestGroups].map(createCurveAccountCard));
     } catch (_error) {
       grid.replaceChildren(createText("p", "iv-empty", "Curve accounts unavailable."));
     }
@@ -84,25 +85,30 @@
     return response.json();
   }
 
-  function normalizeJuly13Groups(data) {
-    return (data?.groups || [])
+  function normalizeLatestGroups(previousData, latestData) {
+    const previousById = new Map((previousData?.groups || [])
       .filter((group) => group.id !== "0")
-      .map((group) => ({
-      id: `20260713-${group.id}`,
-      title: `N719 group ${group.id}`,
-      color: "var(--mouse-red)",
-      status: "",
-      metrics: group.metrics || {},
-      sourceDate: "2026-07-13",
-      displayGroupId: group.id,
-      traces: [
-        {
-          date: "2026-07-13",
-          dash: "2 3",
-          points: group.points || []
-        }
-      ]
-    }));
+      .map((group) => [group.id, group]));
+
+    return (latestData?.groups || []).map((group) => {
+      const previous = previousById.get(group.id);
+      const traces = [];
+      if (previous) {
+        traces.push({ date: "2026-07-13", dash: "2 3", points: previous.points || [] });
+      }
+      traces.push({ date: "2026-07-17", dash: "10 4 2 4", points: group.points || [] });
+      return {
+        id: `20260717-${group.id}`,
+        title: `N719 group ${group.id}`,
+        color: "var(--mouse-red)",
+        status: group.status || "",
+        comparisonResult: group.comparisonResult || "first_measurement",
+        metrics: group.metrics || {},
+        sourceDate: "2026-07-17",
+        displayGroupId: group.id,
+        traces
+      };
+    });
   }
 
   function createCurveAccountCard(group) {
@@ -150,6 +156,16 @@
   function createAccountMetrics(metrics) {
     const dl = document.createElement("dl");
     dl.className = "account-metrics";
+    if (metrics.displayMode === "lsv") {
+      const zeroCross = metrics.zero_cross_E_V_vs_SCE_mean == null
+        ? "not observed"
+        : `${formatNumber(metrics.zero_cross_E_V_vs_SCE_mean, 3)} V`;
+      addMetric(dl, "repeats", String(metrics.n_scans || 0));
+      addMetric(dl, "I @ 0 V", `${formatNumber(metrics.I_at_0V_mA_mean, 3)} mA`);
+      addMetric(dl, "E @ I = 0", zeroCross);
+      addMetric(dl, "repeat z-RMSE", formatNumber(metrics.duplicate_zshape_rmse, 3));
+      return dl;
+    }
     addMetric(dl, "η (%)", `${formatNumber(metrics.etaPercent || 0, 2)}%`);
     addMetric(dl, "Voc", `${formatNumber((metrics.voc || 0) * 1000, 1)} mV`);
     addMetric(dl, "Jsc", `${formatNumber(metrics.jsc || 0, 3)} mA`);
@@ -159,11 +175,12 @@
 
   async function setupCurveDashboard({ curveDashboard, shapeRmsePanel }) {
     try {
-      const response = await fetch("./data/iv-analysis.json", { cache: "no-store" });
-      if (!response.ok) throw new Error(`IV analysis returned ${response.status}`);
-      const data = await response.json();
+      const [data, latest] = await Promise.all([
+        fetchJson("./data/iv-analysis.json"),
+        fetchJson("./data/iv-analysis-20260717.json").catch(() => null)
+      ]);
       if (curveDashboard) curveDashboard.replaceChildren(createOverlayPanel(data), createMetricsGrid(data));
-      if (shapeRmsePanel) shapeRmsePanel.replaceChildren(createShapeRmsePanel(data));
+      if (shapeRmsePanel) shapeRmsePanel.replaceChildren(createShapeRmsePanel(data, latest));
     } catch (_error) {
       if (curveDashboard) curveDashboard.replaceChildren(createText("p", "iv-empty", "Curve dashboard unavailable."));
     }
@@ -187,7 +204,8 @@
     [
       ["6/21", "7 5"],
       ["6/29", ""],
-      ["7/13", "1 7"]
+      ["7/13", "1 7"],
+      ["7/17", "10 4 2 4"]
     ].forEach(([label, dash]) => {
       const item = document.createElement("span");
       item.className = "date-style-item";
@@ -257,21 +275,25 @@
     dl.append(dt, dd);
   }
 
-  function createShapeRmsePanel(data) {
+  function createShapeRmsePanel(data, latest) {
     const panel = document.createElement("section");
     panel.className = "orange-card shape-rmse-card shape-rmse-card--figures";
-    panel.append(createText("h2", "curve-panel-title", "RMSE maps"));
+    panel.append(createText("h2", "curve-panel-title", "2026-07-17 identity check"));
 
-    const note = createText("p", "shape-explain", "Dark = similar. Light = different.");
+    const note = createText("p", "shape-explain", "A–E are queried against their 2026-07-13 templates. Darker heatmap cells have smaller RMSE.");
+    panel.append(note);
+    if (latest?.crossDateIdentification?.length) {
+      panel.append(createCrossDateDecisionCard(latest));
+    }
+
     const grid = document.createElement("div");
     grid.className = "shape-rmse-figure-grid";
-
     [
-      ["Pairwise IV-curve RMSE (raw current)", "./pix/rmse/rmse-20260713-raw-current.png"],
-      ["Pairwise IV-shape RMSE (max-abs normalized)", "./pix/rmse/rmse-20260713-maxabs.png"],
-      ["Pairwise IV-shape RMSE (z-score normalized)", "./pix/rmse/rmse-20260713-zshape.png"],
-      ["Raw current group means ± SD", "./pix/rmse/rmse-20260713-raw-group-means.png"],
-      ["Max-abs normalized group means ± SD", "./pix/rmse/rmse-20260713-maxabs-group-means.png"]
+      ["A–E cross-date LSV overlay", "./pix/rmse/rmse-20260717-a-e-crossdate-overlay.png"],
+      ["A–K 2026-07-17 group means ± SD", "./pix/rmse/rmse-20260717-a-k-group-means.png"],
+      ["A–E cross-date RMSE: raw current", "./pix/rmse/rmse-20260717-crossdate-raw.png"],
+      ["A–E cross-date RMSE: max-abs normalized", "./pix/rmse/rmse-20260717-crossdate-maxabs.png"],
+      ["A–E cross-date RMSE: z-score shape", "./pix/rmse/rmse-20260717-crossdate-zshape.png"]
     ].forEach(([caption, src]) => {
       const figure = document.createElement("figure");
       figure.className = "shape-rmse-figure";
@@ -284,8 +306,46 @@
       grid.append(figure);
     });
 
-    panel.append(note, grid);
+    panel.append(grid);
     return panel;
+  }
+
+  function createCrossDateDecisionCard(data) {
+    const card = document.createElement("section");
+    card.className = "rmse-key-card cross-date-decision-card";
+    card.append(
+      createText("h3", "rmse-board-title", "A–E cross-date result"),
+      createText("p", "shape-explain", data.crossDateReference?.resultSummary || "Cross-date result unavailable.")
+    );
+
+    const table = document.createElement("table");
+    table.className = "rmse-key-table cross-date-decision-table";
+    const head = document.createElement("thead");
+    const headRow = document.createElement("tr");
+    ["board", "I@0 V 7/13→7/17", "nearest raw / max / z", "decision"].forEach((label) => {
+      headRow.append(createText("th", "", label));
+    });
+    head.append(headRow);
+    const body = document.createElement("tbody");
+    (data.crossDateIdentification || []).forEach((item) => {
+      const row = document.createElement("tr");
+      const nearest = ["raw", "maxabs", "zshape"]
+        .map((kind) => item.metrics?.[kind]?.nearestReference?.toUpperCase() || "—")
+        .join(" / ");
+      const resultLabel = item.result === "recognizable"
+        ? "recognizable"
+        : item.result === "not_robustly_recognizable" ? "not robust" : "not identified";
+      [
+        item.group.toUpperCase(),
+        `${formatNumber(item.referenceIAt0VmA, 3)}→${formatNumber(item.queryIAt0VmA, 3)} mA`,
+        nearest,
+        resultLabel
+      ].forEach((value) => row.append(createText("td", "", value)));
+      body.append(row);
+    });
+    table.append(head, body);
+    card.append(table, createText("p", "shape-explain decision-rule-note", data.crossDateReference?.criterion || ""));
+    return card;
   }
 
 
