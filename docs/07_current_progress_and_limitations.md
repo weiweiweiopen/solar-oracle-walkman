@@ -16,6 +16,7 @@
 - daily hash generation
 - DSSC characterization
 - controlled cross-date remeasurement with logged environmental and contact conditions
+- balanced suspect-HSE versus independently fresh-HSE test on the same sentinel boards, with a check cell and reference-electrode verification
 - LLM explainer site
 
 ## Not yet done
@@ -27,3 +28,4 @@
 - third-party audit
 - resolved cross-date validation for the ambiguous 2026-07-13 N719-1 / N719-2 labels
 - prospectively declared, independently calibrated cross-date acceptance bands
+- resolved 2026-07-17 A–E shared-HSE batch confound; current identity verdict is inconclusive pending remeasurement

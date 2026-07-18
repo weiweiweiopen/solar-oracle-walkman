@@ -24,6 +24,19 @@
     "6x6"
   ],
   "exclusionNote": "The separately labelled 6x6 board was excluded by instruction and is not committed to this dataset.",
+  "measurementQuality": {
+    "status": "suspect_shared_hse_batch",
+    "affectedGroups": [
+      "a",
+      "b",
+      "c",
+      "d",
+      "e"
+    ],
+    "reportedCondition": "The experimenter later reported that all A–E boards used the same HSE bottle after a pipette tip had fallen into it. The tip's prior contents, cleanliness, and residence time are unknown, so this is a suspected batch confound rather than proof that the HSE caused the low current.",
+    "acquisitionOrder": "F–K were acquired from 13:55–14:56; A–E followed from 14:59–15:22.",
+    "interpretation": "The files are valid EC-Lab exports, but A–E cannot support a clean cross-date identity verdict until the suspected HSE batch, acquisition-time drift, and contact/wetting effects are separated by controls."
+  },
   "crossDateReference": {
     "date": "2026-07-13",
     "groups": [
@@ -34,7 +47,7 @@
       "e"
     ],
     "criterion": "A board is called recognizable only when both amplitude-normalized views (max-abs and z-score) select its own 2026-07-13 template for the group mean and both 2026-07-17 repeat scans, and the same-label distance stays within the provisional 2026-07-13 leave-one-out enrollment band. Raw-current RMSE is supplemental.",
-    "resultSummary": "No A–E board passes both normalized cross-date views in this exploratory two-repeat test."
+    "resultSummary": "No A–E board passes the matcher, but the newly reported shared HSE-bottle condition confounds the run. Treat A–E identity as inconclusive pending controlled remeasurement, not as permanent identity loss."
   },
   "firstMeasurementGroups": [
     "f",
@@ -50,8 +63,8 @@
       "title": "N719 group a",
       "date": "2026-07-17",
       "replicates": 2,
-      "status": "Not re-identified — only z-score shape chose the expected label, and the distance exceeded enrollment variation.",
-      "comparisonResult": "not_recognizable",
+      "status": "Inconclusive — A–E share a suspected HSE-batch confound; controlled remeasurement is required before an identity verdict.",
+      "comparisonResult": "inconclusive_batch_confounded",
       "points": [
         [
           -0.788838,
@@ -1351,8 +1364,8 @@
       "title": "N719 group b",
       "date": "2026-07-17",
       "replicates": 2,
-      "status": "Not re-identified — only max-abs normalized chose the expected label, and the distance exceeded enrollment variation.",
-      "comparisonResult": "not_recognizable",
+      "status": "Inconclusive — A–E share a suspected HSE-batch confound; controlled remeasurement is required before an identity verdict.",
+      "comparisonResult": "inconclusive_batch_confounded",
       "points": [
         [
           -0.788838,
@@ -2652,8 +2665,8 @@
       "title": "N719 group c",
       "date": "2026-07-17",
       "replicates": 2,
-      "status": "Not re-identified against the 2026-07-13 references. Repeat scans also disagree.",
-      "comparisonResult": "not_recognizable",
+      "status": "Inconclusive — A–E share a suspected HSE-batch confound; controlled remeasurement is required before an identity verdict.",
+      "comparisonResult": "inconclusive_batch_confounded",
       "points": [
         [
           -0.788838,
@@ -3953,8 +3966,8 @@
       "title": "N719 group d",
       "date": "2026-07-17",
       "replicates": 2,
-      "status": "Not re-identified by normalized shape — raw current chose the expected label, but its distance exceeded enrollment variation. Repeat scans also disagree.",
-      "comparisonResult": "not_recognizable",
+      "status": "Inconclusive — A–E share a suspected HSE-batch confound; controlled remeasurement is required before an identity verdict.",
+      "comparisonResult": "inconclusive_batch_confounded",
       "points": [
         [
           -0.788838,
@@ -5254,8 +5267,8 @@
       "title": "N719 group e",
       "date": "2026-07-17",
       "replicates": 2,
-      "status": "Not re-identified against the 2026-07-13 references. Repeat scans also disagree.",
-      "comparisonResult": "not_recognizable",
+      "status": "Inconclusive — A–E share a suspected HSE-batch confound; controlled remeasurement is required before an identity verdict.",
+      "comparisonResult": "inconclusive_batch_confounded",
       "points": [
         [
           -0.788838,
@@ -9157,7 +9170,7 @@
       "title": "N719 group h",
       "date": "2026-07-17",
       "replicates": 2,
-      "status": "First measurement on 2026-07-17; no cross-date identity decision yet.",
+      "status": "First measurement only; the two scans disagree strongly, so this baseline is provisional.",
       "comparisonResult": "first_measurement",
       "points": [
         [
@@ -10458,7 +10471,7 @@
       "title": "N719 group i",
       "date": "2026-07-17",
       "replicates": 2,
-      "status": "First measurement on 2026-07-17; no cross-date identity decision yet.",
+      "status": "First measurement only; current magnitude differs materially between repeats.",
       "comparisonResult": "first_measurement",
       "points": [
         [
@@ -11759,7 +11772,7 @@
       "title": "N719 group j",
       "date": "2026-07-17",
       "replicates": 2,
-      "status": "First measurement on 2026-07-17; no cross-date identity decision yet.",
+      "status": "First measurement only; current magnitude differs materially between repeats.",
       "comparisonResult": "first_measurement",
       "points": [
         [
@@ -14360,8 +14373,11 @@
   "crossDateIdentification": [
     {
       "group": "a",
-      "result": "not_recognizable",
-      "status": "Not re-identified — only z-score shape chose the expected label, and the distance exceeded enrollment variation.",
+      "result": "inconclusive_batch_confounded",
+      "matcherResult": "not_recognizable",
+      "qualityFlag": "suspect_shared_hse_batch",
+      "status": "Inconclusive pending controlled remeasurement — A–E share a suspected HSE-batch confound. Matcher outcome: Not re-identified — only z-score shape chose the expected label, and the distance exceeded enrollment variation.",
+      "siteStatus": "Inconclusive — A–E share a suspected HSE-batch confound; controlled remeasurement is required before an identity verdict.",
       "nearestLabelViews": [
         "zshape"
       ],
@@ -14457,8 +14473,11 @@
     },
     {
       "group": "b",
-      "result": "not_recognizable",
-      "status": "Not re-identified — only max-abs normalized chose the expected label, and the distance exceeded enrollment variation.",
+      "result": "inconclusive_batch_confounded",
+      "matcherResult": "not_recognizable",
+      "qualityFlag": "suspect_shared_hse_batch",
+      "status": "Inconclusive pending controlled remeasurement — A–E share a suspected HSE-batch confound. Matcher outcome: Not re-identified — only max-abs normalized chose the expected label, and the distance exceeded enrollment variation.",
+      "siteStatus": "Inconclusive — A–E share a suspected HSE-batch confound; controlled remeasurement is required before an identity verdict.",
       "nearestLabelViews": [
         "maxabs"
       ],
@@ -14554,8 +14573,11 @@
     },
     {
       "group": "c",
-      "result": "not_recognizable",
-      "status": "Not re-identified against the 2026-07-13 references. Repeat scans also disagree.",
+      "result": "inconclusive_batch_confounded",
+      "matcherResult": "not_recognizable",
+      "qualityFlag": "suspect_shared_hse_batch",
+      "status": "Inconclusive pending controlled remeasurement — A–E share a suspected HSE-batch confound. Matcher outcome: Not re-identified against the 2026-07-13 references. At least one matcher view assigns the two repeat scans differently.",
+      "siteStatus": "Inconclusive — A–E share a suspected HSE-batch confound; controlled remeasurement is required before an identity verdict.",
       "nearestLabelViews": [],
       "normalizedViewsPassed": [],
       "rawViewPassed": false,
@@ -14649,8 +14671,11 @@
     },
     {
       "group": "d",
-      "result": "not_recognizable",
-      "status": "Not re-identified by normalized shape — raw current chose the expected label, but its distance exceeded enrollment variation. Repeat scans also disagree.",
+      "result": "inconclusive_batch_confounded",
+      "matcherResult": "not_recognizable",
+      "qualityFlag": "suspect_shared_hse_batch",
+      "status": "Inconclusive pending controlled remeasurement — A–E share a suspected HSE-batch confound. Matcher outcome: Not re-identified by normalized shape — raw current chose the expected label, but its distance exceeded enrollment variation. At least one matcher view assigns the two repeat scans differently.",
+      "siteStatus": "Inconclusive — A–E share a suspected HSE-batch confound; controlled remeasurement is required before an identity verdict.",
       "nearestLabelViews": [
         "raw"
       ],
@@ -14746,8 +14771,11 @@
     },
     {
       "group": "e",
-      "result": "not_recognizable",
-      "status": "Not re-identified against the 2026-07-13 references. Repeat scans also disagree.",
+      "result": "inconclusive_batch_confounded",
+      "matcherResult": "not_recognizable",
+      "qualityFlag": "suspect_shared_hse_batch",
+      "status": "Inconclusive pending controlled remeasurement — A–E share a suspected HSE-batch confound. Matcher outcome: Not re-identified against the 2026-07-13 references. At least one matcher view assigns the two repeat scans differently.",
+      "siteStatus": "Inconclusive — A–E share a suspected HSE-batch confound; controlled remeasurement is required before an identity verdict.",
       "nearestLabelViews": [],
       "normalizedViewsPassed": [],
       "rawViewPassed": false,

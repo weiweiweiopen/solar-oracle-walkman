@@ -30,7 +30,7 @@ The V1 smart contract is one component in a broader **material event signature**
 - [Edmond Jordan briefing](docs/03_edmond_jordan_briefing.md)
 - [Current progress and limitations](docs/07_current_progress_and_limitations.md)
 - [2026-07-13 N719 LSV dataset](data/lab/2026-07-13-n719/README.md)
-- [2026-07-17 N719 A–K and A–E cross-date check](data/lab/2026-07-17-n719/README.md)
+- [2026-07-17 N719 A–K and batch-confounded A–E cross-date check](data/lab/2026-07-17-n719/README.md)
 - [Public FAQ](docs/08_public_faq.md)
 
 > This repository is a public research prototype. It is not a legal REC / T-REC registry, not a financial product, and not a claim of actual energy equivalence.

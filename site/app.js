@@ -66,8 +66,8 @@
         fetchJson("./data/iv-analysis-20260717.json").catch(() => null)
       ]);
       const [baseline, july13, july17] = datasets;
-      const baselineGroups = (baseline?.groups || []).map((group) => ({ ...group, status: "", sourceDate: "2026-06-21 / 2026-06-29" }));
-      const latestGroups = normalizeLatestGroups(july13, july17);
+      const baselineGroups = withSharedAccountDomain((baseline?.groups || []).map((group) => ({ ...group, status: "", sourceDate: "2026-06-21 / 2026-06-29" })));
+      const latestGroups = withSharedAccountDomain(normalizeLatestGroups(july13, july17));
       const legendWrap = document.createElement("div");
       legendWrap.className = "date-style-guide-row";
       const guide = createDateStyleGuide();
@@ -133,24 +133,90 @@
     return article;
   }
 
+  function withSharedAccountDomain(groups) {
+    const allPoints = groups.flatMap((group) => (group.traces || []).flatMap((trace) => trace.points || []));
+    if (!allPoints.length) return groups;
+    const xs = allPoints.map(([x]) => Number(x)).filter(Number.isFinite);
+    const ys = allPoints.map(([, y]) => Number(y)).filter(Number.isFinite);
+    const rawMinX = Math.min(0, ...xs);
+    const rawMaxX = Math.max(0, ...xs);
+    const yMin = Math.min(0, ...ys);
+    const yMax = Math.max(0, ...ys);
+    const ySpan = yMax - yMin;
+    const yStep = ySpan >= 4 ? 1 : ySpan >= 1 ? 0.5 : ySpan >= 0.4 ? 0.1 : 0.05;
+    const domain = {
+      x: [Math.floor(rawMinX * 10) / 10, Math.ceil(rawMaxX * 100) / 100],
+      y: [Math.floor(yMin / yStep) * yStep, Math.ceil(yMax / yStep) * yStep]
+    };
+    if (domain.x[0] === domain.x[1]) domain.x[1] += 0.01;
+    if (domain.y[0] === domain.y[1]) domain.y[1] += yStep;
+    return groups.map((group) => ({ ...group, axisDomain: domain }));
+  }
+
   function createAccountCurveSvg(group) {
     const traces = group.traces || [];
     const allPoints = traces.flatMap((trace) => trace.points || []);
-    const xs = allPoints.map(([x]) => Number(x));
-    const ys = allPoints.map(([, y]) => Number(y));
-    const minX = Math.min(...xs), maxX = Math.max(...xs), minY = Math.min(...ys), maxY = Math.max(...ys);
-    const width = 240, height = 240, pad = 18;
-    // Account cards use the IV curve tester visual convention: mirror the EC-Lab E axis horizontally.
-    const sx = (x) => width - pad - ((x - minX) / (maxX - minX || 1)) * (width - pad * 2);
-    const sy = (y) => height - pad - ((y - minY) / (maxY - minY || 1)) * (height - pad * 2);
-    const svg = svgEl("svg", { viewBox: `0 0 ${width} ${height}`, role: "img", "aria-label": `I-V account ${group.id} date overlay` });
-    svg.append(svgEl("line", { x1: pad, y1: height - pad, x2: width - pad, y2: height - pad, class: "account-axis" }));
-    svg.append(svgEl("line", { x1: pad, y1: pad, x2: pad, y2: height - pad, class: "account-axis" }));
+    const xs = allPoints.map(([x]) => Number(x)).filter(Number.isFinite);
+    const ys = allPoints.map(([, y]) => Number(y)).filter(Number.isFinite);
+    const domainX = group.axisDomain?.x || [Math.min(0, ...xs), Math.max(0, ...xs)];
+    const domainY = group.axisDomain?.y || [Math.min(0, ...ys), Math.max(0, ...ys)];
+    const [minX, maxX] = domainX;
+    const [minY, maxY] = domainY;
+    const width = 260, height = 240;
+    const pad = { left: 48, right: 12, top: 14, bottom: 42 };
+    const sx = (x) => pad.left + ((x - minX) / (maxX - minX || 1)) * (width - pad.left - pad.right);
+    const sy = (y) => height - pad.bottom - ((y - minY) / (maxY - minY || 1)) * (height - pad.top - pad.bottom);
+    const svg = svgEl("svg", {
+      viewBox: `0 0 ${width} ${height}`,
+      role: "img",
+      "aria-label": `I-V account ${group.id}; Ewe ${formatAxisTick(minX, maxX - minX)} to ${formatAxisTick(maxX, maxX - minX)} V versus SCE; current ${formatAxisTick(minY, maxY - minY)} to ${formatAxisTick(maxY, maxY - minY)} mA`
+    });
+
+    const xTicks = uniqueTicks([minX, (minX + maxX) / 2, maxX]);
+    const yTicks = uniqueTicks(minY < 0 && maxY > 0 ? [minY, 0, maxY] : [minY, (minY + maxY) / 2, maxY]);
+    xTicks.forEach((tick) => {
+      const x = sx(tick);
+      svg.append(svgEl("line", { x1: x, y1: pad.top, x2: x, y2: height - pad.bottom, class: "account-grid-line" }));
+      svg.append(svgEl("line", { x1: x, y1: height - pad.bottom, x2: x, y2: height - pad.bottom + 4, class: "account-axis" }));
+      const label = svgEl("text", { x, y: height - pad.bottom + 15, class: "account-tick-label", "text-anchor": "middle" });
+      label.textContent = formatAxisTick(tick, maxX - minX);
+      svg.append(label);
+    });
+    yTicks.forEach((tick) => {
+      const y = sy(tick);
+      svg.append(svgEl("line", { x1: pad.left, y1: y, x2: width - pad.right, y2: y, class: tick === 0 ? "account-grid-line account-zero-line" : "account-grid-line" }));
+      svg.append(svgEl("line", { x1: pad.left - 4, y1: y, x2: pad.left, y2: y, class: "account-axis" }));
+      const label = svgEl("text", { x: pad.left - 7, y: y + 3, class: "account-tick-label", "text-anchor": "end" });
+      label.textContent = formatAxisTick(tick, maxY - minY);
+      svg.append(label);
+    });
+
+    svg.append(svgEl("line", { x1: pad.left, y1: height - pad.bottom, x2: width - pad.right, y2: height - pad.bottom, class: "account-axis" }));
+    svg.append(svgEl("line", { x1: pad.left, y1: pad.top, x2: pad.left, y2: height - pad.bottom, class: "account-axis" }));
     traces.forEach((trace) => {
       const d = (trace.points || []).map(([x, y], index) => `${index ? "L" : "M"}${sx(Number(x)).toFixed(2)} ${sy(Number(y)).toFixed(2)}`).join(" ");
       svg.append(svgEl("path", { d, class: "account-curve-line", stroke: group.color || "var(--mouse-red)", "stroke-linecap": "round", "stroke-dasharray": trace.dash === "2 3" ? "1 7" : (trace.dash === "none" ? "" : trace.dash), "data-date": trace.date }));
     });
+
+    const xLabel = svgEl("text", { x: (pad.left + width - pad.right) / 2, y: height - 5, class: "account-axis-title", "text-anchor": "middle" });
+    xLabel.textContent = "Ewe (V vs SCE)";
+    svg.append(xLabel);
+    const yLabel = svgEl("text", { x: 11, y: (pad.top + height - pad.bottom) / 2, class: "account-axis-title", "text-anchor": "middle", transform: `rotate(-90 11 ${(pad.top + height - pad.bottom) / 2})` });
+    yLabel.textContent = "I (mA)";
+    svg.append(yLabel);
     return svg;
+  }
+
+  function uniqueTicks(values) {
+    return values.filter((value, index) => values.findIndex((other) => Math.abs(other - value) < 1e-9) === index);
+  }
+
+  function formatAxisTick(value, span) {
+    if (Math.abs(value) < 1e-9) return "0";
+    if (span < 0.2) return value.toFixed(3);
+    if (span < 2) return value.toFixed(2);
+    if (span < 10) return value.toFixed(1);
+    return value.toFixed(0);
   }
 
   function createAccountMetrics(metrics) {
@@ -282,6 +348,9 @@
 
     const note = createText("p", "shape-explain", "A–E are queried against their 2026-07-13 templates. Darker heatmap cells have smaller RMSE.");
     panel.append(note);
+    if (latest?.measurementQuality) {
+      panel.append(createText("p", "shape-explain data-quality-warning", latest.measurementQuality.interpretation || latest.measurementQuality.reportedCondition));
+    }
     if (latest?.crossDateIdentification?.length) {
       panel.append(createCrossDateDecisionCard(latest));
     }
@@ -314,7 +383,7 @@
     const card = document.createElement("section");
     card.className = "rmse-key-card cross-date-decision-card";
     card.append(
-      createText("h3", "rmse-board-title", "A–E cross-date result"),
+      createText("h3", "rmse-board-title", "A–E cross-date result · batch-confounded"),
       createText("p", "shape-explain", data.crossDateReference?.resultSummary || "Cross-date result unavailable.")
     );
 
@@ -334,7 +403,9 @@
         .join(" / ");
       const resultLabel = item.result === "recognizable"
         ? "recognizable"
-        : item.result === "not_robustly_recognizable" ? "not robust" : "not identified";
+        : item.result === "inconclusive_batch_confounded"
+          ? "inconclusive"
+          : item.result === "not_robustly_recognizable" ? "not robust" : "not identified";
       [
         item.group.toUpperCase(),
         `${formatNumber(item.referenceIAt0VmA, 3)}→${formatNumber(item.queryIAt0VmA, 3)} mA`,

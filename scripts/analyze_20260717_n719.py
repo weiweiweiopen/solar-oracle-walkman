@@ -30,6 +30,12 @@ REFERENCE_DATE = "2026-07-13"
 CURRENT_GROUPS = list("abcdefghijk")
 REFERENCE_GROUPS = list("abcde")
 FIRST_MEASUREMENT_GROUPS = list("fghijk")
+A_E_QUALITY_FLAG = "suspect_shared_hse_batch"
+A_E_QUALITY_NOTE = (
+    "The experimenter later reported that all A–E boards used the same HSE bottle after a pipette tip "
+    "had fallen into it. The tip's prior contents, cleanliness, and residence time are unknown, so this is "
+    "a suspected batch confound rather than proof that the HSE caused the low current."
+)
 
 DATA_DIR = ROOT / "data/lab/2026-07-17-n719"
 RAW_DIR = DATA_DIR / "raw/ec-lab-txt"
@@ -422,7 +428,18 @@ for group in REFERENCE_GROUPS:
         else:
             status = "Not re-identified against the 2026-07-13 references."
     if scan_disagreement:
-        status += " Repeat scans also disagree."
+        status += " At least one matcher view assigns the two repeat scans differently."
+    matcher_result = result
+    matcher_status = status
+    result = "inconclusive_batch_confounded"
+    status = (
+        "Inconclusive pending controlled remeasurement — A–E share a suspected HSE-batch confound. "
+        f"Matcher outcome: {matcher_status}"
+    )
+    site_status = (
+        "Inconclusive — A–E share a suspected HSE-batch confound; controlled remeasurement is required "
+        "before an identity verdict."
+    )
 
     reference_i0 = next(
         row["I_at_0V_mA_mean"]
@@ -472,6 +489,8 @@ for group in REFERENCE_GROUPS:
             "normalized_views_passed": "+".join(normalized_passes) if normalized_passes else "none",
             "raw_view_passed": raw_passes,
             "repeat_scan_prediction_disagreement": scan_disagreement,
+            "matcher_result": matcher_result,
+            "quality_flag": A_E_QUALITY_FLAG,
             "result": result,
             "interpretation": status,
         }
@@ -481,7 +500,10 @@ for group in REFERENCE_GROUPS:
         {
             "group": group,
             "result": result,
+            "matcherResult": matcher_result,
+            "qualityFlag": A_E_QUALITY_FLAG,
             "status": status,
+            "siteStatus": site_status,
             "nearestLabelViews": nearest_label_views,
             "normalizedViewsPassed": normalized_passes,
             "rawViewPassed": raw_passes,
@@ -505,11 +527,14 @@ for group in CURRENT_GROUPS:
     indexes = np.linspace(0, len(grid) - 1, 160).astype(int)
     summary = next(row for row in group_rows if row["group"] == group)
     comparison = next((item for item in identification_json if item["group"] == group), None)
-    status = (
-        comparison["status"]
-        if comparison
-        else "First measurement on 2026-07-17; no cross-date identity decision yet."
-    )
+    if comparison:
+        status = comparison["siteStatus"]
+    elif group == "h":
+        status = "First measurement only; the two scans disagree strongly, so this baseline is provisional."
+    elif group in {"i", "j"}:
+        status = "First measurement only; current magnitude differs materially between repeats."
+    else:
+        status = "First measurement on 2026-07-17; no cross-date identity decision yet."
     site_groups.append(
         {
             "id": group,
@@ -547,6 +572,16 @@ site_payload = {
     "includedGroups": CURRENT_GROUPS,
     "excludedGroups": ["6x6"],
     "exclusionNote": "The separately labelled 6x6 board was excluded by instruction and is not committed to this dataset.",
+    "measurementQuality": {
+        "status": A_E_QUALITY_FLAG,
+        "affectedGroups": REFERENCE_GROUPS,
+        "reportedCondition": A_E_QUALITY_NOTE,
+        "acquisitionOrder": "F–K were acquired from 13:55–14:56; A–E followed from 14:59–15:22.",
+        "interpretation": (
+            "The files are valid EC-Lab exports, but A–E cannot support a clean cross-date identity verdict until "
+            "the suspected HSE batch, acquisition-time drift, and contact/wetting effects are separated by controls."
+        ),
+    },
     "crossDateReference": {
         "date": REFERENCE_DATE,
         "groups": REFERENCE_GROUPS,
@@ -556,7 +591,10 @@ site_payload = {
             "and both 2026-07-17 repeat scans, and the same-label distance stays within "
             "the provisional 2026-07-13 leave-one-out enrollment band. Raw-current RMSE is supplemental."
         ),
-        "resultSummary": "No A–E board passes both normalized cross-date views in this exploratory two-repeat test.",
+        "resultSummary": (
+            "No A–E board passes the matcher, but the newly reported shared HSE-bottle condition confounds the run. "
+            "Treat A–E identity as inconclusive pending controlled remeasurement, not as permanent identity loss."
+        ),
     },
     "firstMeasurementGroups": FIRST_MEASUREMENT_GROUPS,
     "groups": site_groups,
@@ -684,15 +722,21 @@ report = [
     "- Boards `A–E` are compared with their 2026-07-13 enrollment templates.",
     "- Boards `F–K` are first measurements and receive no cross-date identity verdict.",
     "",
+    "## A–E data-quality flag",
+    "",
+    f"**Status: `{A_E_QUALITY_FLAG}`.** {A_E_QUALITY_NOTE}",
+    "",
+    "The EC-Lab exports are structurally valid acquisitions, but this shared solution condition makes the A–E cross-date identity verdict **inconclusive pending controlled remeasurement**. It does not prove that the HSE caused the shift; A–E were also acquired as one later block (14:59–15:22), after F–K (13:55–14:56), so solution, time/order, contact, wetting, and electrode-condition effects are confounded.",
+    "",
     "## Cross-date decision rule",
     "",
     "For A–E, each 2026-07-17 mean curve and both repeat scans are compared with the 2026-07-13 A–E mean templates using raw-current, max-abs-normalized, and z-score-shape RMSE.",
     "",
     "A board is called **recognizable** only if both normalized views (max-abs and z-score) select its own 2026-07-13 template for the group mean and both new scans, and the same-label distance remains within the provisional 2026-07-13 leave-one-out enrollment band. Raw-current RMSE is supplemental because current magnitude is especially sensitive to aging and session conditions.",
     "",
-    "## A–E result",
+    "## A–E matcher result",
     "",
-    "**No A–E board passes both normalized cross-date views in this exploratory two-repeat test.**",
+    "**No A–E board passes both normalized cross-date views. Because of the shared suspected HSE-batch confound, the scientific identity verdict is inconclusive rather than permanent identity loss.**",
     "",
     "| board | I@0 V: 7/13 → 7/17 (mA) | raw nearest | max-abs nearest | z-shape nearest | same-label / 7/13 band (raw / max / z) | conclusion |",
     "|---|---:|---:|---:|---:|---:|---|",
@@ -713,6 +757,32 @@ report += [
     "",
     "Single-view nearest-label signals are not successful re-identification: A points to itself only in z-score shape, B only in max-abs normalization, and D only in raw current; all three same-label distances remain outside their 2026-07-13 leave-one-out bands. C and E do not return their own prior label in any group-mean view.",
     "",
+    "These are matcher outputs, not a clean material-identity test, because every A–E query shares the newly reported HSE-bottle condition.",
+    "",
+    "## A–E short-interval repeat check",
+    "",
+    "| board | I@0 V scan 1 → scan 2 (mA) | repeat z-shape RMSE | assessment |",
+    "|---|---:|---:|---|",
+]
+repeat_assessment = {
+    "a": "good short-term repeat of a low-current state",
+    "b": "good short-term repeat of a low-current state",
+    "c": "poor; the two scans differ strongly",
+    "d": "good short-term repeat of a low-current state",
+    "e": "mixed; I@0 V is close, but the negative-potential branch changes",
+}
+for group in REFERENCE_GROUPS:
+    group_scans = [row for row in scan_rows if row["group"] == group]
+    group_curves = [curve for curve in current_curves if curve["group"] == group]
+    duplicate_z_rmse = rmse(group_curves[0]["zshape"], group_curves[1]["zshape"])
+    report.append(
+        f"| {group.upper()} | {group_scans[0]['I_at_0V_mA']:.6f} → {group_scans[1]['I_at_0V_mA']:.6f} | "
+        f"{duplicate_z_rmse:.3f} | {repeat_assessment[group]} |"
+    )
+report += [
+    "",
+    "A, B, and D show that the low-current state can repeat over a few minutes; that supports short-term precision but not accuracy. The same suspect solution, contact geometry, electrodes, and method can reproduce the same systematic bias twice. C is plainly unstable, and E retains a changing negative-potential branch.",
+    "",
     "## F–K first-measurement baseline",
     "",
     "| board | n | I@0 V mean (mA) | I@0 V sd | zero-cross mean (V vs SCE) |",
@@ -732,6 +802,8 @@ for row in group_rows:
     )
 report += [
     "",
+    "F repeats well and K is reasonably shape-stable. G is moderate; H fails the repeat check (I@0 V 0.002 → 1.271 mA), while I and J show material magnitude shifts. F–K therefore remain provisional baselines rather than validated identities.",
+    "",
     "## Measurement metadata",
     "",
     "- Technique: Linear Sweep Voltammetry (LSV)",
@@ -740,6 +812,16 @@ report += [
     "- Scan setting from headers: Ei = -0.800 V vs Ref, EL = 0.010 V vs Ref, scan rate = 10 mV/s",
     "- Electrolyte header: NaCl (0.2 M); comment: Fe(CN)6^3-/Fe(CN)6^4- 5×10^-3 M",
     "- Initial zero-current stabilization rows are removed before RMSE/shape analysis.",
+    "",
+    "## Recommended controlled remeasurement",
+    "",
+    "1. Quarantine and label the suspect HSE; do not return aliquots to fresh stock. Record HSE lot/preparation date, tip condition, temperature, illumination, equilibration time, electrode identity, and contact geometry.",
+    "2. If solution exchange is reversible without altering a board, use A and B as sentinels and test suspect HSE (`S`) versus independently fresh/verified HSE (`F`) with balanced order: A `S→F`, B `F→S`. Otherwise use matched sacrificial sentinels rather than re-filling A/B.",
+    "3. For each board × solution, acquire two scans without reseating and one after a force-defined reseat: 12 board LSVs total. Randomize board order and hold equilibration time constant.",
+    "4. Bracket the sequence with a stable electrochemical check cell in each solution at start/end and verify the SCE before/after.",
+    "5. Compare the archived 2026-07-13 and 2026-07-17 EC-Lab setting files directly; if they differ beyond displayed parameters, test the check cell under both programs.",
+    "",
+    "This matrix separates a solution-wide shift from board contact/wetting, electrode/session drift, and persistent board aging more effectively than repeating the same unchanged setup twice.",
     "",
     "## Reproduce",
     "",
@@ -751,7 +833,9 @@ report += [
     "## Limits",
     "",
     "- This is an exploratory comparison with only two 2026-07-17 repeats per board.",
-    "- Temperature, illumination, contact pressure, and electrolyte/aging state were not modeled as separate covariates.",
+    f"- A–E carry the `{A_E_QUALITY_FLAG}` flag because they shared a potentially compromised HSE bottle; the exact contamination state is unknown.",
+    "- F–K were measured earlier and are different boards, so they are not a clean same-board or contemporaneous solution control for A–E.",
+    "- Temperature, illumination, contact pressure, wetting/bubbles, equilibration time, and electrolyte/aging state were not modeled as separate covariates.",
     "- The decision rule was applied retrospectively and must be validated prospectively on later sessions.",
     "- The acquisition headers match on instrument/channel, SCE, electrolyte, sweep range, and scan rate, but the loaded EC-Lab setting-file path differs between dates and should be checked at the next controlled session.",
     "- Voltage points are sorted for interpolation; raw files remain preserved because sorting can hide acquisition-order or hysteresis effects.",
@@ -774,5 +858,5 @@ report += [
 
 print(f"Analyzed {len(current_curves)} current scans across A–K; excluded 6x6")
 print(f"Reference enrollment: {len(reference_curves)} scans across A–E")
-print("Robust A–E matches:", [item["group"] for item in identification_json if item["result"] == "recognizable"])
+print("Robust A–E matcher matches:", [item["group"] for item in identification_json if item["matcherResult"] == "recognizable"])
 print(DATA_DIR)

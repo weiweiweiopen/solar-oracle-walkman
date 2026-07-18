@@ -181,8 +181,11 @@
     "latest_measurement_2026_07_17": {
       "scope": "Boards A–K were measured twice; the separately labelled 6x6 board was excluded. A–E were queried against 2026-07-13 templates, while F–K are first-measurement baselines only.",
       "decision_rule": "Cross-date recognition requires both max-abs-normalized and z-score-shape RMSE to select the expected 2026-07-13 label for the group mean and both repeat scans, with the same-label distance inside a provisional 2026-07-13 leave-one-out enrollment band.",
-      "result": "No A–E board passed the cross-date rule. A pointed to itself only in z-score shape, B only in max-abs normalization, and D only in raw current; all remained outside their enrollment-variation bands. C and E did not return their own prior labels in any group-mean view.",
-      "interpretation": "Say that A–E were not identifiable in this specific cross-date comparison, not that their physical identities were permanently lost. Current magnitude fell strongly, and aging, illumination, temperature, contact pressure, electrolyte state, and a changed loaded EC-Lab setting-file path were not isolated as covariates.",
+      "result": "No A–E board passed the matcher. A pointed to itself only in z-score shape, B only in max-abs normalization, and D only in raw current; all remained outside their enrollment-variation bands. C and E did not return their prior labels in any group-mean view.",
+      "quality_flag": "Inconclusive: the experimenter later reported that every A–E board used one HSE bottle after a pipette tip had fallen into it. This is a suspected shared batch confound, not proof that the HSE caused the low current.",
+      "repeat_quality": "A, B, and D reproduce their low-current state over a few minutes; C is plainly unstable, and E has a changing negative-potential branch. Two repeats support short-term precision only and can reproduce one systematic bias twice.",
+      "interpretation": "Treat the A–E identity verdict as inconclusive pending controlled remeasurement. The files are valid EC-Lab exports, but HSE condition, time/order, aging, illumination, temperature, contact pressure, wetting, electrode state, and a changed loaded EC-Lab setting-file path were not isolated as covariates.",
+      "next_test": "Compare suspect versus independently fresh HSE on the same two sentinel boards with balanced order, duplicate scans without reseating, one force-defined reseat, and a stable check cell plus reference-electrode checks before and after.",
       "source": "data/lab/2026-07-17-n719/README.md"
     }
   },
