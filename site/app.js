@@ -38,24 +38,39 @@
   }
 
   function setupLocaleText() {
-    const language = (navigator.language || "en").toLowerCase();
-    const useZh = language.startsWith("zh");
-    document.documentElement.lang = useZh ? "zh-Hant" : "en";
+    const toggle = document.querySelector("[data-locale-toggle]");
+    const savedLanguage = localStorage.getItem("solar-oracle-language");
+    let useZh = savedLanguage ? savedLanguage === "zh" : (navigator.language || "en").toLowerCase().startsWith("zh");
     const copy = {
       heroEyebrow: {
         en: "Public research prototype",
         zh: "公開研究原型"
       },
       heroIntro: {
-        en: "This is an experiment in how DIY solar panels can develop unique identities at the semiconductor level. To make the result more intuitive for people without a scientific background, the identity of each handmade solar cell—its I–V curve—is translated into unique generative music. We are also building a mobile Walkman version of this system. Ultimately, the experiment asks how independent, distributed green certificates and energy trading might become possible—and I believe it is also connected to future open compute systems.",
-        zh: "這是一個關於 DIY 太陽能板如何在半導體層級建立獨特身分的實驗。為了讓沒有科學背景的人也能更直觀地理解，每一片手工製作太陽能電池的身分——也就是它的 I–V 曲線——會被轉換成獨特的生成音樂。我們也正在製作這個系統的行動 Walkman 版本。這個實驗最終想追問的是：獨立、分散式的綠色憑證與能源交易如何成為可能；我也相信這與未來的開放算力（open compute）系統有所關聯。"
+        en: "This ongoing R&D project uses uncontrollable defects in the photovoltaic layer of handmade dye-sensitized solar cells (DSSCs) to test their potential as physically unclonable functions (PUFs) and as a basis for energy identity. The device reads each piece of solar glass through its I–V curve and translates that curve into generative music, staging electrical behavior and identity as both generative and continuous: not fixed labels, but relations that keep forming through material, light, time, and measurement. Solar glass becomes the embodied structure through which these two domains meet. Through a mobile Walkman and public performance, the project asks what a self may or may not delegate when a material identity is authorized to act as an energy agent, and where the policy boundaries of such delegation lie. It ultimately speculates on how distributed cognition might shape future public energy-agent platforms, where sensory philosophy, credential design, and technical engineering must be developed together.",
+        zh: "這項持續進行的研發計畫，利用手工製作染料敏化太陽能電池（DSSC）光伏層中無法預先控制的材料缺陷，測試其作為不可複製功能（PUF）與能源身分基礎的可能。裝置讀取每片太陽能玻璃的 I–V 曲線，再將曲線轉譯為生成音樂，以表演探討電性與身分同樣具有生成性與連續性：它們不是固定標籤，而是在材料、光線、時間與量測中持續形成的關係。太陽能玻璃因此成為兩個領域共同的具現化結構。計畫進一步透過行動 Walkman 與公共表演，追問當材料身分被授權為能源代理時，「自我」可以委派什麼、不能委派什麼，以及這種 delegation 的政策邊界。最終，它推測分散認知如何進入未來的公共能源代理平台，並要求感官哲學、憑證設計與技術工程被共同思考。"
       }
     };
-    document.querySelectorAll("[data-i18n]").forEach((element) => {
-      const key = element.getAttribute("data-i18n");
-      const value = copy[key]?.[useZh ? "zh" : "en"];
-      if (value) element.textContent = value;
+
+    const applyLocale = () => {
+      document.documentElement.lang = useZh ? "zh-Hant" : "en";
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        const key = element.getAttribute("data-i18n");
+        const value = copy[key]?.[useZh ? "zh" : "en"];
+        if (value) element.textContent = value;
+      });
+      if (toggle) {
+        toggle.setAttribute("aria-pressed", String(useZh));
+        toggle.setAttribute("aria-label", useZh ? "Switch to English" : "切換至中文版");
+      }
+    };
+
+    toggle?.addEventListener("click", () => {
+      useZh = !useZh;
+      localStorage.setItem("solar-oracle-language", useZh ? "zh" : "en");
+      applyLocale();
     });
+    applyLocale();
   }
 
   async function setupCurveAccounts(grid) {
