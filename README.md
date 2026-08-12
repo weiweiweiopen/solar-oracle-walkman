@@ -30,6 +30,7 @@ The V1 smart contract is one component in a broader **material event signature**
 - [Edmond Jordan briefing](docs/03_edmond_jordan_briefing.md)
 - [Current progress and limitations](docs/07_current_progress_and_limitations.md)
 - [Project dashboard and September 2026 execution plan](docs/09_project_dashboard.md)
+- [Energy Web to I-TRACK / I-REC(E) credential roadmap](docs/11_energy_credential_roadmap.md)
 - [2026-07-13 N719 LSV dataset](data/lab/2026-07-13-n719/README.md)
 - [2026-07-17 N719 A–K and manufacturing-confounded A–E cross-date check](data/lab/2026-07-17-n719/README.md)
 - [Public FAQ](docs/08_public_faq.md)

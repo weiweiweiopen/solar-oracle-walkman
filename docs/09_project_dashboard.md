@@ -103,12 +103,25 @@ Do not claim stable K1 until at least:
 
 When controlled response distributions still overlap, report that the devices are electrically indistinguishable under this tester. Do not weaken the gate.
 
+## Energy credential route
+
+**Blockchain is not a green certificate.** The planned institutional route is:
+
+`DSSC-PUF device authentication -> precision metering -> authenticated micro-events -> aggregation -> private Energy Web Green Proof lifecycle -> prospective I-TRACK DER verification methodology -> Issuer-reviewed I-REC(E)`
+
+- `0.0003 Wh` is an internal auditable event, not automatically an EAC.
+- Energy Web is the Phase 1 private registry and issue/transfer/retire experiment; it is not the I-REC(E) Issuer.
+- An I-TRACK Verification Label is a prospective Phase 2 direction, not a current approval.
+- I-REC(E) remains Issuer-controlled. Taiwan eligibility now includes non-FiT solar and wind, but Solar Oracle facility and evidence acceptance remain untested.
+- See [Energy Credential Roadmap](11_energy_credential_roadmap.md) for the evidence boundaries, work packages, APIs, stop conditions, and official references.
+
 ## Open PM dependencies
 
 - Exact dates and submission deadlines for the three qualification-exam subjects.
 - Named owners for fixture fabrication, tester replication, software, measurement operation, and daily QC.
 - Numerical reference-cell tolerance for the D0 start gate.
 - Confirm whether all 100 cells are already fabricated, labeled, and packaged.
+- Determine whether GCC will accept the proposed facility grouping, calibrated DC volume evidence, and verification method in Taiwan.
 
 ## Evidence update rule
 
