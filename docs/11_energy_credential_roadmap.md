@@ -132,6 +132,25 @@ These endpoints are a design target, not current verified implementation.
 - Issuer rejection: preserve the research registry, but do not claim an achieved I-REC(E) pathway.
 - A hash, token, or blockchain record alone is never evidence that renewable electricity was generated.
 
+## September 2026 SBIR primary KPI
+
+The KPI is not “put `0.0003 Wh` on blockchain.” The target is one end-to-end real DSSC event that is attributable to an enrolled physical device, supported by calibrated Wh evidence, protected against replay and double counting, reversible through aggregation, and packaged for external registry/verifier review.
+
+September deliverables:
+
+1. Independent-session device verification with challenge/nonce and replay evidence.
+2. Integrated Wh record with meter ID, calibration, uncertainty, start/end time, and raw readings.
+3. Canonical authenticated-event JSON and hash binding the two evidence objects.
+4. Duplicate-safe aggregation that retains source-event lineage.
+5. Local/private ISSUE -> TRANSFER -> RETIRE lifecycle, labelled as a simulation unless Energy Web access is actually obtained.
+6. External review pack containing the method, schema, sample events, audit trace, identity metrics, meter uncertainty, anti-replay, and double-count controls.
+7. Delivery or a formal demo/review request to Energy Web and at least one I-TRACK-side actor.
+8. A dated decision record: accepted for discussion, changes required, out of scope, rejected, or no response.
+
+Actual Green Proof issuance, Verification Label approval, or I-REC(E) issuance are not September completion requirements because they depend on external authorization. No external response may be described as acceptance.
+
+Decision context: https://chatgpt.com/share/6a7c8369-55f0-83ee-a36e-9f4bd52ef594
+
 ## Official references
 
 - [Energy Web Green Proofs Quickstart](https://docs.energyweb.org/launchpad/generic-and-energy-services/green-proofs-as-a-service/green-proofs-as-a-service-quickstart-guide)

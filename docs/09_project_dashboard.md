@@ -115,6 +115,19 @@ When controlled response distributions still overlap, report that the devices ar
 - I-REC(E) remains Issuer-controlled. Taiwan eligibility now includes non-FiT solar and wind, but Solar Oracle facility and evidence acceptance remain untested.
 - See [Energy Credential Roadmap](11_energy_credential_roadmap.md) for the evidence boundaries, work packages, APIs, stop conditions, and official references.
 
+### September SBIR primary KPI
+
+September is not complete when `0.0003 Wh` has merely been written to a blockchain. It is complete when at least one real DSSC generation event:
+
+1. begins with verification of a specific enrolled physical DSSC;
+2. carries calibrated, uncertainty-bounded Wh evidence derived from raw readings;
+3. binds identity and energy evidence in one canonical authenticated event;
+4. remains traceable through duplicate-safe, reversible aggregation;
+5. produces a reproducible audit package; and
+6. has been delivered to at least one relevant external registry/verifier, or has a formal demo/review request submitted.
+
+No response is not acceptance. Actual Energy Web issuance, Verification Label approval, or I-REC(E) issuance remain later externally controlled milestones.
+
 ## Open PM dependencies
 
 - Exact dates and submission deadlines for the three qualification-exam subjects.
