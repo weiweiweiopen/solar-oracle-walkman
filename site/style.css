@@ -2273,15 +2273,19 @@ iframe,
   stroke-dasharray: 3 5;
 }
 
-.account-curve-line,
+.account-curve-line {
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+
 .iv-overlay-line {
-  stroke-width: 3.5;
+  stroke-width: 2;
   vector-effect: non-scaling-stroke;
 }
 
 .date-style-guide--cards .legend-line {
-  stroke-width: 3.5 !important;
-  opacity: 1;
+  stroke-width: 1.6 !important;
+  opacity: 0.72;
 }
 
 @media (max-width: 900px) {
