@@ -1,18 +1,30 @@
 [
   {
     "src": "DIY_DSSC_with_cyanotype_pattern.jpg",
+    "preview": "DIY_DSSC_with_cyanotype_pattern-preview.webp",
+    "width": 1200,
+    "height": 2134,
     "caption": "DIY DSSC with cyanotype pattern"
   },
   {
     "src": "I-V_tester_made_by_Marc_Dusseiller.jpg",
+    "preview": "I-V_tester_made_by_Marc_Dusseiller-preview.webp",
+    "width": 1200,
+    "height": 2134,
     "caption": "I-V tester made by Marc Dusseiller"
   },
   {
     "src": "DSSC_synth_with_colorful_shadow.jpg",
+    "preview": "DSSC_synth_with_colorful_shadow-preview.webp",
+    "width": 1600,
+    "height": 900,
     "caption": "DSSC synth with colorful shadow"
   },
   {
     "src": "IMG_0030-2.jpeg",
+    "preview": "IMG_0030-2-preview.webp",
+    "width": 1600,
+    "height": 901,
     "caption": "Solar Oracle Walkman photo"
   }
 ]

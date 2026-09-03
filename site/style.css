@@ -2274,17 +2274,17 @@ iframe,
 }
 
 .account-curve-line {
-  stroke-width: 1.5;
+  stroke-width: 1;
   vector-effect: non-scaling-stroke;
 }
 
 .iv-overlay-line {
-  stroke-width: 2;
+  stroke-width: 1;
   vector-effect: non-scaling-stroke;
 }
 
 .date-style-guide--cards .legend-line {
-  stroke-width: 1.6 !important;
+  stroke-width: 1 !important;
   opacity: 0.72;
 }
 

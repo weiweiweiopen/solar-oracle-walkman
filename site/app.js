@@ -1,4 +1,6 @@
 (function () {
+  const jsonRequests = new Map();
+
   setupLocaleText();
 
   const ivGrid = document.querySelector("#iv-grid");
@@ -95,9 +97,13 @@
   }
 
   async function fetchJson(path) {
-    const response = await fetch(path, { cache: "no-store" });
-    if (!response.ok) throw new Error(`${path} returned ${response.status}`);
-    return response.json();
+    if (!jsonRequests.has(path)) {
+      jsonRequests.set(path, fetch(path).then((response) => {
+        if (!response.ok) throw new Error(`${path} returned ${response.status}`);
+        return response.json();
+      }));
+    }
+    return jsonRequests.get(path);
   }
 
   function normalizeLatestGroups(previousData, latestData) {
@@ -383,11 +389,11 @@
     const grid = document.createElement("div");
     grid.className = "shape-rmse-figure-grid";
     [
-      ["A–E cross-date LSV overlay", "./pix/rmse/rmse-20260717-a-e-crossdate-overlay.png"],
-      ["A–K 2026-07-17 group means ± SD", "./pix/rmse/rmse-20260717-a-k-group-means.png"],
-      ["A–E cross-date RMSE: raw current", "./pix/rmse/rmse-20260717-crossdate-raw.png"],
-      ["A–E cross-date RMSE: max-abs normalized", "./pix/rmse/rmse-20260717-crossdate-maxabs.png"],
-      ["A–E cross-date RMSE: z-score shape", "./pix/rmse/rmse-20260717-crossdate-zshape.png"]
+      ["A–E cross-date LSV overlay", "./pix/rmse/rmse-20260717-a-e-crossdate-overlay.webp"],
+      ["A–K 2026-07-17 group means ± SD", "./pix/rmse/rmse-20260717-a-k-group-means.webp"],
+      ["A–E cross-date RMSE: raw current", "./pix/rmse/rmse-20260717-crossdate-raw.webp"],
+      ["A–E cross-date RMSE: max-abs normalized", "./pix/rmse/rmse-20260717-crossdate-maxabs.webp"],
+      ["A–E cross-date RMSE: z-score shape", "./pix/rmse/rmse-20260717-crossdate-zshape.webp"]
     ].forEach(([caption, src]) => {
       const figure = document.createElement("figure");
       figure.className = "shape-rmse-figure";
@@ -713,7 +719,7 @@
 
   async function loadPixGallery(gallery, lightbox) {
     try {
-      const response = await fetch("./pix/manifest.json", { cache: "no-store" });
+      const response = await fetch("./pix/manifest.json");
       if (!response.ok) throw new Error(`Pix manifest returned ${response.status}`);
       const items = await response.json();
       if (!Array.isArray(items) || items.length === 0) throw new Error("Pix manifest is empty.");
@@ -725,18 +731,26 @@
 
   function createPixFigure(item, lightbox) {
     const src = typeof item === "string" ? item : item.src;
+    const preview = typeof item === "string" ? src : item.preview || src;
     const caption = typeof item === "string" ? titleFromFilename(item) : item.caption || titleFromFilename(src);
     const figure = document.createElement("figure");
     const button = document.createElement("button");
     const image = document.createElement("img");
     const figcaption = document.createElement("figcaption");
     const fullSrc = `./pix/${src}`;
+    const previewSrc = `./pix/${preview}`;
     button.className = "pix-open";
     button.type = "button";
     button.setAttribute("aria-label", `Open large image: ${caption}`);
     button.addEventListener("click", () => lightbox?.open(fullSrc, caption));
-    image.src = fullSrc;
+    image.src = previewSrc;
     image.alt = caption;
+    image.loading = "lazy";
+    image.decoding = "async";
+    if (typeof item !== "string" && item.width && item.height) {
+      image.width = item.width;
+      image.height = item.height;
+    }
     figcaption.textContent = caption;
     button.append(image);
     figure.append(button, figcaption);
@@ -797,6 +811,7 @@
 
   function setupMainCarousel({ mainSlides, mainThumbs }) {
     let selectedMainSlide = 0;
+    let instagramRequested = false;
     mainThumbs.forEach((thumb) => {
       thumb.addEventListener("click", () => showMainSlide(Number(thumb.dataset.mainThumb || 0)));
     });
@@ -814,15 +829,28 @@
         thumb.classList.toggle("active", active);
         thumb.setAttribute("aria-selected", String(active));
       });
-      if (window.instgrm?.Embeds) window.instgrm.Embeds.process();
+      if (selectedMainSlide === 1) loadInstagramEmbeds();
+    }
+
+    function loadInstagramEmbeds() {
+      if (window.instgrm?.Embeds) {
+        window.instgrm.Embeds.process();
+        return;
+      }
+      if (instagramRequested) return;
+      instagramRequested = true;
+      const script = document.createElement("script");
+      script.async = true;
+      script.src = "https://www.instagram.com/embed.js";
+      script.addEventListener("load", () => window.instgrm?.Embeds?.process());
+      document.body.append(script);
     }
   }
 
   function setupChat({ form, promptEl, messagesEl }) {
     const chatApiUrl = document.querySelector('meta[name="sow-chat-api"]')?.getAttribute("content")?.trim();
     const selectedChannel = "solar-oracle-walkman";
-    const contextPromise = loadLocalContext();
-    contextPromise.catch(() => {});
+    let contextPromise;
     const chatHistoryByChannel = new Map();
     const visibleScrollbar = setupVisibleScrollbar(messagesEl);
 
@@ -851,7 +879,7 @@
       const thinkingMsg = addMsg("agent", "Thinking...");
 
       try {
-        const context = await contextPromise;
+        const context = await (contextPromise ||= loadLocalContext());
         const history = chatHistoryByChannel.get(selectedChannel) || [];
         const responseText = await askBackendChat({ prompt, channel: selectedChannel, context, chatApiUrl, history });
         updateMsg(thinkingMsg, "agent", responseText);
