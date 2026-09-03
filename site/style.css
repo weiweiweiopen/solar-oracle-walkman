@@ -1242,6 +1242,7 @@ input::placeholder {
   display: grid;
   gap: 4px;
   padding: clamp(10px, 1vw, 18px) 0 0;
+  text-align: center;
 }
 .site-hero h1 {
   margin: 0;
@@ -2223,9 +2224,17 @@ iframe,
 .rmse-ruler-card,
 .rmse-key-card,
 .rmse-interpretation-card,
-.account-curve-frame {
+.account-curve-frame,
+.shape-rmse-figure,
+.identity-gap-row {
+  border-width: 1px;
+  border-style: solid;
   border-color: #111111;
   background: #ffffff;
+}
+
+.shape-rmse-figure {
+  border-radius: 0;
 }
 
 .rmse-key-table {
@@ -2236,6 +2245,11 @@ iframe,
 .rmse-key-table th,
 .rmse-key-table td {
   border-bottom: 1.5px dashed #777777;
+}
+
+.shape-rmse-caption,
+.rmse-row {
+  border-top: 1.5px dashed #777777;
 }
 
 .account-axis,
