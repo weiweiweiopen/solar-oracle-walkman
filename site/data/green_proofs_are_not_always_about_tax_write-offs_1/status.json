@@ -30,7 +30,7 @@
     }
   ],
   "device": "green_proofs_are_not_always_about_tax_write-offs_1",
-  "generated_at": "2026-09-03T17:55:17+08:00",
+  "generated_at": "2026-09-03T17:56:34+08:00",
   "invalid_sample_count": 5,
   "latest": {
     "ambient_temp_C": 30.79,
@@ -42,7 +42,7 @@
     "valid": true,
     "voltage_mV": 474.2
   },
-  "latest_age_minutes": 0.1,
+  "latest_age_minutes": 1.4,
   "raw_csv_sha256": "31196517e63e0bacf361fbf77db81585c6c170d59ba4629f454c89396f973456",
   "recent": [
     {
