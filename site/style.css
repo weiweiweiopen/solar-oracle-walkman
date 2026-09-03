@@ -1871,9 +1871,15 @@ iframe,
   filter: grayscale(100%) contrast(1.03);
 }
 
+.material-monitor__portrait img,
+.photo-panel img,
+.pix-lightbox img {
+  filter: none;
+}
+
 .material-monitor {
   width: min(94vw, 1580px);
-  margin: 0 0 clamp(56px, 8vw, 128px);
+  margin: clamp(24px, 4vw, 64px) 0 clamp(56px, 8vw, 128px);
   border: 1px solid #111111;
   display: grid;
 }
@@ -1981,7 +1987,7 @@ iframe,
 .material-monitor__table td {
   width: 50%;
   padding: clamp(10px, 1vw, 17px) 0;
-  border-bottom: 1px solid #bcbcbc;
+  border-bottom: 1.5px dashed #777777;
   font-size: clamp(0.72rem, 0.9vw, 1rem);
   line-height: 1.25;
   text-align: left;
@@ -2210,6 +2216,59 @@ iframe,
   color: #111111;
   font-weight: 700;
   text-underline-offset: 4px;
+}
+
+/* Carry the monitor's rule weight and dash language through the older data views. */
+.curve-account-card,
+.orange-card,
+.rmse-ruler-card,
+.rmse-key-card,
+.rmse-interpretation-card,
+.account-curve-frame {
+  border-color: #111111;
+  background: #ffffff;
+}
+
+.rmse-key-table {
+  border-top: 2px solid #111111;
+  font-variant-numeric: tabular-nums;
+}
+
+.rmse-key-table th,
+.rmse-key-table td {
+  border-bottom: 1.5px dashed #777777;
+}
+
+.account-axis,
+.axis {
+  stroke: #111111;
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.account-grid-line,
+.rmse-grid-line {
+  stroke: #dddddd;
+  stroke-width: 1;
+  stroke-dasharray: 3 5;
+  vector-effect: non-scaling-stroke;
+}
+
+.account-zero-line {
+  stroke: #777777;
+  stroke-width: 1;
+  stroke-dasharray: 3 5;
+}
+
+.account-curve-line,
+.iv-overlay-line {
+  stroke-width: 3.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.date-style-guide--cards .legend-line {
+  stroke-width: 3.5 !important;
+  opacity: 1;
 }
 
 @media (max-width: 900px) {

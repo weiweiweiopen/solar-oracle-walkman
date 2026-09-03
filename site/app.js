@@ -210,7 +210,7 @@
     svg.append(svgEl("line", { x1: pad.left, y1: pad.top, x2: pad.left, y2: height - pad.bottom, class: "account-axis" }));
     traces.forEach((trace) => {
       const d = (trace.points || []).map(([x, y], index) => `${index ? "L" : "M"}${sx(Number(x)).toFixed(2)} ${sy(Number(y)).toFixed(2)}`).join(" ");
-      svg.append(svgEl("path", { d, class: "account-curve-line", stroke: group.color || "var(--mouse-red)", "stroke-linecap": "round", "stroke-dasharray": trace.dash === "2 3" ? "1 7" : (trace.dash === "none" ? "" : trace.dash), "data-date": trace.date }));
+      svg.append(svgEl("path", { d, class: "account-curve-line", stroke: group.color || "var(--mouse-red)", "stroke-linecap": "round", "stroke-dasharray": materialSignalDash(trace.dash), "data-date": trace.date }));
     });
 
     const xLabel = svgEl("text", { x: (pad.left + width - pad.right) / 2, y: height - 5, class: "account-axis-title", "text-anchor": "middle" });
@@ -224,6 +224,16 @@
 
   function uniqueTicks(values) {
     return values.filter((value, index) => values.findIndex((other) => Math.abs(other - value) < 1e-9) === index);
+  }
+
+  function materialSignalDash(dash) {
+    return ({
+      "none": "",
+      "6 5": "8 6",
+      "7 5": "8 6",
+      "2 3": "3 5",
+      "10 4 2 4": "12 7"
+    })[dash] ?? dash ?? "";
   }
 
   function formatAxisTick(value, span) {
@@ -283,10 +293,10 @@
     const guide = document.createElement("div");
     guide.className = "date-style-guide";
     [
-      ["6/21", "7 5"],
+      ["6/21", "8 6"],
       ["6/29", ""],
-      ["7/13", "1 7"],
-      ["7/17", "10 4 2 4"]
+      ["7/13", "3 5"],
+      ["7/17", "12 7"]
     ].forEach(([label, dash]) => {
       const item = document.createElement("span");
       item.className = "date-style-item";
@@ -315,7 +325,7 @@
     (data.groups || []).forEach((group) => {
       (group.traces || []).forEach((trace) => {
         const d = (trace.points || []).map(([x, y], index) => `${index ? "L" : "M"}${sx(Number(x)).toFixed(2)} ${sy(Number(y)).toFixed(2)}`).join(" ");
-        svg.append(svgEl("path", { d, class: "iv-overlay-line", stroke: group.color || "var(--mouse-red)", "stroke-linecap": "round", "stroke-dasharray": trace.dash === "2 3" ? "1 7" : (trace.dash === "none" ? "" : trace.dash), "data-date": trace.date }));
+        svg.append(svgEl("path", { d, class: "iv-overlay-line", stroke: group.color || "var(--mouse-red)", "stroke-linecap": "round", "stroke-dasharray": materialSignalDash(trace.dash), "data-date": trace.date }));
       });
     });
     const xLabel = svgEl("text", { x: width / 2, y: height - 8, class: "axis-label" });
