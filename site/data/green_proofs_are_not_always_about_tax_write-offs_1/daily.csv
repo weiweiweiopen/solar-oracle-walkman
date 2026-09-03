@@ -1,0 +1,2 @@
+date,valid_samples,condition_matched_samples,condition_matched_hours,comparable_voc_mV,retention_pct,retention_ci_low_pct,retention_ci_high_pct,moving_7d_median_pct,lux_median,ambient_temp_C_median,humidity_pct_median,quality
+2026-09-03,7,6,1,475.600,100.000,,,,1740.000,29.860,55.950,partial

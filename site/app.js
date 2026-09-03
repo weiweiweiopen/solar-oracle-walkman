@@ -594,7 +594,7 @@
     } catch (_error) {
       const fallback = document.createElement("p");
       fallback.className = "iv-empty";
-      fallback.textContent = "IV database unavailable.";
+      fallback.textContent = "I–V archive unavailable.";
       grid.replaceChildren(fallback);
     }
   }

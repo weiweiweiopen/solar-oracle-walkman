@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Solar Oracle Walkman conversational page and IV curve database."
+      content="Solar Oracle Walkman: material signals, long-term observation, and I–V curve accounts."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://weiweiweiopen.github.io/solar-oracle-walkman/" />
-    <meta property="og:title" content="Solar Oracle Walkman | IV Database" />
+    <meta property="og:title" content="Solar Oracle Walkman | Material Signals" />
     <meta property="og:description" content="An ongoing DSSC-PUF research project exploring generative electrical identity, sonification, and the delegation boundaries of future energy agents." />
     <meta property="og:image" content="https://weiweiweiopen.github.io/solar-oracle-walkman/og-image.png?v=20260713-title-screenshot" />
     <meta property="og:image:secure_url" content="https://weiweiweiopen.github.io/solar-oracle-walkman/og-image.png?v=20260713-title-screenshot" />
@@ -18,14 +18,14 @@
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Solar Oracle Walkman public research prototype interface" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Solar Oracle Walkman | IV Database" />
+    <meta name="twitter:title" content="Solar Oracle Walkman | Material Signals" />
     <meta name="twitter:description" content="An ongoing DSSC-PUF research project exploring generative electrical identity, sonification, and the delegation boundaries of future energy agents." />
     <meta name="twitter:image" content="https://weiweiweiopen.github.io/solar-oracle-walkman/og-image.png?v=20260713-title-screenshot" />
     <link rel="canonical" href="https://weiweiweiopen.github.io/solar-oracle-walkman/" />
     <link rel="image_src" href="https://weiweiweiopen.github.io/solar-oracle-walkman/og-image.png?v=20260713-title-screenshot" />
     <meta name="sow-chat-api" content="https://solar-oracle-deepseek-proxy.dontmarryme.workers.dev/chat" />
-    <title>Solar Oracle Walkman | IV Database</title>
-    <link rel="stylesheet" href="./style.css?v=20260726-language-switch" />
+    <title>Solar Oracle Walkman | Material Signals</title>
+    <link rel="stylesheet" href="./style.css?v=20260903-monochrome-monitor" />
   </head>
   <body>
     <div class="locale-switch-bar">
@@ -54,7 +54,79 @@
         <button type="button" tabindex="-1" aria-hidden="true">為什麼音樂和太陽能板有關系？</button>
       </div>
     </div>
-    <main class="page" aria-label="Solar Oracle Walkman slides and IV database">
+    <main class="page" aria-label="Solar Oracle Walkman material signals">
+      <section id="material-monitor" class="material-monitor" aria-labelledby="material-monitor-title">
+        <header class="material-monitor__header">
+          <p class="eyebrow">Long-term material observation</p>
+          <h1 id="material-monitor-title" class="material-monitor__title">green_<wbr>proofs_<wbr>are_<wbr>not_<wbr>always_<wbr>about_<wbr>tax_<wbr>write-offs_<wbr>1</h1>
+          <p class="material-monitor__reading" data-monitor-reading>Collecting the first comparable observations.</p>
+        </header>
+
+        <div class="material-monitor__topline">
+          <figure class="material-monitor__portrait">
+            <img src="./pix/green_proofs_are_not_always_about_tax_write-offs_1.jpg" alt="A handmade DSSC held in an acrylic frame beside its sensor and ESP32 board" />
+            <figcaption>Fixed position under the observation light.</figcaption>
+          </figure>
+
+          <div class="material-monitor__table-wrap">
+            <table class="material-monitor__table">
+              <caption>Latest daily view</caption>
+              <tbody data-monitor-table>
+                <tr><th scope="row">Observed</th><td>—</td></tr>
+                <tr><th scope="row">Open-circuit voltage</th><td>—</td></tr>
+                <tr><th scope="row">Ambient temperature</th><td>—</td></tr>
+                <tr><th scope="row">Relative humidity</th><td>—</td></tr>
+                <tr><th scope="row">Air pressure</th><td>—</td></tr>
+                <tr><th scope="row">Illuminance</th><td>—</td></tr>
+                <tr><th scope="row">Continuity at publication</th><td>—</td></tr>
+              </tbody>
+            </table>
+            <p class="material-monitor__updated" data-monitor-updated>Daily view not yet published.</p>
+          </div>
+        </div>
+
+        <section class="material-chart material-chart--primary" aria-labelledby="retention-title">
+          <div class="material-chart__heading">
+            <div>
+              <p class="eyebrow">Comparable conditions</p>
+              <h2 id="retention-title">Voltage retention</h2>
+            </div>
+            <p class="material-chart__metric" data-monitor-trend>Collecting baseline</p>
+          </div>
+          <div class="material-chart__canvas" data-monitor-chart="retention"></div>
+          <p class="material-chart__note">Daily medians are compared only near the baseline light (±10%) and ambient temperature (±2°C). A trend appears after seven complete comparable days.</p>
+        </section>
+
+        <div class="material-monitor__small-multiples">
+          <section class="material-chart" aria-labelledby="voc-title">
+            <div class="material-chart__heading">
+              <h2 id="voc-title">Raw Voc</h2>
+              <p>mV · five-minute observations</p>
+            </div>
+            <div class="material-chart__canvas material-chart__canvas--small" data-monitor-chart="voc"></div>
+          </section>
+          <section class="material-chart" aria-labelledby="lux-title">
+            <div class="material-chart__heading">
+              <h2 id="lux-title">Illuminance</h2>
+              <p>lux · logarithmic scale</p>
+            </div>
+            <div class="material-chart__canvas material-chart__canvas--small" data-monitor-chart="lux"></div>
+          </section>
+          <section class="material-chart material-chart--conditions" aria-labelledby="conditions-title">
+            <div class="material-chart__heading">
+              <h2 id="conditions-title">Exposure conditions</h2>
+              <p>ambient temperature / relative humidity</p>
+            </div>
+            <div class="material-chart__canvas material-chart__canvas--small" data-monitor-chart="conditions"></div>
+          </section>
+        </div>
+
+        <footer class="material-monitor__footer">
+          <p>Invalid sensor states remain in the downloadable record but are excluded from every curve.</p>
+          <a href="./data/green_proofs_are_not_always_about_tax_write-offs_1/readings.csv" download>Download cumulative CSV</a>
+        </footer>
+      </section>
+
       <header class="site-hero">
         <p class="eyebrow" data-i18n="heroEyebrow">Public research prototype</p>
         <h1 id="chat-title">Solar Oracle Walkman</h1>
@@ -132,6 +204,7 @@
     <footer class="footer">solar oracle walkman 2026 · credits: 施惟捷 Shih Wei Chieh, Marc Dusseiller, Edmond Jordan, Meschter John, 張灝馨 Haoshin Chang</footer>
 
     <script async src="https://www.instagram.com/embed.js"></script>
-    <script src="./app.js?v=20260726-language-switch"></script>
+    <script src="./monitor.js?v=20260903-monochrome-monitor"></script>
+    <script src="./app.js?v=20260903-monochrome-monitor"></script>
   </body>
 </html>
