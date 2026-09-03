@@ -2013,26 +2013,24 @@ iframe,
 
 .material-chart {
   min-width: 0;
-  padding: clamp(16px, 1.9vw, 34px);
+  padding: clamp(12px, 1.2vw, 20px);
   background: #ffffff;
-}
-
-.material-chart--primary {
-  border-bottom: 1px solid #111111;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
 }
 
 .material-chart__heading {
-  min-height: 3.25rem;
+  min-height: 0;
   display: flex;
   justify-content: space-between;
-  gap: 24px;
-  align-items: start;
-  margin-bottom: 18px;
+  gap: 12px;
+  align-items: baseline;
+  margin-bottom: 8px;
 }
 
 .material-chart__heading h2 {
   margin: 0;
-  font-size: clamp(1.25rem, 1.8vw, 2.3rem);
+  font-size: clamp(1rem, 1.35vw, 1.6rem);
   font-weight: 500;
   letter-spacing: -0.045em;
 }
@@ -2048,18 +2046,18 @@ iframe,
 }
 
 .material-chart__metric {
-  padding: 5px 9px;
-  border: 1px solid #111111;
+  padding: 0;
+  border: 0;
   color: #111111;
   text-transform: uppercase;
 }
 
 .material-chart__canvas {
-  min-height: 260px;
+  min-height: 0;
 }
 
 .material-chart__canvas--small {
-  min-height: 180px;
+  min-height: 0;
 }
 
 .monitor-svg {
@@ -2171,19 +2169,23 @@ iframe,
 }
 
 .material-chart__empty {
-  min-height: 220px;
+  min-height: 140px;
   margin: 0;
+  padding: 12px;
   border: 1px dashed #777777;
   display: grid;
   place-items: center;
   color: #555555;
   font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  font-size: 0.75rem;
+  overflow-wrap: anywhere;
   text-align: center;
 }
 
 .material-monitor__small-multiples {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
   border-bottom: 1px solid #111111;
 }
 
@@ -2193,11 +2195,6 @@ iframe,
 
 .material-monitor__small-multiples .material-chart:nth-child(-n + 2) {
   border-bottom: 1px solid #111111;
-}
-
-.material-chart--conditions {
-  grid-column: 1 / -1;
-  border-right: 0 !important;
 }
 
 .material-monitor__footer {

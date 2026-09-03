@@ -25,7 +25,7 @@
     <link rel="image_src" href="https://weiweiweiopen.github.io/solar-oracle-walkman/og-image.png?v=20260713-title-screenshot" />
     <meta name="sow-chat-api" content="https://solar-oracle-deepseek-proxy.dontmarryme.workers.dev/chat" />
     <title>Solar Oracle Walkman | Material Signals</title>
-    <link rel="stylesheet" href="./style.css?v=20260903-user-crop" />
+    <link rel="stylesheet" href="./style.css?v=20260903-compact-monitor" />
   </head>
   <body>
     <div class="locale-switch-bar">
@@ -91,37 +91,32 @@
           </div>
         </div>
 
-        <section class="material-chart material-chart--primary" aria-labelledby="retention-title">
-          <div class="material-chart__heading">
-            <div>
-              <p class="eyebrow">Comparable conditions</p>
-              <h2 id="retention-title">Voltage retention</h2>
-            </div>
-            <p class="material-chart__metric" data-monitor-trend>Collecting baseline</p>
-          </div>
-          <div class="material-chart__canvas" data-monitor-chart="retention"></div>
-          <p class="material-chart__note">Daily medians are compared only near the baseline light (±10%) and ambient temperature (±2°C). A trend appears after seven complete comparable days.</p>
-        </section>
-
         <div class="material-monitor__small-multiples">
+          <section class="material-chart material-chart--primary" aria-labelledby="retention-title">
+            <div class="material-chart__heading">
+              <h2 id="retention-title">Voltage retention</h2>
+              <p class="material-chart__metric" data-monitor-trend>Baseline 0/7</p>
+            </div>
+            <div class="material-chart__canvas" data-monitor-chart="retention"></div>
+          </section>
           <section class="material-chart" aria-labelledby="voc-title">
             <div class="material-chart__heading">
               <h2 id="voc-title">Raw Voc</h2>
-              <p>mV · five-minute observations</p>
+              <p>mV · 5 min</p>
             </div>
             <div class="material-chart__canvas material-chart__canvas--small" data-monitor-chart="voc"></div>
           </section>
           <section class="material-chart" aria-labelledby="lux-title">
             <div class="material-chart__heading">
               <h2 id="lux-title">Illuminance</h2>
-              <p>lux · logarithmic scale</p>
+              <p>lux · log</p>
             </div>
             <div class="material-chart__canvas material-chart__canvas--small" data-monitor-chart="lux"></div>
           </section>
           <section class="material-chart material-chart--conditions" aria-labelledby="conditions-title">
             <div class="material-chart__heading">
               <h2 id="conditions-title">Exposure conditions</h2>
-              <p>ambient temperature / relative humidity</p>
+              <p>°C / % RH</p>
             </div>
             <div class="material-chart__canvas material-chart__canvas--small" data-monitor-chart="conditions"></div>
           </section>
@@ -204,7 +199,7 @@
     <footer class="footer">solar oracle walkman 2026 · credits: 施惟捷 Shih Wei Chieh, Marc Dusseiller, Edmond Jordan, Meschter John, 張灝馨 Haoshin Chang</footer>
 
     <script async src="https://www.instagram.com/embed.js"></script>
-    <script src="./monitor.js?v=20260903-layout-lines-color"></script>
+    <script src="./monitor.js?v=20260903-compact-monitor"></script>
     <script src="./app.js?v=20260903-layout-lines-color"></script>
   </body>
 </html>

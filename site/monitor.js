@@ -67,7 +67,7 @@
     setText(
       "[data-monitor-trend]",
       slope == null
-        ? `collecting comparable days · ${completeDays}/7`
+        ? `baseline · ${completeDays}/7`
         : `${slope >= 0 ? "+" : ""}${Number(slope).toFixed(3)}% / day`
     );
   }
@@ -78,10 +78,10 @@
     const daily = (status.daily || [])
       .filter((row) => row.retention_pct != null)
       .map((row) => ({ ...row, time: dateAtNoon(row.date) }));
-    if (!daily.length) return renderEmpty(host, "Waiting for comparable light and temperature.");
+    if (!daily.length) return renderEmpty(host, "Awaiting baseline.");
 
     const width = 1000;
-    const height = 360;
+    const height = 270;
     const pad = { left: 74, right: 28, top: 26, bottom: 48 };
     const xs = daily.map((row) => row.time);
     const ys = daily.flatMap((row) => [
@@ -155,7 +155,7 @@
       svg.append(svgText(
         width - pad.right,
         pad.top + 18,
-        `COLLECTING COMPARABLE DAYS · ${complete.length}/7`,
+        `BASELINE · ${complete.length}/7`,
         "monitor-collecting-label",
         "end"
       ));
@@ -168,7 +168,7 @@
     const host = root.querySelector('[data-monitor-chart="voc"]');
     if (!host) return;
     const rows = validRecent(recent, "voltage_mV");
-    if (!rows.length) return renderEmpty(host, "No comparable observations yet.");
+    if (!rows.length) return renderEmpty(host, "Awaiting readings.");
     const hourly = aggregateHourly(rows, "voltage_mV");
     renderSeriesChart(host, {
       rows,
@@ -185,7 +185,7 @@
     const host = root.querySelector('[data-monitor-chart="lux"]');
     if (!host) return;
     const rows = validRecent(recent, "lux").filter((row) => row.lux >= 0);
-    if (!rows.length) return renderEmpty(host, "No comparable observations yet.");
+    if (!rows.length) return renderEmpty(host, "Awaiting readings.");
     renderSeriesChart(host, {
       rows,
       values: (row) => row.lux,
@@ -203,10 +203,10 @@
       .filter((row) => row.valid)
       .map((row) => ({ ...row, time: Date.parse(row.timestamp) }))
       .filter((row) => Number.isFinite(row.time));
-    if (!rows.length) return renderEmpty(host, "No comparable observations yet.");
+    if (!rows.length) return renderEmpty(host, "Awaiting readings.");
 
     const width = 1000;
-    const height = 300;
+    const height = 270;
     const pad = { left: 74, right: 28, top: 20, bottom: 42 };
     const gap = 34;
     const panelHeight = (height - pad.top - pad.bottom - gap) / 2;
