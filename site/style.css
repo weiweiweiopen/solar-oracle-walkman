@@ -1249,6 +1249,7 @@ input::placeholder {
   font-size: clamp(2.4rem, 6vw, 6.5rem);
   line-height: 0.9;
   letter-spacing: -0.07em;
+  text-align: center;
 }
 .curve-account-grid {
   margin-top: clamp(18px, 2.5vw, 34px);
