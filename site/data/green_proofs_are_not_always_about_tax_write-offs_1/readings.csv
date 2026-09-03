@@ -22,3 +22,4 @@ timestamp,raw,voltage_mV,voltage_V,ambient_temp_C,humidity_pct,pressure_hPa,lux,
 2026-09-03T17:40:10+08:00,1703.6,475.8,0.4758,30.11,58.04,1000.38,1747.5,62.5,sht20,bh1750,fixed_position_sensor_facing_light,included
 2026-09-03T17:45:11+08:00,1701.7,473.9,0.4739,30.38,58.77,1000.53,1760.8,62.5,sht20,bh1750,fixed_position_sensor_facing_light,included
 2026-09-03T17:50:11+08:00,1701.9,473.4,0.4734,30.62,59.18,1000.53,1748.3,65.5,sht20,bh1750,fixed_position_sensor_facing_light,included
+2026-09-03T17:55:12+08:00,1702.9,474.2,0.4742,30.79,60.7,1000.53,1720.8,64.5,sht20,bh1750,fixed_position_sensor_facing_light,included
