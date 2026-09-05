@@ -193,3 +193,15 @@ timestamp,raw,voltage_mV,voltage_V,ambient_temp_C,humidity_pct,pressure_hPa,lux,
 2026-09-04T12:35:34+08:00,1797.7,500.5,0.5005,29.46,69.05,1004.85,953.3,62.5,sht20,bh1750,fixed_position_sensor_facing_light,included
 2026-09-04T12:40:35+08:00,1793.6,498.9,0.4989,29.57,70.16,1004.88,962.5,62.5,sht20,bh1750,fixed_position_sensor_facing_light,included
 2026-09-04T12:45:35+08:00,1795.6,500.4,0.5004,29.61,71.71,1004.72,953.3,63.5,sht20,bh1750,fixed_position_sensor_facing_light,included
+2026-09-05T09:25:42+08:00,1806.9,505.1,0.5051,29.22,65.95,1007.03,933.3,61.5,sht20,bh1750,fixed_position_sensor_facing_light,included
+2026-09-05T09:30:43+08:00,1812.6,504.1,0.5041,29.5,72.28,1007.04,938.3,61.5,sht20,bh1750,fixed_position_sensor_facing_light,included
+2026-09-05T09:35:44+08:00,1816.7,504.7,0.5047,29.51,73.38,1007.01,946.7,62.5,sht20,bh1750,fixed_position_sensor_facing_light,included
+2026-09-05T09:40:44+08:00,1811.1,504.0,0.504,29.66,74.89,1007.07,944.2,62.5,sht20,bh1750,fixed_position_sensor_facing_light,included
+2026-09-05T09:45:45+08:00,1809.9,502.8,0.5028,29.66,76.38,1007.07,935.0,64.5,sht20,bh1750,fixed_position_sensor_facing_light,included
+2026-09-05T09:50:46+08:00,1807.0,504.6,0.5046,29.62,77.34,1007.01,943.3,64.5,sht20,bh1750,fixed_position_sensor_facing_light,included
+2026-09-05T09:55:46+08:00,1812.0,503.6,0.5036,29.68,78.27,1007.01,943.3,62.5,sht20,bh1750,fixed_position_sensor_facing_light,included
+2026-09-05T10:00:47+08:00,1815.0,502.8,0.5028,29.79,78.05,1006.95,943.3,62.5,sht20,bh1750,fixed_position_sensor_facing_light,included
+2026-09-05T10:05:48+08:00,1812.9,504.7,0.5047,29.74,78.47,1006.98,940.0,63.5,sht20,bh1750,fixed_position_sensor_facing_light,included
+2026-09-05T10:10:48+08:00,1812.4,504.3,0.5042,29.82,78.17,1007.04,944.2,64.5,sht20,bh1750,fixed_position_sensor_facing_light,included
+2026-09-05T10:15:49+08:00,1807.2,503.3,0.5033,29.91,77.66,1007.07,944.2,62.5,sht20,bh1750,fixed_position_sensor_facing_light,included
+2026-09-05T10:20:50+08:00,1809.2,503.5,0.5035,30.1,76.37,1006.93,946.7,62.5,sht20,bh1750,fixed_position_sensor_facing_light,included

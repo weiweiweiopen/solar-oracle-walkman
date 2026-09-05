@@ -2,14 +2,14 @@
   "baseline": {
     "end": "2026-09-06T20:49:35+08:00",
     "light_tolerance_pct": 10.0,
-    "matched_samples": 188,
-    "reference_lux": 946.7,
-    "reference_temp_C": 29.69,
-    "reference_voc_mV": 496.95,
+    "matched_samples": 200,
+    "reference_lux": 945.8,
+    "reference_temp_C": 29.68,
+    "reference_voc_mV": 497.1,
     "start": "2026-09-03T20:49:35+08:00",
     "state": "collecting",
     "temperature_tolerance_C": 2.0,
-    "valid_samples": 194
+    "valid_samples": 206
   },
   "complete_comparable_days": 0,
   "daily": [
@@ -23,9 +23,9 @@
       "lux_median": 951.7,
       "moving_7d_median_pct": null,
       "quality": "partial",
-      "retention_ci_high_pct": 99.587,
-      "retention_ci_low_pct": 95.14,
-      "retention_pct": 99.366,
+      "retention_ci_high_pct": 99.557,
+      "retention_ci_low_pct": 95.112,
+      "retention_pct": 99.336,
       "valid_samples": 41
     },
     {
@@ -38,27 +38,42 @@
       "lux_median": 943.3,
       "moving_7d_median_pct": null,
       "quality": "partial",
-      "retention_ci_high_pct": 100.382,
-      "retention_ci_low_pct": 99.849,
-      "retention_pct": 100.091,
+      "retention_ci_high_pct": 100.352,
+      "retention_ci_low_pct": 99.819,
+      "retention_pct": 100.06,
       "valid_samples": 153
+    },
+    {
+      "ambient_temp_C_median": 29.67,
+      "comparable_voc_mV": 503.8,
+      "condition_matched_hours": 2,
+      "condition_matched_samples": 12,
+      "date": "2026-09-05",
+      "humidity_pct_median": 76.86,
+      "lux_median": 943.3,
+      "moving_7d_median_pct": null,
+      "quality": "partial",
+      "retention_ci_high_pct": null,
+      "retention_ci_low_pct": null,
+      "retention_pct": 101.348,
+      "valid_samples": 12
     }
   ],
   "device": "green_proofs_are_not_always_about_tax_write-offs_1",
-  "generated_at": "2026-09-05T00:15:02+08:00",
+  "generated_at": "2026-09-06T00:15:03+08:00",
   "invalid_sample_count": 0,
   "latest": {
-    "ambient_temp_C": 29.61,
-    "humidity_pct": 71.71,
-    "lux": 953.3,
-    "mcu_temp_C": 63.5,
-    "pressure_hPa": 1004.72,
-    "timestamp": "2026-09-04T12:45:35+08:00",
+    "ambient_temp_C": 30.1,
+    "humidity_pct": 76.37,
+    "lux": 946.7,
+    "mcu_temp_C": 62.5,
+    "pressure_hPa": 1006.93,
+    "timestamp": "2026-09-05T10:20:50+08:00",
     "valid": true,
-    "voltage_mV": 500.4
+    "voltage_mV": 503.5
   },
-  "latest_age_minutes": 689.5,
-  "raw_csv_sha256": "c94e50f0cc64db338417c843396bb52bb54af9e637107da29a8c95fab7bbd9d2",
+  "latest_age_minutes": 834.2,
+  "raw_csv_sha256": "f25e9cdba56ac13626fc7cced5d30183ceee718cd185f24004be3a117baec0a6",
   "recent": [
     {
       "ambient_temp_C": 30.05,
@@ -1999,11 +2014,131 @@
       "timestamp": "2026-09-04T12:45:35+08:00",
       "valid": true,
       "voltage_mV": 500.4
+    },
+    {
+      "ambient_temp_C": 29.22,
+      "humidity_pct": 65.95,
+      "lux": 933.3,
+      "mcu_temp_C": 61.5,
+      "pressure_hPa": 1007.03,
+      "timestamp": "2026-09-05T09:25:42+08:00",
+      "valid": true,
+      "voltage_mV": 505.1
+    },
+    {
+      "ambient_temp_C": 29.5,
+      "humidity_pct": 72.28,
+      "lux": 938.3,
+      "mcu_temp_C": 61.5,
+      "pressure_hPa": 1007.04,
+      "timestamp": "2026-09-05T09:30:43+08:00",
+      "valid": true,
+      "voltage_mV": 504.1
+    },
+    {
+      "ambient_temp_C": 29.51,
+      "humidity_pct": 73.38,
+      "lux": 946.7,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1007.01,
+      "timestamp": "2026-09-05T09:35:44+08:00",
+      "valid": true,
+      "voltage_mV": 504.7
+    },
+    {
+      "ambient_temp_C": 29.66,
+      "humidity_pct": 74.89,
+      "lux": 944.2,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1007.07,
+      "timestamp": "2026-09-05T09:40:44+08:00",
+      "valid": true,
+      "voltage_mV": 504.0
+    },
+    {
+      "ambient_temp_C": 29.66,
+      "humidity_pct": 76.38,
+      "lux": 935.0,
+      "mcu_temp_C": 64.5,
+      "pressure_hPa": 1007.07,
+      "timestamp": "2026-09-05T09:45:45+08:00",
+      "valid": true,
+      "voltage_mV": 502.8
+    },
+    {
+      "ambient_temp_C": 29.62,
+      "humidity_pct": 77.34,
+      "lux": 943.3,
+      "mcu_temp_C": 64.5,
+      "pressure_hPa": 1007.01,
+      "timestamp": "2026-09-05T09:50:46+08:00",
+      "valid": true,
+      "voltage_mV": 504.6
+    },
+    {
+      "ambient_temp_C": 29.68,
+      "humidity_pct": 78.27,
+      "lux": 943.3,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1007.01,
+      "timestamp": "2026-09-05T09:55:46+08:00",
+      "valid": true,
+      "voltage_mV": 503.6
+    },
+    {
+      "ambient_temp_C": 29.79,
+      "humidity_pct": 78.05,
+      "lux": 943.3,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1006.95,
+      "timestamp": "2026-09-05T10:00:47+08:00",
+      "valid": true,
+      "voltage_mV": 502.8
+    },
+    {
+      "ambient_temp_C": 29.74,
+      "humidity_pct": 78.47,
+      "lux": 940.0,
+      "mcu_temp_C": 63.5,
+      "pressure_hPa": 1006.98,
+      "timestamp": "2026-09-05T10:05:48+08:00",
+      "valid": true,
+      "voltage_mV": 504.7
+    },
+    {
+      "ambient_temp_C": 29.82,
+      "humidity_pct": 78.17,
+      "lux": 944.2,
+      "mcu_temp_C": 64.5,
+      "pressure_hPa": 1007.04,
+      "timestamp": "2026-09-05T10:10:48+08:00",
+      "valid": true,
+      "voltage_mV": 504.3
+    },
+    {
+      "ambient_temp_C": 29.91,
+      "humidity_pct": 77.66,
+      "lux": 944.2,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1007.07,
+      "timestamp": "2026-09-05T10:15:49+08:00",
+      "valid": true,
+      "voltage_mV": 503.3
+    },
+    {
+      "ambient_temp_C": 30.1,
+      "humidity_pct": 76.37,
+      "lux": 946.7,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1006.93,
+      "timestamp": "2026-09-05T10:20:50+08:00",
+      "valid": true,
+      "voltage_mV": 503.5
     }
   ],
-  "sample_count": 194,
+  "sample_count": 206,
   "snapshot_state": "interrupted",
   "theil_sen_slope_pct_per_day": null,
   "trend_state": "collecting_comparable_days",
-  "valid_sample_count": 194
+  "valid_sample_count": 206
 }
