@@ -1,4 +1,5 @@
 date,valid_samples,condition_matched_samples,condition_matched_hours,comparable_voc_mV,retention_pct,retention_ci_low_pct,retention_ci_high_pct,moving_7d_median_pct,lux_median,ambient_temp_C_median,humidity_pct_median,quality
 2026-09-03,41,35,4,493.800,99.336,95.112,99.557,,951.700,29.750,60.780,partial
-2026-09-04,153,153,13,497.400,100.060,99.819,100.352,,943.300,29.660,64.860,partial
+2026-09-04,153,153,13,497.400,100.060,99.819,100.352,,943.300,29.660,64.860,complete
 2026-09-05,12,12,2,503.800,101.348,,,,943.300,29.670,76.860,partial
+2026-09-06,53,0,0,,,,,,775.800,29.790,70.910,partial
