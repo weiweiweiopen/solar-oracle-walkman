@@ -387,74 +387,54 @@
       "retention_ci_low_pct": null,
       "retention_pct": null,
       "valid_samples": 112
+    },
+    {
+      "ambient_temp_C_median": 29.295,
+      "comparable_voc_mV": null,
+      "condition_matched_hours": 0,
+      "condition_matched_samples": 0,
+      "date": "2026-09-29",
+      "humidity_pct_median": 37.95,
+      "lux_median": 115.45,
+      "moving_7d_median_pct": null,
+      "quality": "partial",
+      "retention_ci_high_pct": null,
+      "retention_ci_low_pct": null,
+      "retention_pct": null,
+      "valid_samples": 152
+    },
+    {
+      "ambient_temp_C_median": 29.79,
+      "comparable_voc_mV": null,
+      "condition_matched_hours": 0,
+      "condition_matched_samples": 0,
+      "date": "2026-09-30",
+      "humidity_pct_median": 48.38,
+      "lux_median": 31.7,
+      "moving_7d_median_pct": null,
+      "quality": "partial",
+      "retention_ci_high_pct": null,
+      "retention_ci_low_pct": null,
+      "retention_pct": null,
+      "valid_samples": 3
     }
   ],
   "device": "green_proofs_are_not_always_about_tax_write-offs_1",
-  "generated_at": "2026-09-29T00:15:06+08:00",
+  "generated_at": "2026-09-30T00:15:19+08:00",
   "invalid_sample_count": 0,
   "latest": {
-    "ambient_temp_C": 29.09,
-    "humidity_pct": 37.98,
-    "lux": 482.5,
+    "ambient_temp_C": 29.54,
+    "humidity_pct": 47.07,
+    "lux": 31.7,
     "mcu_temp_C": 61.5,
-    "pressure_hPa": 1009.47,
-    "timestamp": "2026-09-27T09:19:13+08:00",
+    "pressure_hPa": 1012.52,
+    "timestamp": "2026-09-30T00:13:58+08:00",
     "valid": true,
-    "voltage_mV": 492.7
+    "voltage_mV": 295.5
   },
-  "latest_age_minutes": 2335.9,
-  "raw_csv_sha256": "b91db29069deb90e6d61fb428cc3bb1989dc918ebdc62ffd28429c281b64ab43",
+  "latest_age_minutes": 1.4,
+  "raw_csv_sha256": "456919d8afe2ba11eb8a2139b04d82ee04e7248b78df666e3a8c7d01133c802d",
   "recent": [
-    {
-      "ambient_temp_C": 29.83,
-      "humidity_pct": 62.73,
-      "lux": 995.0,
-      "mcu_temp_C": 39.5,
-      "pressure_hPa": 1014.89,
-      "timestamp": "2026-09-22T23:54:01+08:00",
-      "valid": true,
-      "voltage_mV": 404.3
-    },
-    {
-      "ambient_temp_C": 30.21,
-      "humidity_pct": 57.13,
-      "lux": 1128.3,
-      "mcu_temp_C": 48.5,
-      "pressure_hPa": 1014.84,
-      "timestamp": "2026-09-22T23:59:02+08:00",
-      "valid": true,
-      "voltage_mV": 477.9
-    },
-    {
-      "ambient_temp_C": 30.66,
-      "humidity_pct": 55.76,
-      "lux": 1124.2,
-      "mcu_temp_C": 56.5,
-      "pressure_hPa": 1014.77,
-      "timestamp": "2026-09-23T00:04:02+08:00",
-      "valid": true,
-      "voltage_mV": 477.8
-    },
-    {
-      "ambient_temp_C": 30.93,
-      "humidity_pct": 54.56,
-      "lux": 1149.2,
-      "mcu_temp_C": 60.5,
-      "pressure_hPa": 1014.75,
-      "timestamp": "2026-09-23T00:09:03+08:00",
-      "valid": true,
-      "voltage_mV": 478.2
-    },
-    {
-      "ambient_temp_C": 31.09,
-      "humidity_pct": 53.5,
-      "lux": 1127.5,
-      "mcu_temp_C": 62.5,
-      "pressure_hPa": 1014.7,
-      "timestamp": "2026-09-23T00:14:03+08:00",
-      "valid": true,
-      "voltage_mV": 478.3
-    },
     {
       "ambient_temp_C": 31.19,
       "humidity_pct": 53.33,
@@ -11174,11 +11154,1561 @@
       "timestamp": "2026-09-27T09:19:13+08:00",
       "valid": true,
       "voltage_mV": 492.7
+    },
+    {
+      "ambient_temp_C": 29.54,
+      "humidity_pct": 42.55,
+      "lux": 790.8,
+      "mcu_temp_C": 60.5,
+      "pressure_hPa": 1012.23,
+      "timestamp": "2026-09-29T11:20:21+08:00",
+      "valid": true,
+      "voltage_mV": 459.2
+    },
+    {
+      "ambient_temp_C": 28.85,
+      "humidity_pct": 43.83,
+      "lux": 579.2,
+      "mcu_temp_C": 59.5,
+      "pressure_hPa": 1012.04,
+      "timestamp": "2026-09-29T11:27:25+08:00",
+      "valid": true,
+      "voltage_mV": 459.4
+    },
+    {
+      "ambient_temp_C": 28.8,
+      "humidity_pct": 42.77,
+      "lux": 577.5,
+      "mcu_temp_C": 61.5,
+      "pressure_hPa": 1012.07,
+      "timestamp": "2026-09-29T11:32:26+08:00",
+      "valid": true,
+      "voltage_mV": 459.9
+    },
+    {
+      "ambient_temp_C": 29.18,
+      "humidity_pct": 41.65,
+      "lux": 1138.3,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1011.85,
+      "timestamp": "2026-09-29T11:37:27+08:00",
+      "valid": true,
+      "voltage_mV": 509.9
+    },
+    {
+      "ambient_temp_C": 29.27,
+      "humidity_pct": 40.51,
+      "lux": 1142.5,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1011.88,
+      "timestamp": "2026-09-29T11:42:27+08:00",
+      "valid": true,
+      "voltage_mV": 509.4
+    },
+    {
+      "ambient_temp_C": 29.3,
+      "humidity_pct": 40.46,
+      "lux": 1144.2,
+      "mcu_temp_C": 63.5,
+      "pressure_hPa": 1011.91,
+      "timestamp": "2026-09-29T11:47:28+08:00",
+      "valid": true,
+      "voltage_mV": 508.5
+    },
+    {
+      "ambient_temp_C": 29.3,
+      "humidity_pct": 40.14,
+      "lux": 1151.7,
+      "mcu_temp_C": 63.5,
+      "pressure_hPa": 1011.76,
+      "timestamp": "2026-09-29T11:52:28+08:00",
+      "valid": true,
+      "voltage_mV": 509.4
+    },
+    {
+      "ambient_temp_C": 29.32,
+      "humidity_pct": 39.56,
+      "lux": 1150.0,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1011.79,
+      "timestamp": "2026-09-29T11:57:29+08:00",
+      "valid": true,
+      "voltage_mV": 509.7
+    },
+    {
+      "ambient_temp_C": 29.39,
+      "humidity_pct": 39.47,
+      "lux": 1161.7,
+      "mcu_temp_C": 61.5,
+      "pressure_hPa": 1011.57,
+      "timestamp": "2026-09-29T12:02:29+08:00",
+      "valid": true,
+      "voltage_mV": 510.0
+    },
+    {
+      "ambient_temp_C": 29.34,
+      "humidity_pct": 39.46,
+      "lux": 1160.8,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1011.48,
+      "timestamp": "2026-09-29T12:07:30+08:00",
+      "valid": true,
+      "voltage_mV": 510.5
+    },
+    {
+      "ambient_temp_C": 29.24,
+      "humidity_pct": 39.01,
+      "lux": 1154.2,
+      "mcu_temp_C": 63.5,
+      "pressure_hPa": 1011.51,
+      "timestamp": "2026-09-29T12:12:31+08:00",
+      "valid": true,
+      "voltage_mV": 510.2
+    },
+    {
+      "ambient_temp_C": 29.34,
+      "humidity_pct": 38.97,
+      "lux": 1154.2,
+      "mcu_temp_C": 63.5,
+      "pressure_hPa": 1011.43,
+      "timestamp": "2026-09-29T12:17:31+08:00",
+      "valid": true,
+      "voltage_mV": 510.1
+    },
+    {
+      "ambient_temp_C": 29.27,
+      "humidity_pct": 38.46,
+      "lux": 1164.2,
+      "mcu_temp_C": 63.5,
+      "pressure_hPa": 1011.25,
+      "timestamp": "2026-09-29T12:22:31+08:00",
+      "valid": true,
+      "voltage_mV": 509.6
+    },
+    {
+      "ambient_temp_C": 29.32,
+      "humidity_pct": 38.2,
+      "lux": 1160.0,
+      "mcu_temp_C": 63.5,
+      "pressure_hPa": 1011.17,
+      "timestamp": "2026-09-29T12:27:32+08:00",
+      "valid": true,
+      "voltage_mV": 509.6
+    },
+    {
+      "ambient_temp_C": 29.3,
+      "humidity_pct": 37.91,
+      "lux": 1156.7,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1010.91,
+      "timestamp": "2026-09-29T12:32:33+08:00",
+      "valid": true,
+      "voltage_mV": 509.7
+    },
+    {
+      "ambient_temp_C": 29.27,
+      "humidity_pct": 37.82,
+      "lux": 1160.8,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1010.94,
+      "timestamp": "2026-09-29T12:37:33+08:00",
+      "valid": true,
+      "voltage_mV": 510.0
+    },
+    {
+      "ambient_temp_C": 29.28,
+      "humidity_pct": 37.42,
+      "lux": 1160.0,
+      "mcu_temp_C": 63.5,
+      "pressure_hPa": 1010.94,
+      "timestamp": "2026-09-29T12:42:34+08:00",
+      "valid": true,
+      "voltage_mV": 509.5
+    },
+    {
+      "ambient_temp_C": 29.22,
+      "humidity_pct": 37.39,
+      "lux": 1139.2,
+      "mcu_temp_C": 61.5,
+      "pressure_hPa": 1010.85,
+      "timestamp": "2026-09-29T12:47:34+08:00",
+      "valid": true,
+      "voltage_mV": 509.1
+    },
+    {
+      "ambient_temp_C": 29.31,
+      "humidity_pct": 37.53,
+      "lux": 1155.0,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1010.74,
+      "timestamp": "2026-09-29T12:52:35+08:00",
+      "valid": true,
+      "voltage_mV": 509.7
+    },
+    {
+      "ambient_temp_C": 29.28,
+      "humidity_pct": 37.02,
+      "lux": 1144.2,
+      "mcu_temp_C": 61.5,
+      "pressure_hPa": 1010.68,
+      "timestamp": "2026-09-29T12:57:35+08:00",
+      "valid": true,
+      "voltage_mV": 509.4
+    },
+    {
+      "ambient_temp_C": 29.31,
+      "humidity_pct": 37.21,
+      "lux": 1142.5,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1010.57,
+      "timestamp": "2026-09-29T13:02:36+08:00",
+      "valid": true,
+      "voltage_mV": 508.1
+    },
+    {
+      "ambient_temp_C": 29.29,
+      "humidity_pct": 37.38,
+      "lux": 1155.8,
+      "mcu_temp_C": 63.5,
+      "pressure_hPa": 1010.28,
+      "timestamp": "2026-09-29T13:07:36+08:00",
+      "valid": true,
+      "voltage_mV": 509.8
+    },
+    {
+      "ambient_temp_C": 29.27,
+      "humidity_pct": 37.01,
+      "lux": 1152.5,
+      "mcu_temp_C": 61.5,
+      "pressure_hPa": 1010.33,
+      "timestamp": "2026-09-29T13:12:37+08:00",
+      "valid": true,
+      "voltage_mV": 509.2
+    },
+    {
+      "ambient_temp_C": 29.33,
+      "humidity_pct": 36.83,
+      "lux": 1147.5,
+      "mcu_temp_C": 61.5,
+      "pressure_hPa": 1010.22,
+      "timestamp": "2026-09-29T13:17:38+08:00",
+      "valid": true,
+      "voltage_mV": 509.3
+    },
+    {
+      "ambient_temp_C": 29.19,
+      "humidity_pct": 36.95,
+      "lux": 1150.8,
+      "mcu_temp_C": 61.5,
+      "pressure_hPa": 1010.25,
+      "timestamp": "2026-09-29T13:22:38+08:00",
+      "valid": true,
+      "voltage_mV": 509.3
+    },
+    {
+      "ambient_temp_C": 29.53,
+      "humidity_pct": 38.34,
+      "lux": 1138.3,
+      "mcu_temp_C": 61.5,
+      "pressure_hPa": 1010.14,
+      "timestamp": "2026-09-29T13:27:38+08:00",
+      "valid": true,
+      "voltage_mV": 509.0
+    },
+    {
+      "ambient_temp_C": 29.7,
+      "humidity_pct": 38.72,
+      "lux": 1146.7,
+      "mcu_temp_C": 61.5,
+      "pressure_hPa": 1010.23,
+      "timestamp": "2026-09-29T13:32:39+08:00",
+      "valid": true,
+      "voltage_mV": 508.3
+    },
+    {
+      "ambient_temp_C": 29.51,
+      "humidity_pct": 37.83,
+      "lux": 1148.3,
+      "mcu_temp_C": 61.5,
+      "pressure_hPa": 1010.11,
+      "timestamp": "2026-09-29T13:37:40+08:00",
+      "valid": true,
+      "voltage_mV": 508.8
+    },
+    {
+      "ambient_temp_C": 29.42,
+      "humidity_pct": 37.95,
+      "lux": 1151.7,
+      "mcu_temp_C": 61.5,
+      "pressure_hPa": 1009.99,
+      "timestamp": "2026-09-29T13:42:41+08:00",
+      "valid": true,
+      "voltage_mV": 509.2
+    },
+    {
+      "ambient_temp_C": 29.41,
+      "humidity_pct": 38.05,
+      "lux": 1140.0,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1009.93,
+      "timestamp": "2026-09-29T13:47:41+08:00",
+      "valid": true,
+      "voltage_mV": 508.5
+    },
+    {
+      "ambient_temp_C": 29.37,
+      "humidity_pct": 37.82,
+      "lux": 1150.0,
+      "mcu_temp_C": 63.5,
+      "pressure_hPa": 1009.9,
+      "timestamp": "2026-09-29T13:52:42+08:00",
+      "valid": true,
+      "voltage_mV": 509.7
+    },
+    {
+      "ambient_temp_C": 29.41,
+      "humidity_pct": 37.55,
+      "lux": 1139.2,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1009.74,
+      "timestamp": "2026-09-29T13:57:42+08:00",
+      "valid": true,
+      "voltage_mV": 508.6
+    },
+    {
+      "ambient_temp_C": 29.39,
+      "humidity_pct": 37.78,
+      "lux": 1150.8,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1009.71,
+      "timestamp": "2026-09-29T14:02:43+08:00",
+      "valid": true,
+      "voltage_mV": 509.0
+    },
+    {
+      "ambient_temp_C": 29.38,
+      "humidity_pct": 37.95,
+      "lux": 1144.2,
+      "mcu_temp_C": 63.5,
+      "pressure_hPa": 1009.74,
+      "timestamp": "2026-09-29T14:07:44+08:00",
+      "valid": true,
+      "voltage_mV": 508.7
+    },
+    {
+      "ambient_temp_C": 29.41,
+      "humidity_pct": 37.8,
+      "lux": 1141.7,
+      "mcu_temp_C": 63.5,
+      "pressure_hPa": 1009.62,
+      "timestamp": "2026-09-29T14:12:44+08:00",
+      "valid": true,
+      "voltage_mV": 509.3
+    },
+    {
+      "ambient_temp_C": 29.46,
+      "humidity_pct": 37.84,
+      "lux": 1147.5,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1009.6,
+      "timestamp": "2026-09-29T14:17:45+08:00",
+      "valid": true,
+      "voltage_mV": 508.9
+    },
+    {
+      "ambient_temp_C": 29.49,
+      "humidity_pct": 37.89,
+      "lux": 1139.2,
+      "mcu_temp_C": 63.5,
+      "pressure_hPa": 1009.57,
+      "timestamp": "2026-09-29T14:22:45+08:00",
+      "valid": true,
+      "voltage_mV": 508.7
+    },
+    {
+      "ambient_temp_C": 29.52,
+      "humidity_pct": 38.78,
+      "lux": 1146.7,
+      "mcu_temp_C": 63.5,
+      "pressure_hPa": 1009.51,
+      "timestamp": "2026-09-29T14:27:46+08:00",
+      "valid": true,
+      "voltage_mV": 508.6
+    },
+    {
+      "ambient_temp_C": 29.47,
+      "humidity_pct": 38.77,
+      "lux": 1152.5,
+      "mcu_temp_C": 63.5,
+      "pressure_hPa": 1009.51,
+      "timestamp": "2026-09-29T14:32:47+08:00",
+      "valid": true,
+      "voltage_mV": 509.2
+    },
+    {
+      "ambient_temp_C": 29.46,
+      "humidity_pct": 37.94,
+      "lux": 1150.0,
+      "mcu_temp_C": 63.5,
+      "pressure_hPa": 1009.51,
+      "timestamp": "2026-09-29T14:37:47+08:00",
+      "valid": true,
+      "voltage_mV": 509.5
+    },
+    {
+      "ambient_temp_C": 29.56,
+      "humidity_pct": 37.91,
+      "lux": 1153.3,
+      "mcu_temp_C": 63.5,
+      "pressure_hPa": 1009.37,
+      "timestamp": "2026-09-29T14:42:48+08:00",
+      "valid": true,
+      "voltage_mV": 508.5
+    },
+    {
+      "ambient_temp_C": 29.44,
+      "humidity_pct": 37.32,
+      "lux": 1151.7,
+      "mcu_temp_C": 63.5,
+      "pressure_hPa": 1009.42,
+      "timestamp": "2026-09-29T14:47:49+08:00",
+      "valid": true,
+      "voltage_mV": 508.6
+    },
+    {
+      "ambient_temp_C": 29.48,
+      "humidity_pct": 37.48,
+      "lux": 1147.5,
+      "mcu_temp_C": 63.5,
+      "pressure_hPa": 1009.36,
+      "timestamp": "2026-09-29T14:52:49+08:00",
+      "valid": true,
+      "voltage_mV": 508.5
+    },
+    {
+      "ambient_temp_C": 29.44,
+      "humidity_pct": 37.08,
+      "lux": 1144.2,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1009.25,
+      "timestamp": "2026-09-29T14:57:50+08:00",
+      "valid": true,
+      "voltage_mV": 508.6
+    },
+    {
+      "ambient_temp_C": 29.39,
+      "humidity_pct": 37.02,
+      "lux": 1138.3,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1009.3,
+      "timestamp": "2026-09-29T15:02:50+08:00",
+      "valid": true,
+      "voltage_mV": 509.3
+    },
+    {
+      "ambient_temp_C": 29.36,
+      "humidity_pct": 36.82,
+      "lux": 1130.0,
+      "mcu_temp_C": 63.5,
+      "pressure_hPa": 1009.48,
+      "timestamp": "2026-09-29T15:07:51+08:00",
+      "valid": true,
+      "voltage_mV": 507.8
+    },
+    {
+      "ambient_temp_C": 29.32,
+      "humidity_pct": 36.82,
+      "lux": 1135.8,
+      "mcu_temp_C": 63.5,
+      "pressure_hPa": 1009.3,
+      "timestamp": "2026-09-29T15:12:51+08:00",
+      "valid": true,
+      "voltage_mV": 508.1
+    },
+    {
+      "ambient_temp_C": 29.3,
+      "humidity_pct": 36.66,
+      "lux": 1130.0,
+      "mcu_temp_C": 63.5,
+      "pressure_hPa": 1009.39,
+      "timestamp": "2026-09-29T15:17:52+08:00",
+      "valid": true,
+      "voltage_mV": 508.2
+    },
+    {
+      "ambient_temp_C": 29.38,
+      "humidity_pct": 36.13,
+      "lux": 1150.0,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1009.42,
+      "timestamp": "2026-09-29T15:22:52+08:00",
+      "valid": true,
+      "voltage_mV": 508.9
+    },
+    {
+      "ambient_temp_C": 29.34,
+      "humidity_pct": 36.06,
+      "lux": 1148.3,
+      "mcu_temp_C": 63.5,
+      "pressure_hPa": 1009.42,
+      "timestamp": "2026-09-29T15:27:53+08:00",
+      "valid": true,
+      "voltage_mV": 508.7
+    },
+    {
+      "ambient_temp_C": 29.31,
+      "humidity_pct": 36.11,
+      "lux": 1147.5,
+      "mcu_temp_C": 63.5,
+      "pressure_hPa": 1009.48,
+      "timestamp": "2026-09-29T15:32:53+08:00",
+      "valid": true,
+      "voltage_mV": 509.1
+    },
+    {
+      "ambient_temp_C": 29.29,
+      "humidity_pct": 35.82,
+      "lux": 1147.5,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1009.59,
+      "timestamp": "2026-09-29T15:37:54+08:00",
+      "valid": true,
+      "voltage_mV": 508.8
+    },
+    {
+      "ambient_temp_C": 29.33,
+      "humidity_pct": 35.99,
+      "lux": 1147.5,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1009.56,
+      "timestamp": "2026-09-29T15:42:54+08:00",
+      "valid": true,
+      "voltage_mV": 509.2
+    },
+    {
+      "ambient_temp_C": 29.35,
+      "humidity_pct": 35.57,
+      "lux": 1155.8,
+      "mcu_temp_C": 63.5,
+      "pressure_hPa": 1009.56,
+      "timestamp": "2026-09-29T15:47:55+08:00",
+      "valid": true,
+      "voltage_mV": 509.3
+    },
+    {
+      "ambient_temp_C": 29.31,
+      "humidity_pct": 35.74,
+      "lux": 1142.5,
+      "mcu_temp_C": 63.5,
+      "pressure_hPa": 1009.45,
+      "timestamp": "2026-09-29T15:52:56+08:00",
+      "valid": true,
+      "voltage_mV": 509.5
+    },
+    {
+      "ambient_temp_C": 29.27,
+      "humidity_pct": 35.53,
+      "lux": 1144.2,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1009.68,
+      "timestamp": "2026-09-29T15:57:56+08:00",
+      "valid": true,
+      "voltage_mV": 508.8
+    },
+    {
+      "ambient_temp_C": 29.29,
+      "humidity_pct": 35.37,
+      "lux": 1154.2,
+      "mcu_temp_C": 61.5,
+      "pressure_hPa": 1009.65,
+      "timestamp": "2026-09-29T16:02:57+08:00",
+      "valid": true,
+      "voltage_mV": 509.3
+    },
+    {
+      "ambient_temp_C": 29.24,
+      "humidity_pct": 35.38,
+      "lux": 1154.2,
+      "mcu_temp_C": 61.5,
+      "pressure_hPa": 1009.68,
+      "timestamp": "2026-09-29T16:07:57+08:00",
+      "valid": true,
+      "voltage_mV": 509.9
+    },
+    {
+      "ambient_temp_C": 29.26,
+      "humidity_pct": 35.39,
+      "lux": 1144.2,
+      "mcu_temp_C": 60.5,
+      "pressure_hPa": 1009.62,
+      "timestamp": "2026-09-29T16:12:58+08:00",
+      "valid": true,
+      "voltage_mV": 508.8
+    },
+    {
+      "ambient_temp_C": 29.23,
+      "humidity_pct": 35.12,
+      "lux": 1151.7,
+      "mcu_temp_C": 60.5,
+      "pressure_hPa": 1009.85,
+      "timestamp": "2026-09-29T16:17:59+08:00",
+      "valid": true,
+      "voltage_mV": 509.6
+    },
+    {
+      "ambient_temp_C": 29.27,
+      "humidity_pct": 34.8,
+      "lux": 1160.0,
+      "mcu_temp_C": 60.5,
+      "pressure_hPa": 1009.71,
+      "timestamp": "2026-09-29T16:22:59+08:00",
+      "valid": true,
+      "voltage_mV": 509.8
+    },
+    {
+      "ambient_temp_C": 29.24,
+      "humidity_pct": 35.0,
+      "lux": 1160.8,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1009.71,
+      "timestamp": "2026-09-29T16:27:59+08:00",
+      "valid": true,
+      "voltage_mV": 509.7
+    },
+    {
+      "ambient_temp_C": 29.26,
+      "humidity_pct": 35.07,
+      "lux": 1139.2,
+      "mcu_temp_C": 63.5,
+      "pressure_hPa": 1009.68,
+      "timestamp": "2026-09-29T16:33:00+08:00",
+      "valid": true,
+      "voltage_mV": 508.5
+    },
+    {
+      "ambient_temp_C": 29.11,
+      "humidity_pct": 33.83,
+      "lux": 1148.3,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1009.73,
+      "timestamp": "2026-09-29T16:38:01+08:00",
+      "valid": true,
+      "voltage_mV": 509.7
+    },
+    {
+      "ambient_temp_C": 29.08,
+      "humidity_pct": 35.19,
+      "lux": 1156.7,
+      "mcu_temp_C": 60.5,
+      "pressure_hPa": 1009.76,
+      "timestamp": "2026-09-29T16:43:01+08:00",
+      "valid": true,
+      "voltage_mV": 509.6
+    },
+    {
+      "ambient_temp_C": 29.2,
+      "humidity_pct": 35.35,
+      "lux": 1155.0,
+      "mcu_temp_C": 60.5,
+      "pressure_hPa": 1009.93,
+      "timestamp": "2026-09-29T16:48:02+08:00",
+      "valid": true,
+      "voltage_mV": 509.9
+    },
+    {
+      "ambient_temp_C": 29.26,
+      "humidity_pct": 35.88,
+      "lux": 1156.7,
+      "mcu_temp_C": 60.5,
+      "pressure_hPa": 1009.79,
+      "timestamp": "2026-09-29T16:53:02+08:00",
+      "valid": true,
+      "voltage_mV": 510.1
+    },
+    {
+      "ambient_temp_C": 29.32,
+      "humidity_pct": 35.95,
+      "lux": 1155.0,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1009.93,
+      "timestamp": "2026-09-29T16:58:03+08:00",
+      "valid": true,
+      "voltage_mV": 510.2
+    },
+    {
+      "ambient_temp_C": 29.28,
+      "humidity_pct": 36.48,
+      "lux": 1163.3,
+      "mcu_temp_C": 63.5,
+      "pressure_hPa": 1009.87,
+      "timestamp": "2026-09-29T17:03:04+08:00",
+      "valid": true,
+      "voltage_mV": 509.4
+    },
+    {
+      "ambient_temp_C": 29.27,
+      "humidity_pct": 36.54,
+      "lux": 1168.3,
+      "mcu_temp_C": 61.5,
+      "pressure_hPa": 1009.96,
+      "timestamp": "2026-09-29T17:08:04+08:00",
+      "valid": true,
+      "voltage_mV": 510.3
+    },
+    {
+      "ambient_temp_C": 29.3,
+      "humidity_pct": 36.86,
+      "lux": 1150.0,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1010.07,
+      "timestamp": "2026-09-29T17:13:04+08:00",
+      "valid": true,
+      "voltage_mV": 508.9
+    },
+    {
+      "ambient_temp_C": 29.31,
+      "humidity_pct": 37.27,
+      "lux": 1106.7,
+      "mcu_temp_C": 63.5,
+      "pressure_hPa": 1010.02,
+      "timestamp": "2026-09-29T17:18:05+08:00",
+      "valid": true,
+      "voltage_mV": 507.0
+    },
+    {
+      "ambient_temp_C": 29.19,
+      "humidity_pct": 37.3,
+      "lux": 154.2,
+      "mcu_temp_C": 63.5,
+      "pressure_hPa": 1010.01,
+      "timestamp": "2026-09-29T17:23:06+08:00",
+      "valid": true,
+      "voltage_mV": 386.7
+    },
+    {
+      "ambient_temp_C": 29.23,
+      "humidity_pct": 37.46,
+      "lux": 18.3,
+      "mcu_temp_C": 61.5,
+      "pressure_hPa": 1010.19,
+      "timestamp": "2026-09-29T17:28:06+08:00",
+      "valid": true,
+      "voltage_mV": 217.9
+    },
+    {
+      "ambient_temp_C": 29.15,
+      "humidity_pct": 36.96,
+      "lux": 19.2,
+      "mcu_temp_C": 60.5,
+      "pressure_hPa": 1010.13,
+      "timestamp": "2026-09-29T17:33:07+08:00",
+      "valid": true,
+      "voltage_mV": 252.9
+    },
+    {
+      "ambient_temp_C": 29.17,
+      "humidity_pct": 36.59,
+      "lux": 18.3,
+      "mcu_temp_C": 60.5,
+      "pressure_hPa": 1010.13,
+      "timestamp": "2026-09-29T17:38:07+08:00",
+      "valid": true,
+      "voltage_mV": 223.0
+    },
+    {
+      "ambient_temp_C": 29.12,
+      "humidity_pct": 36.81,
+      "lux": 18.3,
+      "mcu_temp_C": 60.5,
+      "pressure_hPa": 1010.24,
+      "timestamp": "2026-09-29T17:43:08+08:00",
+      "valid": true,
+      "voltage_mV": 223.9
+    },
+    {
+      "ambient_temp_C": 29.13,
+      "humidity_pct": 36.43,
+      "lux": 18.3,
+      "mcu_temp_C": 60.5,
+      "pressure_hPa": 1010.3,
+      "timestamp": "2026-09-29T17:48:09+08:00",
+      "valid": true,
+      "voltage_mV": 223.2
+    },
+    {
+      "ambient_temp_C": 29.05,
+      "humidity_pct": 36.84,
+      "lux": 19.2,
+      "mcu_temp_C": 60.5,
+      "pressure_hPa": 1010.24,
+      "timestamp": "2026-09-29T17:53:10+08:00",
+      "valid": true,
+      "voltage_mV": 287.3
+    },
+    {
+      "ambient_temp_C": 29.08,
+      "humidity_pct": 36.64,
+      "lux": 18.3,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1010.36,
+      "timestamp": "2026-09-29T17:58:10+08:00",
+      "valid": true,
+      "voltage_mV": 207.9
+    },
+    {
+      "ambient_temp_C": 29.06,
+      "humidity_pct": 36.86,
+      "lux": 19.2,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1010.36,
+      "timestamp": "2026-09-29T18:03:11+08:00",
+      "valid": true,
+      "voltage_mV": 237.6
+    },
+    {
+      "ambient_temp_C": 29.04,
+      "humidity_pct": 36.53,
+      "lux": 18.3,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1010.39,
+      "timestamp": "2026-09-29T18:08:12+08:00",
+      "valid": true,
+      "voltage_mV": 204.1
+    },
+    {
+      "ambient_temp_C": 28.98,
+      "humidity_pct": 36.49,
+      "lux": 18.3,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1010.44,
+      "timestamp": "2026-09-29T18:13:12+08:00",
+      "valid": true,
+      "voltage_mV": 204.3
+    },
+    {
+      "ambient_temp_C": 28.93,
+      "humidity_pct": 36.29,
+      "lux": 19.2,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1010.44,
+      "timestamp": "2026-09-29T18:18:12+08:00",
+      "valid": true,
+      "voltage_mV": 263.9
+    },
+    {
+      "ambient_temp_C": 28.9,
+      "humidity_pct": 36.87,
+      "lux": 17.5,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1010.59,
+      "timestamp": "2026-09-29T18:23:13+08:00",
+      "valid": true,
+      "voltage_mV": 204.2
+    },
+    {
+      "ambient_temp_C": 28.86,
+      "humidity_pct": 36.14,
+      "lux": 18.3,
+      "mcu_temp_C": 61.5,
+      "pressure_hPa": 1010.73,
+      "timestamp": "2026-09-29T18:28:14+08:00",
+      "valid": true,
+      "voltage_mV": 206.5
+    },
+    {
+      "ambient_temp_C": 28.91,
+      "humidity_pct": 36.27,
+      "lux": 18.3,
+      "mcu_temp_C": 60.5,
+      "pressure_hPa": 1010.64,
+      "timestamp": "2026-09-29T18:33:15+08:00",
+      "valid": true,
+      "voltage_mV": 203.8
+    },
+    {
+      "ambient_temp_C": 29.06,
+      "humidity_pct": 41.72,
+      "lux": 18.3,
+      "mcu_temp_C": 60.5,
+      "pressure_hPa": 1010.76,
+      "timestamp": "2026-09-29T18:38:15+08:00",
+      "valid": true,
+      "voltage_mV": 233.5
+    },
+    {
+      "ambient_temp_C": 29.33,
+      "humidity_pct": 45.86,
+      "lux": 18.3,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1010.86,
+      "timestamp": "2026-09-29T18:43:16+08:00",
+      "valid": true,
+      "voltage_mV": 203.3
+    },
+    {
+      "ambient_temp_C": 29.54,
+      "humidity_pct": 47.62,
+      "lux": 17.5,
+      "mcu_temp_C": 61.5,
+      "pressure_hPa": 1010.92,
+      "timestamp": "2026-09-29T18:48:16+08:00",
+      "valid": true,
+      "voltage_mV": 202.5
+    },
+    {
+      "ambient_temp_C": 29.79,
+      "humidity_pct": 49.1,
+      "lux": 18.3,
+      "mcu_temp_C": 63.5,
+      "pressure_hPa": 1010.96,
+      "timestamp": "2026-09-29T18:53:17+08:00",
+      "valid": true,
+      "voltage_mV": 206.8
+    },
+    {
+      "ambient_temp_C": 30.02,
+      "humidity_pct": 49.39,
+      "lux": 18.3,
+      "mcu_temp_C": 64.5,
+      "pressure_hPa": 1010.93,
+      "timestamp": "2026-09-29T18:58:18+08:00",
+      "valid": true,
+      "voltage_mV": 201.7
+    },
+    {
+      "ambient_temp_C": 29.77,
+      "humidity_pct": 45.0,
+      "lux": 18.3,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1011.03,
+      "timestamp": "2026-09-29T19:03:19+08:00",
+      "valid": true,
+      "voltage_mV": 226.5
+    },
+    {
+      "ambient_temp_C": 29.5,
+      "humidity_pct": 42.97,
+      "lux": 18.3,
+      "mcu_temp_C": 61.5,
+      "pressure_hPa": 1010.95,
+      "timestamp": "2026-09-29T19:08:19+08:00",
+      "valid": true,
+      "voltage_mV": 199.2
+    },
+    {
+      "ambient_temp_C": 29.36,
+      "humidity_pct": 41.7,
+      "lux": 18.3,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1011.14,
+      "timestamp": "2026-09-29T19:13:20+08:00",
+      "valid": true,
+      "voltage_mV": 199.3
+    },
+    {
+      "ambient_temp_C": 29.28,
+      "humidity_pct": 40.94,
+      "lux": 19.2,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1011.14,
+      "timestamp": "2026-09-29T19:18:20+08:00",
+      "valid": true,
+      "voltage_mV": 258.1
+    },
+    {
+      "ambient_temp_C": 29.18,
+      "humidity_pct": 40.27,
+      "lux": 17.5,
+      "mcu_temp_C": 61.5,
+      "pressure_hPa": 1011.28,
+      "timestamp": "2026-09-29T19:23:21+08:00",
+      "valid": true,
+      "voltage_mV": 201.8
+    },
+    {
+      "ambient_temp_C": 29.12,
+      "humidity_pct": 39.58,
+      "lux": 18.3,
+      "mcu_temp_C": 60.5,
+      "pressure_hPa": 1011.19,
+      "timestamp": "2026-09-29T19:28:22+08:00",
+      "valid": true,
+      "voltage_mV": 204.9
+    },
+    {
+      "ambient_temp_C": 29.09,
+      "humidity_pct": 38.94,
+      "lux": 18.3,
+      "mcu_temp_C": 60.5,
+      "pressure_hPa": 1011.42,
+      "timestamp": "2026-09-29T19:33:22+08:00",
+      "valid": true,
+      "voltage_mV": 214.5
+    },
+    {
+      "ambient_temp_C": 29.03,
+      "humidity_pct": 38.0,
+      "lux": 18.3,
+      "mcu_temp_C": 60.5,
+      "pressure_hPa": 1011.39,
+      "timestamp": "2026-09-29T19:38:23+08:00",
+      "valid": true,
+      "voltage_mV": 235.3
+    },
+    {
+      "ambient_temp_C": 29.12,
+      "humidity_pct": 37.27,
+      "lux": 19.2,
+      "mcu_temp_C": 60.5,
+      "pressure_hPa": 1011.34,
+      "timestamp": "2026-09-29T19:43:23+08:00",
+      "valid": true,
+      "voltage_mV": 263.6
+    },
+    {
+      "ambient_temp_C": 29.05,
+      "humidity_pct": 37.17,
+      "lux": 19.2,
+      "mcu_temp_C": 60.5,
+      "pressure_hPa": 1011.45,
+      "timestamp": "2026-09-29T19:48:24+08:00",
+      "valid": true,
+      "voltage_mV": 265.1
+    },
+    {
+      "ambient_temp_C": 29.07,
+      "humidity_pct": 36.49,
+      "lux": 17.5,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1011.36,
+      "timestamp": "2026-09-29T19:53:24+08:00",
+      "valid": true,
+      "voltage_mV": 203.6
+    },
+    {
+      "ambient_temp_C": 29.0,
+      "humidity_pct": 36.44,
+      "lux": 18.3,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1011.64,
+      "timestamp": "2026-09-29T19:58:25+08:00",
+      "valid": true,
+      "voltage_mV": 235.8
+    },
+    {
+      "ambient_temp_C": 29.01,
+      "humidity_pct": 35.92,
+      "lux": 18.3,
+      "mcu_temp_C": 60.5,
+      "pressure_hPa": 1011.51,
+      "timestamp": "2026-09-29T20:03:26+08:00",
+      "valid": true,
+      "voltage_mV": 234.7
+    },
+    {
+      "ambient_temp_C": 29.0,
+      "humidity_pct": 35.45,
+      "lux": 17.5,
+      "mcu_temp_C": 60.5,
+      "pressure_hPa": 1011.57,
+      "timestamp": "2026-09-29T20:08:26+08:00",
+      "valid": true,
+      "voltage_mV": 201.5
+    },
+    {
+      "ambient_temp_C": 29.01,
+      "humidity_pct": 36.3,
+      "lux": 19.2,
+      "mcu_temp_C": 60.5,
+      "pressure_hPa": 1011.64,
+      "timestamp": "2026-09-29T20:13:27+08:00",
+      "valid": true,
+      "voltage_mV": 264.4
+    },
+    {
+      "ambient_temp_C": 28.98,
+      "humidity_pct": 35.56,
+      "lux": 18.3,
+      "mcu_temp_C": 61.5,
+      "pressure_hPa": 1011.7,
+      "timestamp": "2026-09-29T20:18:27+08:00",
+      "valid": true,
+      "voltage_mV": 254.1
+    },
+    {
+      "ambient_temp_C": 28.91,
+      "humidity_pct": 35.97,
+      "lux": 18.3,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1011.81,
+      "timestamp": "2026-09-29T20:23:28+08:00",
+      "valid": true,
+      "voltage_mV": 253.7
+    },
+    {
+      "ambient_temp_C": 29.12,
+      "humidity_pct": 40.92,
+      "lux": 19.2,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1011.76,
+      "timestamp": "2026-09-29T20:28:29+08:00",
+      "valid": true,
+      "voltage_mV": 255.3
+    },
+    {
+      "ambient_temp_C": 29.28,
+      "humidity_pct": 44.8,
+      "lux": 19.2,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1011.79,
+      "timestamp": "2026-09-29T20:33:29+08:00",
+      "valid": true,
+      "voltage_mV": 253.6
+    },
+    {
+      "ambient_temp_C": 29.47,
+      "humidity_pct": 47.3,
+      "lux": 18.3,
+      "mcu_temp_C": 63.5,
+      "pressure_hPa": 1011.74,
+      "timestamp": "2026-09-29T20:38:30+08:00",
+      "valid": true,
+      "voltage_mV": 252.7
+    },
+    {
+      "ambient_temp_C": 29.73,
+      "humidity_pct": 50.11,
+      "lux": 19.2,
+      "mcu_temp_C": 63.5,
+      "pressure_hPa": 1011.66,
+      "timestamp": "2026-09-29T20:43:30+08:00",
+      "valid": true,
+      "voltage_mV": 253.3
+    },
+    {
+      "ambient_temp_C": 30.0,
+      "humidity_pct": 51.29,
+      "lux": 15.8,
+      "mcu_temp_C": 64.5,
+      "pressure_hPa": 1011.67,
+      "timestamp": "2026-09-29T20:48:31+08:00",
+      "valid": true,
+      "voltage_mV": 196.5
+    },
+    {
+      "ambient_temp_C": 29.92,
+      "humidity_pct": 47.37,
+      "lux": 17.5,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1011.84,
+      "timestamp": "2026-09-29T20:53:31+08:00",
+      "valid": true,
+      "voltage_mV": 196.0
+    },
+    {
+      "ambient_temp_C": 29.59,
+      "humidity_pct": 44.66,
+      "lux": 18.3,
+      "mcu_temp_C": 61.5,
+      "pressure_hPa": 1011.77,
+      "timestamp": "2026-09-29T20:58:32+08:00",
+      "valid": true,
+      "voltage_mV": 250.4
+    },
+    {
+      "ambient_temp_C": 29.43,
+      "humidity_pct": 42.92,
+      "lux": 119.2,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1011.74,
+      "timestamp": "2026-09-29T21:03:32+08:00",
+      "valid": true,
+      "voltage_mV": 312.9
+    },
+    {
+      "ambient_temp_C": 29.39,
+      "humidity_pct": 41.34,
+      "lux": 106.7,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1011.74,
+      "timestamp": "2026-09-29T21:08:33+08:00",
+      "valid": true,
+      "voltage_mV": 305.8
+    },
+    {
+      "ambient_temp_C": 29.36,
+      "humidity_pct": 40.04,
+      "lux": 105.8,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1011.74,
+      "timestamp": "2026-09-29T21:13:33+08:00",
+      "valid": true,
+      "voltage_mV": 304.4
+    },
+    {
+      "ambient_temp_C": 29.31,
+      "humidity_pct": 39.17,
+      "lux": 104.2,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1011.63,
+      "timestamp": "2026-09-29T21:18:34+08:00",
+      "valid": true,
+      "voltage_mV": 304.8
+    },
+    {
+      "ambient_temp_C": 29.27,
+      "humidity_pct": 38.69,
+      "lux": 104.2,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1011.76,
+      "timestamp": "2026-09-29T21:23:35+08:00",
+      "valid": true,
+      "voltage_mV": 305.1
+    },
+    {
+      "ambient_temp_C": 29.19,
+      "humidity_pct": 38.5,
+      "lux": 104.2,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1011.82,
+      "timestamp": "2026-09-29T21:28:35+08:00",
+      "valid": true,
+      "voltage_mV": 305.8
+    },
+    {
+      "ambient_temp_C": 29.18,
+      "humidity_pct": 38.6,
+      "lux": 105.0,
+      "mcu_temp_C": 61.5,
+      "pressure_hPa": 1011.79,
+      "timestamp": "2026-09-29T21:33:36+08:00",
+      "valid": true,
+      "voltage_mV": 305.0
+    },
+    {
+      "ambient_temp_C": 29.18,
+      "humidity_pct": 38.37,
+      "lux": 105.0,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1011.82,
+      "timestamp": "2026-09-29T21:38:36+08:00",
+      "valid": true,
+      "voltage_mV": 306.1
+    },
+    {
+      "ambient_temp_C": 29.12,
+      "humidity_pct": 38.51,
+      "lux": 103.3,
+      "mcu_temp_C": 61.5,
+      "pressure_hPa": 1011.82,
+      "timestamp": "2026-09-29T21:43:37+08:00",
+      "valid": true,
+      "voltage_mV": 305.5
+    },
+    {
+      "ambient_temp_C": 29.07,
+      "humidity_pct": 38.54,
+      "lux": 104.2,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1011.76,
+      "timestamp": "2026-09-29T21:48:37+08:00",
+      "valid": true,
+      "voltage_mV": 306.3
+    },
+    {
+      "ambient_temp_C": 29.06,
+      "humidity_pct": 38.05,
+      "lux": 105.0,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1011.82,
+      "timestamp": "2026-09-29T21:53:38+08:00",
+      "valid": true,
+      "voltage_mV": 310.3
+    },
+    {
+      "ambient_temp_C": 28.95,
+      "humidity_pct": 38.47,
+      "lux": 19.2,
+      "mcu_temp_C": 60.5,
+      "pressure_hPa": 1011.73,
+      "timestamp": "2026-09-29T21:58:38+08:00",
+      "valid": true,
+      "voltage_mV": 223.4
+    },
+    {
+      "ambient_temp_C": 29.0,
+      "humidity_pct": 41.96,
+      "lux": 19.2,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1011.84,
+      "timestamp": "2026-09-29T22:03:39+08:00",
+      "valid": true,
+      "voltage_mV": 253.9
+    },
+    {
+      "ambient_temp_C": 29.31,
+      "humidity_pct": 47.37,
+      "lux": 18.3,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1011.76,
+      "timestamp": "2026-09-29T22:08:40+08:00",
+      "valid": true,
+      "voltage_mV": 248.6
+    },
+    {
+      "ambient_temp_C": 29.5,
+      "humidity_pct": 48.55,
+      "lux": 19.2,
+      "mcu_temp_C": 61.5,
+      "pressure_hPa": 1011.86,
+      "timestamp": "2026-09-29T22:13:40+08:00",
+      "valid": true,
+      "voltage_mV": 194.6
+    },
+    {
+      "ambient_temp_C": 29.74,
+      "humidity_pct": 50.72,
+      "lux": 19.2,
+      "mcu_temp_C": 61.5,
+      "pressure_hPa": 1011.92,
+      "timestamp": "2026-09-29T22:18:41+08:00",
+      "valid": true,
+      "voltage_mV": 193.6
+    },
+    {
+      "ambient_temp_C": 29.92,
+      "humidity_pct": 53.5,
+      "lux": 19.2,
+      "mcu_temp_C": 61.5,
+      "pressure_hPa": 1011.98,
+      "timestamp": "2026-09-29T22:23:41+08:00",
+      "valid": true,
+      "voltage_mV": 192.4
+    },
+    {
+      "ambient_temp_C": 30.07,
+      "humidity_pct": 51.77,
+      "lux": 19.2,
+      "mcu_temp_C": 61.5,
+      "pressure_hPa": 1012.05,
+      "timestamp": "2026-09-29T22:28:42+08:00",
+      "valid": true,
+      "voltage_mV": 191.3
+    },
+    {
+      "ambient_temp_C": 29.85,
+      "humidity_pct": 46.41,
+      "lux": 111.7,
+      "mcu_temp_C": 61.5,
+      "pressure_hPa": 1012.04,
+      "timestamp": "2026-09-29T22:33:42+08:00",
+      "valid": true,
+      "voltage_mV": 309.7
+    },
+    {
+      "ambient_temp_C": 29.74,
+      "humidity_pct": 44.64,
+      "lux": 109.2,
+      "mcu_temp_C": 61.5,
+      "pressure_hPa": 1011.98,
+      "timestamp": "2026-09-29T22:38:43+08:00",
+      "valid": true,
+      "voltage_mV": 307.0
+    },
+    {
+      "ambient_temp_C": 29.68,
+      "humidity_pct": 42.29,
+      "lux": 108.3,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1012.03,
+      "timestamp": "2026-09-29T22:43:44+08:00",
+      "valid": true,
+      "voltage_mV": 307.0
+    },
+    {
+      "ambient_temp_C": 29.61,
+      "humidity_pct": 41.59,
+      "lux": 109.2,
+      "mcu_temp_C": 61.5,
+      "pressure_hPa": 1011.95,
+      "timestamp": "2026-09-29T22:48:44+08:00",
+      "valid": true,
+      "voltage_mV": 307.0
+    },
+    {
+      "ambient_temp_C": 29.6,
+      "humidity_pct": 40.74,
+      "lux": 108.3,
+      "mcu_temp_C": 60.5,
+      "pressure_hPa": 1011.92,
+      "timestamp": "2026-09-29T22:53:45+08:00",
+      "valid": true,
+      "voltage_mV": 307.8
+    },
+    {
+      "ambient_temp_C": 29.51,
+      "humidity_pct": 40.17,
+      "lux": 110.0,
+      "mcu_temp_C": 60.5,
+      "pressure_hPa": 1011.91,
+      "timestamp": "2026-09-29T22:58:46+08:00",
+      "valid": true,
+      "voltage_mV": 310.7
+    },
+    {
+      "ambient_temp_C": 29.44,
+      "humidity_pct": 39.61,
+      "lux": 108.3,
+      "mcu_temp_C": 60.5,
+      "pressure_hPa": 1011.94,
+      "timestamp": "2026-09-29T23:03:47+08:00",
+      "valid": true,
+      "voltage_mV": 309.9
+    },
+    {
+      "ambient_temp_C": 29.16,
+      "humidity_pct": 40.47,
+      "lux": 124.2,
+      "mcu_temp_C": 60.5,
+      "pressure_hPa": 1012.11,
+      "timestamp": "2026-09-29T23:08:47+08:00",
+      "valid": true,
+      "voltage_mV": 353.0
+    },
+    {
+      "ambient_temp_C": 29.02,
+      "humidity_pct": 38.98,
+      "lux": 125.8,
+      "mcu_temp_C": 61.5,
+      "pressure_hPa": 1012.19,
+      "timestamp": "2026-09-29T23:13:48+08:00",
+      "valid": true,
+      "voltage_mV": 372.4
+    },
+    {
+      "ambient_temp_C": 28.97,
+      "humidity_pct": 39.09,
+      "lux": 31.7,
+      "mcu_temp_C": 59.5,
+      "pressure_hPa": 1012.22,
+      "timestamp": "2026-09-29T23:18:49+08:00",
+      "valid": true,
+      "voltage_mV": 296.3
+    },
+    {
+      "ambient_temp_C": 28.95,
+      "humidity_pct": 39.13,
+      "lux": 31.7,
+      "mcu_temp_C": 59.5,
+      "pressure_hPa": 1012.22,
+      "timestamp": "2026-09-29T23:23:50+08:00",
+      "valid": true,
+      "voltage_mV": 295.6
+    },
+    {
+      "ambient_temp_C": 28.94,
+      "humidity_pct": 39.23,
+      "lux": 30.8,
+      "mcu_temp_C": 59.5,
+      "pressure_hPa": 1012.25,
+      "timestamp": "2026-09-29T23:28:51+08:00",
+      "valid": true,
+      "voltage_mV": 294.7
+    },
+    {
+      "ambient_temp_C": 28.91,
+      "humidity_pct": 39.07,
+      "lux": 31.7,
+      "mcu_temp_C": 59.5,
+      "pressure_hPa": 1012.27,
+      "timestamp": "2026-09-29T23:33:51+08:00",
+      "valid": true,
+      "voltage_mV": 297.3
+    },
+    {
+      "ambient_temp_C": 28.92,
+      "humidity_pct": 40.78,
+      "lux": 32.5,
+      "mcu_temp_C": 59.5,
+      "pressure_hPa": 1012.22,
+      "timestamp": "2026-09-29T23:38:52+08:00",
+      "valid": true,
+      "voltage_mV": 298.9
+    },
+    {
+      "ambient_temp_C": 29.34,
+      "humidity_pct": 45.83,
+      "lux": 31.7,
+      "mcu_temp_C": 60.5,
+      "pressure_hPa": 1012.29,
+      "timestamp": "2026-09-29T23:43:52+08:00",
+      "valid": true,
+      "voltage_mV": 297.6
+    },
+    {
+      "ambient_temp_C": 29.56,
+      "humidity_pct": 48.87,
+      "lux": 31.7,
+      "mcu_temp_C": 60.5,
+      "pressure_hPa": 1012.41,
+      "timestamp": "2026-09-29T23:48:53+08:00",
+      "valid": true,
+      "voltage_mV": 296.9
+    },
+    {
+      "ambient_temp_C": 29.68,
+      "humidity_pct": 50.8,
+      "lux": 30.8,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1012.53,
+      "timestamp": "2026-09-29T23:53:54+08:00",
+      "valid": true,
+      "voltage_mV": 294.2
+    },
+    {
+      "ambient_temp_C": 29.93,
+      "humidity_pct": 52.35,
+      "lux": 31.7,
+      "mcu_temp_C": 63.5,
+      "pressure_hPa": 1012.45,
+      "timestamp": "2026-09-29T23:58:55+08:00",
+      "valid": true,
+      "voltage_mV": 297.0
+    },
+    {
+      "ambient_temp_C": 30.11,
+      "humidity_pct": 53.33,
+      "lux": 31.7,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1012.51,
+      "timestamp": "2026-09-30T00:03:56+08:00",
+      "valid": true,
+      "voltage_mV": 296.0
+    },
+    {
+      "ambient_temp_C": 29.79,
+      "humidity_pct": 48.38,
+      "lux": 31.7,
+      "mcu_temp_C": 61.5,
+      "pressure_hPa": 1012.53,
+      "timestamp": "2026-09-30T00:08:57+08:00",
+      "valid": true,
+      "voltage_mV": 294.7
+    },
+    {
+      "ambient_temp_C": 29.54,
+      "humidity_pct": 47.07,
+      "lux": 31.7,
+      "mcu_temp_C": 61.5,
+      "pressure_hPa": 1012.52,
+      "timestamp": "2026-09-30T00:13:58+08:00",
+      "valid": true,
+      "voltage_mV": 295.5
     }
   ],
-  "sample_count": 4955,
-  "snapshot_state": "interrupted",
+  "sample_count": 5110,
+  "snapshot_state": "continuous",
   "theil_sen_slope_pct_per_day": null,
   "trend_state": "collecting_comparable_days",
-  "valid_sample_count": 4955
+  "valid_sample_count": 5110
 }
