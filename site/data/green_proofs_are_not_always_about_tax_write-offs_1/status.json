@@ -620,24 +620,24 @@
   "display_name": "DSSC 55x55 A",
   "first_observed_at": "2026-09-03T20:49:35+08:00",
   "first_valid_at": "2026-09-03T20:49:35+08:00",
-  "generated_at": "2026-10-13T22:07:32+08:00",
+  "generated_at": "2026-10-13T22:12:17+08:00",
   "gpio": 3,
-  "invalid_sample_count": 3142,
+  "invalid_sample_count": 3143,
   "latest": {
-    "ambient_temp_C": 29.78,
+    "ambient_temp_C": 29.95,
     "device_id": "esp32c3-64e833b913b8",
     "gpio": 3,
-    "humidity_pct": 53.31,
-    "lux": 94.2,
+    "humidity_pct": 53.04,
+    "lux": 93.3,
     "mcu_temp_C": 62.5,
-    "pressure_hPa": 1018.36,
+    "pressure_hPa": 1018.39,
     "quality_reason": "sensor_disconnected_invalid_measurement",
     "sample_id": "green_proofs_are_not_always_about_tax_write-offs_1",
-    "timestamp": "2026-10-13T22:06:54+08:00",
+    "timestamp": "2026-10-13T22:11:55+08:00",
     "valid": false,
-    "voltage_mV": 333.5
+    "voltage_mV": 335.2
   },
-  "latest_age_minutes": 0.6,
+  "latest_age_minutes": 0.4,
   "quality_policy": {
     "boundary_precision": "date only, Asia/Taipei; full dates conservatively excluded, not an exact unplug time",
     "confirmed_reconnected_at": null,
@@ -650,22 +650,8 @@
     "sample_id": "green_proofs_are_not_always_about_tax_write-offs_1",
     "source_csv": "readings.csv"
   },
-  "raw_csv_sha256": "4f6efea06b3441d76713ddfff4a73f74c8f97a12565932a2770a76061e1f2c85",
+  "raw_csv_sha256": "aa4532ea9fd88b05162bbdfdfbc8f47780b380c8fa246bf983e3be7fc50aedcf",
   "recent": [
-    {
-      "ambient_temp_C": 28.46,
-      "device_id": "esp32c3-64e833b913b8",
-      "gpio": 3,
-      "humidity_pct": 57.2,
-      "lux": 11.7,
-      "mcu_temp_C": 61.5,
-      "pressure_hPa": 1019.71,
-      "quality_reason": "sensor_disconnected_invalid_measurement",
-      "sample_id": "green_proofs_are_not_always_about_tax_write-offs_1",
-      "timestamp": "2026-10-06T22:09:22+08:00",
-      "valid": false,
-      "voltage_mV": 715.5
-    },
     {
       "ambient_temp_C": 28.45,
       "device_id": "esp32c3-64e833b913b8",
@@ -28861,9 +28847,23 @@
       "timestamp": "2026-10-13T22:06:54+08:00",
       "valid": false,
       "voltage_mV": 333.5
+    },
+    {
+      "ambient_temp_C": 29.95,
+      "device_id": "esp32c3-64e833b913b8",
+      "gpio": 3,
+      "humidity_pct": 53.04,
+      "lux": 93.3,
+      "mcu_temp_C": 62.5,
+      "pressure_hPa": 1018.39,
+      "quality_reason": "sensor_disconnected_invalid_measurement",
+      "sample_id": "green_proofs_are_not_always_about_tax_write-offs_1",
+      "timestamp": "2026-10-13T22:11:55+08:00",
+      "valid": false,
+      "voltage_mV": 335.2
     }
   ],
-  "sample_count": 9110,
+  "sample_count": 9111,
   "sample_id": "green_proofs_are_not_always_about_tax_write-offs_1",
   "schema_version": 2,
   "snapshot_state": "unknown/disconnected",
