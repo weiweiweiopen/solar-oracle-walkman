@@ -1,0 +1,26 @@
+{
+  "schema_version": 2,
+  "device_id": "esp32c3-64e833b913b8",
+  "channels": [
+    {
+      "sample_id": "green_proofs_are_not_always_about_tax_write-offs_1",
+      "display_name": "DSSC 55x55 A",
+      "gpio": 3,
+      "source_csv": "readings.csv",
+      "connection_state": "unknown/disconnected",
+      "invalid_from_date": "2026-10-03",
+      "reported_through_date": "2026-10-13",
+      "report_source": "user report on 2026-10-13: sample unplugged; readings are noise",
+      "boundary_precision": "date only, Asia/Taipei; full dates conservatively excluded, not an exact unplug time",
+      "confirmed_reconnected_at": null
+    },
+    {
+      "sample_id": "dssc_55x55_b",
+      "display_name": "DSSC 55x55 B",
+      "gpio": 2,
+      "source_csv": "readings-b.csv",
+      "connection_state": "user_reported_connected",
+      "validity_note": "Only actual GPIO2 acquisition; range checks do not verify physical wiring or input safety."
+    }
+  ]
+}

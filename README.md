@@ -220,3 +220,7 @@ A minimal deployable backend is included at `api/chat.js` for Vercel serverless 
 - `site/app.js` reads this value and posts chat requests there.
 
 Boundary note: this remains a public research prototype, not a legal REC, not T-REC, not an energy equivalence claim, and not a financial product.
+
+## DSSC A/B monitoring (2026-10-13)
+
+The material monitor now distinguishes **DSSC 55x55 A** (original stable sample ID, GPIO3) and **DSSC 55x55 B** (GPIO2). A's user-reported disconnection from 2026-10-03 is preserved as invalid raw measurements, excluded from curves/aggregates until confirmed recovery; no exact unplug/reconnect time is inferred. B starts at actual acquisition. See [monitor operations and quality policy](scripts/dssc-monitor/README.md). These voltage observations are not measured energy generation.

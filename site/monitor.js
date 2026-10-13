@@ -7,18 +7,40 @@
   const root = document.querySelector("#material-monitor");
   if (!root) return;
 
-  fetch(`${DATA_ROOT}/status.json?v=${Date.now()}`, { cache: "no-store" })
-    .then((response) => {
-      if (!response.ok) throw new Error(`status ${response.status}`);
-      return response.json();
-    })
-    .then(renderMonitor)
-    .catch(() => {
-      setText("[data-monitor-reading]", "The first daily view is still on its way.");
-      root.classList.add("material-monitor--waiting");
-    });
+  const SAMPLE_IDS = [DEVICE, "dssc_55x55_b"];
+  const statuses = new Map();
+  const selector = root.querySelector("[data-monitor-sample]");
+  selector.addEventListener("change", () => {
+    const status = statuses.get(selector.value);
+    if (status) renderMonitor(status);
+  });
+  Promise.all(SAMPLE_IDS.map(async (sampleId) => {
+    const response = await fetch(`./data/${sampleId}/status.json?v=${Date.now()}`, { cache: "no-store" });
+    if (!response.ok) throw new Error(`status ${response.status}`);
+    const status = await response.json();
+    statuses.set(sampleId, status);
+    return status;
+  })).then((all) => {
+    const host = root.querySelector("[data-monitor-channels]");
+    host.replaceChildren(...all.map((status) => {
+      const p = document.createElement("p");
+      const current = status.latest && status.latest.valid && status.snapshot_state === "continuous";
+      p.textContent = `${status.display_name} · GPIO${status.gpio} · ${current ? format(status.latest.voltage_mV, 1, "mV") : status.snapshot_state} · ${status.valid_sample_count} valid / ${status.invalid_sample_count} excluded`;
+      return p;
+    }));
+    renderMonitor(statuses.get(selector.value));
+  }).catch(() => {
+    setText("[data-monitor-reading]", "Sample snapshot unavailable; no measurement inferred.");
+    root.classList.add("material-monitor--waiting");
+  });
 
   function renderMonitor(status) {
+    setText("#material-monitor-title", status.display_name);
+    const disconnected = status.connection_state === "unknown/disconnected";
+    setText("[data-monitor-quality]", disconnected
+      ? "sensor disconnected / invalid measurement — 使用者回報 A 於 2026-10-03 至 2026-10-13 拔除，數據為 noise。日期粒度保守排除，原始數值保留；未確認復接前維持 unknown/disconnected，不推定精確拔插時間。"
+      : "B only includes actual GPIO2 acquisitions; no backfilled history. Shared environmental sensors. Voltage range checks do not independently verify wiring or input safety.");
+    root.querySelector("[data-monitor-download]").href = `./data/${status.sample_id}/readings.csv`;
     renderTable(status);
     renderRetention(status);
     renderVoc(status.recent || []);
@@ -27,19 +49,21 @@
   }
 
   function renderTable(status) {
-    const latest = status.latest;
+    const latest = status.latest || {};
+    const measurementValid = latest.valid === true;
     const table = root.querySelector("[data-monitor-table]");
-    if (!latest || !table) return;
+    if (!table) return;
     const rows = [
-      ["Observed", formatDateTime(latest.timestamp)],
-      ["Open-circuit voltage", format(latest.voltage_mV, 1, "mV")],
+      ["Observed (raw record)", latest.timestamp ? formatDateTime(latest.timestamp) : "No acquisition yet"],
+      ["Measurement quality", measurementValid ? "valid observation" : "invalid / unknown"],
+      ["Open-circuit voltage", measurementValid ? format(latest.voltage_mV, 1, "mV") : "— (excluded; raw preserved in CSV)"],
       ["Ambient temperature", format(latest.ambient_temp_C, 2, "°C")],
       ["Relative humidity", format(latest.humidity_pct, 2, "%")],
       ["Air pressure", format(latest.pressure_hPa, 2, "hPa")],
       ["Illuminance", format(latest.lux, 1, "lux")],
       [
         "Continuity at publication",
-        status.snapshot_state === "continuous" ? "continuous" : "interrupted",
+        status.snapshot_state,
       ],
     ];
     table.replaceChildren(
@@ -56,7 +80,9 @@
     );
     setText(
       "[data-monitor-reading]",
-      `${format(latest.voltage_mV, 1, "mV")} under ${format(latest.lux, 1, "lux")} · ${formatDateTime(latest.timestamp)}`
+      measurementValid
+        ? `${format(latest.voltage_mV, 1, "mV")} under ${format(latest.lux, 1, "lux")} · ${formatDateTime(latest.timestamp)}${status.snapshot_state === "continuous" ? "" : " · historical observation (interrupted)"}`
+        : `${status.display_name} · ${status.snapshot_state} · no valid current measurement`
     );
     setText(
       "[data-monitor-updated]",
@@ -83,7 +109,7 @@
     const width = 1000;
     const height = 270;
     const pad = { left: 74, right: 28, top: 26, bottom: 48 };
-    const xs = daily.map((row) => row.time);
+    const xs = (status.daily || []).map((row) => dateAtNoon(row.date));
     const ys = daily.flatMap((row) => [
       Number(row.retention_pct),
       numberOrNull(row.retention_ci_low_pct),
@@ -108,7 +134,7 @@
     }));
     svg.append(svgText(pad.left + 8, sy(100) - 8, "100% BASELINE", "monitor-reference-label"));
 
-    const dailyPath = linePath(daily, (row) => sx(row.time), (row) => sy(row.retention_pct), Infinity);
+    const dailyPath = linePath(daily, (row) => sx(row.time), (row) => sy(row.retention_pct), 36 * 3600000);
     svg.append(svgEl("path", { d: dailyPath, class: "monitor-line monitor-line--daily" }));
 
     daily.forEach((row) => {
@@ -133,14 +159,14 @@
     const moving = daily.filter((row) => row.moving_7d_median_pct != null);
     if (moving.length > 1) {
       svg.append(svgEl("path", {
-        d: linePath(moving, (row) => sx(row.time), (row) => sy(row.moving_7d_median_pct), Infinity),
+        d: linePath(moving, (row) => sx(row.time), (row) => sy(row.moving_7d_median_pct), 36 * 3600000),
         class: "monitor-line monitor-line--median",
       }));
     }
 
     const slope = numberOrNull(status.theil_sen_slope_pct_per_day);
     const complete = daily.filter((row) => row.quality === "complete");
-    if (slope != null && complete.length >= 2) {
+    if (slope != null && complete.length >= 2 && !(status.daily || []).some((row) => row.quality === "invalid_measurement")) {
       const origin = complete[0].time;
       const intercepts = complete.map((row) => row.retention_pct - slope * ((row.time - origin) / 86400000));
       const intercept = median(intercepts);
@@ -168,7 +194,7 @@
     const host = root.querySelector('[data-monitor-chart="voc"]');
     if (!host) return;
     const rows = validRecent(recent, "voltage_mV");
-    if (!rows.length) return renderEmpty(host, "Awaiting readings.");
+    if (!rows.length) return renderEmpty(host, "No valid observations in this interval; invalid raw readings remain in CSV.");
     const hourly = aggregateHourly(rows, "voltage_mV");
     renderSeriesChart(host, {
       rows,
@@ -185,7 +211,7 @@
     const host = root.querySelector('[data-monitor-chart="lux"]');
     if (!host) return;
     const rows = validRecent(recent, "lux").filter((row) => row.lux >= 0);
-    if (!rows.length) return renderEmpty(host, "Awaiting readings.");
+    if (!rows.length) return renderEmpty(host, "No valid observations in this interval; invalid raw readings remain in CSV.");
     renderSeriesChart(host, {
       rows,
       values: (row) => row.lux,
@@ -200,10 +226,11 @@
     const host = root.querySelector('[data-monitor-chart="conditions"]');
     if (!host) return;
     const rows = (recent || [])
+      .map(withSegment())
       .filter((row) => row.valid)
       .map((row) => ({ ...row, time: Date.parse(row.timestamp) }))
       .filter((row) => Number.isFinite(row.time));
-    if (!rows.length) return renderEmpty(host, "Awaiting readings.");
+    if (!rows.length) return renderEmpty(host, "No valid observations in this interval; invalid raw readings remain in CSV.");
 
     const width = 1000;
     const height = 270;
@@ -277,9 +304,18 @@
     host.replaceChildren(svg);
   }
 
+  function withSegment() {
+    let segment = 0;
+    return (row) => {
+      if (!row.valid) segment += 1;
+      return { ...row, segment };
+    };
+  }
+
   function validRecent(recent, key) {
     return (recent || [])
-      .filter((row) => row.valid && Number.isFinite(Number(row[key])))
+      .map(withSegment())
+      .filter((row) => row.valid && row[key] != null && Number.isFinite(Number(row[key])))
       .map((row) => ({ ...row, [key]: Number(row[key]), time: Date.parse(row.timestamp) }))
       .filter((row) => Number.isFinite(row.time));
   }
@@ -287,11 +323,12 @@
   function aggregateHourly(rows, key) {
     const groups = new Map();
     rows.forEach((row) => {
-      const hour = Math.floor(row.time / 3600000) * 3600000;
+      const hour = `${row.segment}:${Math.floor(row.time / 3600000)}`;
       if (!groups.has(hour)) groups.set(hour, []);
       groups.get(hour).push(row);
     });
     return Array.from(groups, ([, samples]) => ({
+      segment: samples[0].segment,
       time: median(samples.map((row) => row.time)),
       value: median(samples.map((row) => row[key])),
     })).sort((a, b) => a.time - b.time);
@@ -300,8 +337,8 @@
   function linePath(rows, x, y, maxGap) {
     let previous = null;
     return rows.map((row) => {
-      const command = previous == null || row.time - previous > maxGap ? "M" : "L";
-      previous = row.time;
+      const command = previous == null || row.segment !== previous.segment || row.time - previous.time > maxGap ? "M" : "L";
+      previous = row;
       return `${command}${x(row).toFixed(2)} ${y(row).toFixed(2)}`;
     }).join(" ");
   }
@@ -370,7 +407,7 @@
   }
 
   function format(value, digits, unit) {
-    return Number.isFinite(Number(value)) ? `${Number(value).toFixed(digits)} ${unit}` : "—";
+    return value != null && value !== "" && Number.isFinite(Number(value)) ? `${Number(value).toFixed(digits)} ${unit}` : "—";
   }
 
   function formatTick(value) {

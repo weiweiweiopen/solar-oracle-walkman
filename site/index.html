@@ -57,8 +57,15 @@
       <section id="material-monitor" class="material-monitor" aria-labelledby="material-monitor-title">
         <header class="material-monitor__header">
           <p class="eyebrow">Long-term material observation</p>
-          <h1 id="material-monitor-title" class="material-monitor__title">green_<wbr>proofs_<wbr>are_<wbr>not_<wbr>always_<wbr>about_<wbr>tax_<wbr>write-offs_<wbr>1</h1>
-          <p class="material-monitor__reading" data-monitor-reading>Collecting the first comparable observations.</p>
+          <h1 id="material-monitor-title" class="material-monitor__title">DSSC 55x55 A</h1>
+          <label for="dssc-sample">Sample / 樣品</label>
+          <select id="dssc-sample" data-monitor-sample>
+            <option value="green_proofs_are_not_always_about_tax_write-offs_1">DSSC 55x55 A · GPIO3</option>
+            <option value="dssc_55x55_b">DSSC 55x55 B · GPIO2</option>
+          </select>
+          <div data-monitor-channels aria-live="polite"></div>
+          <p class="material-monitor__reading" data-monitor-reading>Loading sample observations.</p>
+          <p data-monitor-quality>A：使用者回報 2026-10-03 至 2026-10-13 拔除；sensor disconnected / invalid measurement。原始數據保留，未確認復接前維持 unknown/disconnected；不推定精確拔插時間。</p>
         </header>
 
         <div class="material-monitor__topline">
@@ -71,7 +78,7 @@
               fetchpriority="high"
               alt="A handmade DSSC held in an acrylic frame beside its sensor and ESP32 board"
             />
-            <figcaption>Fixed position under the observation light.</figcaption>
+            <figcaption>Archive portrait of DSSC 55x55 A; not evidence of current connection or B wiring.</figcaption>
           </figure>
 
           <div class="material-monitor__table-wrap">
@@ -101,7 +108,7 @@
           </section>
           <section class="material-chart" aria-labelledby="voc-title">
             <div class="material-chart__heading">
-              <h2 id="voc-title">Raw Voc</h2>
+              <h2 id="voc-title">Valid Voc</h2>
               <p>mV · 5 min</p>
             </div>
             <div class="material-chart__canvas material-chart__canvas--small" data-monitor-chart="voc"></div>
@@ -123,8 +130,8 @@
         </div>
 
         <footer class="material-monitor__footer">
-          <p>Invalid sensor states remain in the downloadable record but are excluded from every curve.</p>
-          <a href="./data/green_proofs_are_not_always_about_tax_write-offs_1/readings.csv" download>Download cumulative CSV</a>
+          <p>Invalid measurements remain in the downloadable raw record but are excluded from curves and aggregates. Gaps are not interpolated. Open-circuit voltage is not measured energy generation.</p>
+          <a data-monitor-download href="./data/green_proofs_are_not_always_about_tax_write-offs_1/readings.csv" download>Download cumulative CSV</a>
         </footer>
       </section>
 

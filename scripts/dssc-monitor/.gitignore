@@ -1,0 +1,7 @@
+.wifi_token
+*.csv
+*.jsonl
+__pycache__/
+.venv/
+firmware/.pio/
+firmware/src/wifi_secrets.h
