@@ -12,7 +12,7 @@ The USB port at implementation was `/dev/cu.usbmodem21201`; inspect `lsof` befor
 | DSSC 55x55 A | green_proofs_are_not_always_about_tax_write-offs_1 | 3 | readings.csv |
 | DSSC 55x55 B | dssc_55x55_b | 2 | readings-b.csv |
 
-Physical device_id is `esp32c3-64e833b913b8`. GPIO2 and GPIO3 are C3 ADC1 inputs. Both use the original 12-bit resolution, ADC_2_5db attenuation, 64-sample analogRead/analogReadMilliVolts averaging, 5-minute cadence, no new divider multiplier, no output/load control. I2C pins 8/9 and environmental sensors are unchanged and shared. Preserve the original 0–1200 mV publication validity bound. A plausible ADC reading does **not** establish wiring safety, insulation, connection quality, or the maximum possible open-circuit voltage. No independent physical voltage measurement was available.
+Physical device_id is `esp32c3-64e833b913b8`. GPIO2 and GPIO3 are C3 ADC1 inputs. Both use the original 12-bit resolution, ADC_2_5db attenuation, 64-sample analogRead/analogReadMilliVolts averaging, 2.5-minute cadence (150 seconds; nominally 24 acquisitions/uploads per hour), no new divider multiplier, no output/load control. I2C pins 8/9 and environmental sensors are unchanged and shared. Preserve the original 0–1200 mV publication validity bound. A plausible ADC reading does **not** establish wiring safety, insulation, connection quality, or the maximum possible open-circuit voltage. No independent physical voltage measurement was available.
 
 ## Quality policy and raw provenance
 
