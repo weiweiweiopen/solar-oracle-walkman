@@ -4,12 +4,12 @@
     "light_tolerance_pct": 10.0,
     "matched_samples": 142,
     "reference_lux": 25.0,
-    "reference_temp_C": 29.12,
+    "reference_temp_C": 29.13,
     "reference_voc_mV": 130.75,
     "start": "2026-10-13T22:00:15+08:00",
     "state": "collecting",
     "temperature_tolerance_C": 2.0,
-    "valid_samples": 252
+    "valid_samples": 253
   },
   "complete_comparable_days": 0,
   "connection_state": "user_reported_connected",
@@ -30,19 +30,19 @@
       "valid_samples": 25
     },
     {
-      "ambient_temp_C_median": 29.26,
+      "ambient_temp_C_median": 29.265,
       "comparable_voc_mV": 130.65,
       "condition_matched_hours": 17,
       "condition_matched_samples": 142,
       "date": "2026-10-14",
-      "humidity_pct_median": 55.68,
+      "humidity_pct_median": 55.65,
       "lux_median": 24.2,
       "moving_7d_median_pct": null,
       "quality": "partial",
       "retention_ci_high_pct": 101.071,
       "retention_ci_low_pct": 99.044,
       "retention_pct": 99.924,
-      "valid_samples": 227
+      "valid_samples": 228
     }
   ],
   "device": "dssc_55x55_b",
@@ -50,24 +50,24 @@
   "display_name": "DSSC 55x55 B",
   "first_observed_at": "2026-10-13T22:00:15+08:00",
   "first_valid_at": "2026-10-13T22:00:15+08:00",
-  "generated_at": "2026-10-14T18:35:26+08:00",
+  "generated_at": "2026-10-14T18:36:25+08:00",
   "gpio": 2,
   "invalid_sample_count": 0,
   "latest": {
-    "ambient_temp_C": 30.01,
+    "ambient_temp_C": 29.97,
     "device_id": "esp32c3-64e833b913b8",
     "gpio": 2,
-    "humidity_pct": 51.37,
-    "lux": 103.3,
+    "humidity_pct": 51.3,
+    "lux": 104.2,
     "mcu_temp_C": 65.5,
-    "pressure_hPa": 1018.15,
+    "pressure_hPa": 1018.03,
     "quality_reason": "included",
     "sample_id": "dssc_55x55_b",
-    "timestamp": "2026-10-14T18:33:32+08:00",
+    "timestamp": "2026-10-14T18:36:03+08:00",
     "valid": true,
-    "voltage_mV": 139.4
+    "voltage_mV": 140.3
   },
-  "latest_age_minutes": 1.9,
+  "latest_age_minutes": 0.4,
   "quality_policy": {
     "connection_state": "user_reported_connected",
     "display_name": "DSSC 55x55 B",
@@ -76,7 +76,7 @@
     "source_csv": "readings-b.csv",
     "validity_note": "Only actual GPIO2 acquisition; range checks do not verify physical wiring or input safety."
   },
-  "raw_csv_sha256": "25fd2333f1e9fedbd8b4cd00dadfcfa8ff2fbf0dcddc90329b8651dd410ace51",
+  "raw_csv_sha256": "ea23868d24bf7d08bbc81232317bfa1b3370da5142080afcd132218524136927",
   "recent": [
     {
       "ambient_temp_C": 29.65,
@@ -3605,13 +3605,27 @@
       "timestamp": "2026-10-14T18:33:32+08:00",
       "valid": true,
       "voltage_mV": 139.4
+    },
+    {
+      "ambient_temp_C": 29.97,
+      "device_id": "esp32c3-64e833b913b8",
+      "gpio": 2,
+      "humidity_pct": 51.3,
+      "lux": 104.2,
+      "mcu_temp_C": 65.5,
+      "pressure_hPa": 1018.03,
+      "quality_reason": "included",
+      "sample_id": "dssc_55x55_b",
+      "timestamp": "2026-10-14T18:36:03+08:00",
+      "valid": true,
+      "voltage_mV": 140.3
     }
   ],
-  "sample_count": 252,
+  "sample_count": 253,
   "sample_id": "dssc_55x55_b",
   "schema_version": 2,
   "snapshot_state": "continuous",
   "theil_sen_slope_pct_per_day": null,
   "trend_state": "collecting_comparable_days",
-  "valid_sample_count": 252
+  "valid_sample_count": 253
 }

@@ -615,19 +615,19 @@
       "valid_samples": 0
     },
     {
-      "ambient_temp_C_median": 30.01,
+      "ambient_temp_C_median": 29.99,
       "comparable_voc_mV": null,
       "condition_matched_hours": 0,
       "condition_matched_samples": 0,
       "date": "2026-10-14",
-      "humidity_pct_median": 51.37,
-      "lux_median": 103.3,
+      "humidity_pct_median": 51.335,
+      "lux_median": 103.75,
       "moving_7d_median_pct": null,
       "quality": "partial",
       "retention_ci_high_pct": null,
       "retention_ci_low_pct": null,
       "retention_pct": null,
-      "valid_samples": 1
+      "valid_samples": 2
     }
   ],
   "device": "green_proofs_are_not_always_about_tax_write-offs_1",
@@ -635,24 +635,24 @@
   "display_name": "DSSC 55x55 A",
   "first_observed_at": "2026-09-03T20:49:35+08:00",
   "first_valid_at": "2026-09-03T20:49:35+08:00",
-  "generated_at": "2026-10-14T18:35:26+08:00",
+  "generated_at": "2026-10-14T18:36:25+08:00",
   "gpio": 3,
   "invalid_sample_count": 3390,
   "latest": {
-    "ambient_temp_C": 30.01,
+    "ambient_temp_C": 29.97,
     "device_id": "esp32c3-64e833b913b8",
     "gpio": 3,
-    "humidity_pct": 51.37,
-    "lux": 103.3,
+    "humidity_pct": 51.3,
+    "lux": 104.2,
     "mcu_temp_C": 65.5,
-    "pressure_hPa": 1018.15,
+    "pressure_hPa": 1018.03,
     "quality_reason": "included",
     "sample_id": "green_proofs_are_not_always_about_tax_write-offs_1",
-    "timestamp": "2026-10-14T18:33:32+08:00",
+    "timestamp": "2026-10-14T18:36:03+08:00",
     "valid": true,
-    "voltage_mV": 357.0
+    "voltage_mV": 356.5
   },
-  "latest_age_minutes": 1.9,
+  "latest_age_minutes": 0.4,
   "quality_policy": {
     "boundary_precision": "date only, Asia/Taipei; full dates conservatively excluded, not an exact unplug time",
     "confirmed_reconnected_at": "2026-10-14T18:33:00+08:00",
@@ -666,7 +666,7 @@
     "sample_id": "green_proofs_are_not_always_about_tax_write-offs_1",
     "source_csv": "readings.csv"
   },
-  "raw_csv_sha256": "89a8252e677b43cf8872c2adab55db958d838dfff0e0632424da63b392afffd8",
+  "raw_csv_sha256": "67868732083b2103c4dfba602359a35086def4a80348546ca2049aa3cccff7d5",
   "recent": [
     {
       "ambient_temp_C": 28.23,
@@ -28933,13 +28933,27 @@
       "timestamp": "2026-10-14T18:33:32+08:00",
       "valid": true,
       "voltage_mV": 357.0
+    },
+    {
+      "ambient_temp_C": 29.97,
+      "device_id": "esp32c3-64e833b913b8",
+      "gpio": 3,
+      "humidity_pct": 51.3,
+      "lux": 104.2,
+      "mcu_temp_C": 65.5,
+      "pressure_hPa": 1018.03,
+      "quality_reason": "included",
+      "sample_id": "green_proofs_are_not_always_about_tax_write-offs_1",
+      "timestamp": "2026-10-14T18:36:03+08:00",
+      "valid": true,
+      "voltage_mV": 356.5
     }
   ],
-  "sample_count": 9359,
+  "sample_count": 9360,
   "sample_id": "green_proofs_are_not_always_about_tax_write-offs_1",
   "schema_version": 2,
   "snapshot_state": "continuous",
   "theil_sen_slope_pct_per_day": null,
   "trend_state": "collecting_comparable_days",
-  "valid_sample_count": 5969
+  "valid_sample_count": 5970
 }
