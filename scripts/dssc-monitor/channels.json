@@ -7,12 +7,13 @@
       "display_name": "DSSC 55x55 A",
       "gpio": 3,
       "source_csv": "readings.csv",
-      "connection_state": "unknown/disconnected",
+      "connection_state": "user_reported_connected",
       "invalid_from_date": "2026-10-03",
       "reported_through_date": "2026-10-13",
       "report_source": "user report on 2026-10-13: sample unplugged; readings are noise",
       "boundary_precision": "date only, Asia/Taipei; full dates conservatively excluded, not an exact unplug time",
-      "confirmed_reconnected_at": null
+      "confirmed_reconnected_at": "2026-10-14T18:33:00+08:00",
+      "reconnection_provenance": "user confirmed both connected now; time is confirmation not exact physical reconnect (Asia/Taipei). No earlier physical reconnect inferred."
     },
     {
       "sample_id": "dssc_55x55_b",

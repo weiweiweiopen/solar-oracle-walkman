@@ -17,6 +17,24 @@ class DualTests(unittest.TestCase):
   self.assertTrue(all(r['raw']=='1234' and r['voltage_mV']=='500' for r in output))
   daily,_,_=pub.derive_daily(rows,dt.datetime(2026,10,15,tzinfo=pub.TAIPEI))
   self.assertTrue(all(r['valid_samples']==0 and r['retention_pct'] is None and r['moving_7d_median_pct'] is None for r in daily[1:]))
+ def test_reconnection_confirmation_boundary_and_ranges(self):
+  pub.select_channel(pub.CONFIG['channels'][0])
+  self.assertEqual(pub.CHANNEL['confirmed_reconnected_at'],'2026-10-14T18:33:00+08:00')
+  source='timestamp,raw,voltage_mV,voltage_V,ambient_temp_C,humidity_pct,pressure_hPa,lux,mcu_temp_C\n'
+  for timestamp,voltage in [('2026-10-14T18:32:59+08:00',500),('2026-10-14T18:33:00+08:00',500),('2026-10-14T10:33:00Z',1300)]:
+   source+=f'{timestamp},1234,{voltage},0.5,25,50,1000,100,30\n'
+  rows=pub.parse_readings(source.encode())
+  self.assertEqual([r['valid'] for r in rows],[False,True,False])
+  self.assertEqual([r['quality_reason'] for r in rows],['sensor_disconnected_invalid_measurement','included','invalid_sensor_range_or_missing'])
+  self.assertFalse(pub.disconnected_at(rows[1]['timestamp']))
+  self.assertFalse(pub.disconnected_at(rows[2]['timestamp']))
+  output=list(csv.DictReader(io.StringIO(pub.serialize_public_readings(rows).decode())))
+  self.assertEqual([r['voltage_mV'] for r in output],['500','500','1300'])
+  daily,_,_=pub.derive_daily(rows,dt.datetime(2026,10,15,tzinfo=pub.TAIPEI))
+  self.assertEqual(daily[0]['valid_samples'],1)
+  pub.select_channel(pub.CONFIG['channels'][1])
+  self.assertTrue(all(r['valid'] for r in pub.parse_readings(source.encode())[:2]))
+  pub.select_channel(pub.CONFIG['channels'][0])
  def test_b_no_invented_history(self):
   pub.select_channel(pub.CONFIG['channels'][1])
   with tempfile.TemporaryDirectory() as d:

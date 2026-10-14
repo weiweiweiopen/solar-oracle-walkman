@@ -39,7 +39,9 @@
     const disconnected = status.connection_state === "unknown/disconnected";
     setText("[data-monitor-quality]", disconnected
       ? "sensor disconnected / invalid measurement — 使用者回報 A 於 2026-10-03 至 2026-10-13 拔除，數據為 noise。日期粒度保守排除，原始數值保留；未確認復接前維持 unknown/disconnected，不推定精確拔插時間。"
-      : "B only includes actual GPIO2 acquisitions; no backfilled history. Shared environmental sensors. Voltage range checks do not independently verify wiring or input safety.");
+      : status.sample_id === DEVICE
+        ? `A：使用者確認復接 ${status.quality_policy.confirmed_reconnected_at}（Asia/Taipei）；此為確認時間，不是精確實體重接時刻。2026-10-03 至確認前 raw 保留並排除；確認起仍須通過感測範圍檢查。`
+        : "B only includes actual GPIO2 acquisitions; no backfilled history. Shared environmental sensors. Voltage range checks do not independently verify wiring or input safety.");
     root.querySelector("[data-monitor-download]").href = `./data/${status.sample_id}/readings.csv`;
     renderTable(status);
     renderRetention(status);
