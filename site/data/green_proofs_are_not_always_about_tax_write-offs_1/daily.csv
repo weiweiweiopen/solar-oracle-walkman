@@ -39,4 +39,5 @@ date,valid_samples,condition_matched_samples,condition_matched_hours,comparable_
 2026-10-11,0,0,0,,,,,,,,,invalid_measurement
 2026-10-12,0,0,0,,,,,,,,,invalid_measurement
 2026-10-13,0,0,0,,,,,,,,,invalid_measurement
-2026-10-14,2,0,0,,,,,,103.750,29.990,51.335,partial
+2026-10-14,130,0,0,,,,,,111.700,29.600,56.750,partial
+2026-10-15,6,0,0,,,,,,106.700,29.050,58.755,partial
