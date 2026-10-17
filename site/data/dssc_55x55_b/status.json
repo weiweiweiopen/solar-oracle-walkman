@@ -80,7 +80,7 @@
   "display_name": "DSSC 55x55 B",
   "first_observed_at": "2026-10-13T22:00:15+08:00",
   "first_valid_at": "2026-10-13T22:00:15+08:00",
-  "generated_at": "2026-10-17T00:15:01+08:00",
+  "generated_at": "2026-10-18T00:15:03+08:00",
   "gpio": 2,
   "invalid_sample_count": 0,
   "latest": {
@@ -97,7 +97,7 @@
     "valid": true,
     "voltage_mV": 135.0
   },
-  "latest_age_minutes": 697.4,
+  "latest_age_minutes": 2137.4,
   "quality_policy": {
     "connection_state": "user_reported_connected",
     "display_name": "DSSC 55x55 B",
